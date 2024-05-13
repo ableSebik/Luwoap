@@ -1,217 +1,193 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace("_", "-", app()->getLocale()) }}">
 
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config("app.name", "Laravel") }}</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- External CSS libraries -->
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/animate.min.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/bootstrap-submenu.css") }}">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/bootstrap-select.min.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/magnific-popup.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/leaflet.css") }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset("assets/css/map.css") }}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/font-awesome/css/font-awesome.min.css") }}">
+    <link type="text/css" rel="stylesheet" href="{{ asset("assets/fonts/bootstrap-icons/bootstrap-icons.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/flaticon/font/flaticon.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/linearicons/style.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/jquery.mCustomScrollbar.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/dropzone.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/slick.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/normalize.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/boxes-component.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/boxes-core.css") }}">
 
-    <!-- imported links -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/icomoon/style.css') }}">
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/style.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/initial.css") }}">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="{{ asset("assets/css/skins/default.css") }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/mediaelementplayer.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/flaticon/font/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/fl-bigmug-line.css') }}">
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="{{ asset("assets/img/fav.ico") }}" type="image/x-icon">
 
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;300;400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/aos.css') }}">
+    @stack("header")
+  </head>
 
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <body>
+    <div class="page_loader"></div>
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+    <!-- Main header start -->
+    <x-navbar />
+    <!-- Main header end -->
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <!-- Page Content -->
+    <main>
+      @yield("content")
 
-        {{-- imported navbar --}}
-        <div class="site-navbar mt-4">
-            <div class="container py-1">
-                <div class="row align-items-center">
-                    <div class="col-8 col-md-8 col-lg-4">
-                        <a href="/">
-                            <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                        </a>
-                    </div>
-                    <div class="col-4 col-md-4 col-lg-8">
-                        <nav class="site-navigation text-right text-md-right" role="navigation">
-
-                            <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#"
-                                    class="site-menu-toggle js-menu-toggle text-white"><span
-                                        class="icon-menu h3"></span></a></div>
-
-                            <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li class="active">
-                                    <a href="index.html">Home</a>
-                                </li>
-                                <li><a href="buy.html">Buy</a></li>
-                                <li><a href="rent.html">Rent</a></li>
-                                <li class="has-children hidden sm:flex sm:items-center sm:ms-6">
-                                    <a href="properties.html">Properties</a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">Condo</a></li>
-                                        <li><a href="#">Property Land</a></li>
-                                        <li><a href="#">Commercial Building</a></li>
-
-                                    </ul>
-                                </li>
-                                <li><a href="/about">About</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-
-                                @guest
-                                    @if (Route::has('login'))
-                                        <li><a href="{{ route('login') }}">Login</a></li>
-                                    @endif
-                                    {{-- @if (Route::has('register'))
-                                        <li><a href="{{ route('register') }}">Register</a></li>
-                                    @endif --}}
-                                @else
-                                    <li class="has-children hidden sm:flex sm:items-center sm:ms-6">
-                                        <a href="#">
-                                            {{ Auth::user()->name }}
-                                        </a>
-                                        <ul class="dropdown ">
-                                            <li class="dropdown-item">
-                                                <x-dropdown-link :href="route('profile.edit')">
-                                                    {{ __('Profile') }}
-                                                </x-dropdown-link>
-                                            </li>
-                                            <li class="dropdown-item">
-                                                <form method="POST" action="{{ route('logout') }}">
-                                                    @csrf
-
-                                                    <x-dropdown-link :href="route('logout')"
-                                                        onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                                        {{ __('Log Out') }}
-                                                    </x-dropdown-link>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                @endguest
-                            </ul>
-                        </nav>
-                    </div>
-
-
-                </div>
+    </main>
+    <!-- Intro section 2 start -->
+    <div class="intro-section-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 col-md-12 col-sm-12">
+            <div class="intro-text">
+              <h3>Subscribe to Newsletter</h3>
+              <p>Subscribe to get update and information. Don't worry, we won't send spam!</p>
             </div>
+          </div>
+          <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="Subscribe-box">
+              <form class="form-inline d-flex" action="{{ route("subscribe") }}" method="POST">
+                @csrf
+                <input class="form-control" type="email" name="email" id="email" placeholder="Email Address..."
+                  required>
+                <button type="submit" class="btn">Subscribe</button>
+              </form>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <!-- Intro section 2 end -->
 
-        <!-- Page Content -->
-        <main>
-            @yield('content')
-        </main>
+    <!-- Footer start -->
+    <x-footer />
+    <!-- Footer end -->
 
-
-        <footer class="site-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="mb-5">
-                            <h3 class="footer-heading mb-4">About Homeland</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe pariatur
-                                reprehenderit
-                                vero atque, consequatur id ratione, et non dignissimos culpa? Ut veritatis, quos
-                                illum
-                                totam quis blanditiis, minima minus odio!</p>
-                        </div>
-
-
-
-                    </div>
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <div class="row mb-5">
-                            <div class="col-md-12">
-                                <h3 class="footer-heading mb-4">Navigations</h3>
-                            </div>
-                            <div class="col-md-6 col-lg-6">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">Buy</a></li>
-                                    <li><a href="#">Rent</a></li>
-                                    <li><a href="#">Properties</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-md-6 col-lg-6">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Privacy Policy</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Terms</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h3 class="footer-heading mb-4">Follow Us</h3>
-
-                        <div>
-                            <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                            <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                            <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                            <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-                        </div>
-
-
-
-                    </div>
-
-                </div>
-                <div class="row pt-5 mt-5 text-center">
-                    <div class="col-md-12">
-                        <p>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;
-                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script> All rights reserved
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-        </footer>
+    <!-- Full Page Search -->
+    <div id="full-page-search">
+      <button type="button" class="close">×</button>
+      <form action="" method="">
+        <input type="search" value="" placeholder="type keyword(s) here" />
+        <button type="submit" class="btn btn-sm button-theme">Search</button>
+      </form>
     </div>
 
+    <div class="d-none">
+      <form method="POST" action="{{ route("logout") }}" id="logoutForm">
+        @csrf
+        <a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();"><i
+            class="flaticon-logout"></i> Logout</a>
+      </form>
+    </div>
+    @php
+      $bg = "";
+      if (\Session::has("success")) {
+          $bg = "bg-success";
+      }
+      if (\Session::has("error")) {
+          $bg = "bg-danger";
+      }
+      if (\Session::has("info")) {
+          $bg = "bg-info";
+      }
+    @endphp
+    @if (\Session::has("success") || \Session::has("error"))
+      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 999999999999">
+        <div class="toast align-items-center text-white border-0 {{ $bg }}" role="alert"
+          aria-live="assertive" aria-atomic="true" id="liveToast">
+          <div class="d-flex">
+            <div class="toast-body">
+              @if (\Session::has("success"))
+                {{ session("success") }}
+              @elseif (\Session::has("error"))
+                {{ session("error") }}
+              @elseif (\Session::has("info"))
+                {{ session("info") }}
+              @endif
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+              aria-label="Close"></button>
+          </div>
+        </div>
+      </div>
+    @endif
 
-    <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets/js/mediaelement-and-player.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.stellar.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.countdown.min.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/js/aos.js') }}"></script>
+    <script src="{{ asset("assets/js/bootstrap.bundle.min.js") }}"></script>
+    <script src="{{ asset("assets/js/jquery.min.js") }}"></script>
+    <script src="{{ asset("assets/js/bootstrap-submenu.js") }}"></script>
+    <script src="{{ asset("assets/js/rangeslider.js") }}"></script>
+    <script src="{{ asset("assets/js/jquery.mb.YTPlayer.js") }}"></script>
+    <script src="{{ asset("assets/js/bootstrap-select.min.js") }}"></script>
+    <script src="{{ asset("assets/js/jquery.easing.1.3.js") }}"></script>
+    <script src="{{ asset("assets/js/jquery.scrollUp.js") }}"></script>
+    <script src="{{ asset("assets/js/jquery.mCustomScrollbar.concat.min.js") }}"></script>
+    <script src="{{ asset("assets/js/leaflet.js") }}"></script>
+    <script src="{{ asset("assets/js/leaflet-providers.js") }}"></script>
+    <script src="{{ asset("assets/js/leaflet.markercluster.js") }}"></script>
+    <script src="{{ asset("assets/js/dropzone.js") }}"></script>
+    <script src="{{ asset("assets/js/slick.min.js") }}"></script>
+    <script src="{{ asset("assets/js/jquery.magnific-popup.min.js") }}"></script>
+    <script src="{{ asset("assets/js/jquery.countdown.js") }}"></script>
+    <script src="{{ asset("assets/js/modernizr.custom.js") }}"></script>
+    <script src="{{ asset("assets/js/boxes-component.js") }}"></script>
+    <script src="{{ asset("assets/js/boxes-core.js") }}"></script>
+    <script src="{{ asset("assets/js/maps.js") }}"></script>
+    <script src="{{ asset("assets/js/app.js") }}"></script>
 
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
+    @stack("scripts")
 
-    <x-flash-message></x-flash-message>
-</body>
+    <script>
+      // Wait for the document to fully load
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get a reference to the logout button
+        var logoutBtn = document.getElementById('logoutBtn');
+
+        // Get a reference to the logout form
+        var logoutForm = document.getElementById('logoutForm');
+
+        // Add a click event listener to the logout button
+        logoutBtn.addEventListener('click', function(event) {
+          // Prevent the default form submission behavior
+          event.preventDefault();
+
+          // Submit the logout form
+          logoutForm.submit();
+        });
+      });
+    </script>
+    <!-- JavaScript to show the toast -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var liveToast = new bootstrap.Toast(document.getElementById('liveToast'));
+        liveToast.show();
+      });
+    </script>
+
+  </body>
 
 </html>

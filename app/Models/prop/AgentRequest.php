@@ -7,18 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class AgentRequest extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $table = "requests";
+  protected $table = "requests";
 
-    protected $fillable = [
-        'prop_id',
-        'user_id',
-        'agent_name',
-        'name',
-        'email',
-        'phone',
-    ];
+  protected $fillable = [
+    'prop_id',
+    'user_id',
+    'name',
+    'phone',
+    'email',
+    'message',
+    'status',
 
-    public $timestamps = true;
+  ];
+
+  public $timestamps = true;
+
+  //Relationship with User
+  public function property()
+  {
+    return $this->belongsTo(Property::class, 'id');
+  }
 }

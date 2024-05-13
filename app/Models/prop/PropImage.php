@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class PropImage extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    protected $table = "prop_image";
+	protected $table = "prop_images";
 
-    protected $fillable = [
-        'prop_id',
-        'image',
-    ];
+	protected $fillable = [
+		'prop_id',
+		'image',
+	];
 
-    public $timestamps = true;
+	public $timestamps = true;
+
+	// Define relationship with Property
+	public function property()
+	{
+		return $this->belongsTo(Property::class, 'prop_id');
+	}
 }

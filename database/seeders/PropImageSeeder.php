@@ -18,7 +18,21 @@ class PropImageSeeder extends Seeder
     //     for ($i = 0; $i < 100; $i++) {
     //         PropImage::create([
     //             'prop_id' => $faker->numberBetween(1, 16),
-    //             'image' => $faker->randomElement(['hero_bg_1.jpg', 'hero_bg_2.jpg', 'hero_bg_3.jpg', 'hero_bg_4.jpg']),
+    //             'image' => $faker->randomElement([
+    //                 'hero_bg_1.jpg',
+    //                 'hero_bg_2.jpg',
+    //                 'hero_bg_3.jpg',
+    //                 'hero_bg_4.jpg',
+    //                 'hero_bg_5.jpg',
+    //                 'hero_bg_6.jpg',
+    //                 'hero_bg_7.jpg',
+    //                 'hero_bg_8.jpg',
+    //                 'hero_bg_9.jpg',
+    //                 'hero_bg_10.jpg',
+    //                 'hero_bg_11.jpg',
+    //                 'hero_bg_12.jpg',
+    //                 'hero_bg_13.jpg',
+    //             ]),
     //         ]);
     //     }
     // }

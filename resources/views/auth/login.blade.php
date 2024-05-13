@@ -1,60 +1,97 @@
-@extends('layouts.app')
+@extends("layouts.verified")
 
-@section('content')
-    <x-guest-layout>
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+@section("content")
+  <!-- Session Status -->
+  <x-auth-session-status class="mb-4" :status="session("status")" />
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                    autofocus autocomplete="username" />
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+  <!-- Login form start -->
+  <div class="contact-section">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-7 col-md-12 bg-login-ing">
+          <div class="informeson">
+            <div class="typing">
+              <h1>Welcome To LUWOAP</h1>
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
-
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                    autocomplete="current-password" />
-
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <p>From Real estate houses available for sale and rent, along with hostels, apartments,
+              Airbnb rentals, and hotels, our expansive portfolio showcases a wide spectrum of properties spread across
+              the Ghana.</p>
+            <div class="social-list">
+              <div class="buttons">
+                <a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="google-bg"><i class="fa fa-google"></i></a>
+                <a href="#" class="dribbble-bg"><i class="fa fa-linkedin"></i></a>
+              </div>
             </div>
-
-            <!-- Remember Me -->
-            <div class="flex justify-between mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input id="remember_me" type="checkbox"
-                        class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-                        name="remember">
-                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-                </label>
-
-                <div class="ms-2 text-sm text-gray-600 dark:text-gray-400">
-                    <a class="hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                        href="{{ route('register') }}">Create account</a>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-12 form-section">
+          <div class="login-inner-form">
+            <div class="details">
+              <a href="/">
+                <x-application-logo class="w-20 h-20 text-black" />
+              </a>
+              <h3>Sign Into Your Account</h3>
+              <form method="POST" action="{{ route("login", ["redirect" => "true"]) }}">
+                @csrf
+                <div class="form-group form-box">
+                  <input type="text" id="email" name="email" class="form-control" placeholder="Email Address"
+                    :value="old('email')" autofocus autocomplete="username">
+                  @error("email")
+                    <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                  @enderror
                 </div>
-            </div>
-
-
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                        href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                <div class="form-group form-box">
+                  <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                    autocomplete="current-password">
+                  @error("password")
+                    <p class="text-danger pull-left">{{ $message }}</p>
+                  @enderror
+                </div>
+                <br>
+                <div class="form-group form-box checkbox clearfix">
+                  <div class="form-check checkbox-theme">
+                    <input class="form-check-input" type="checkbox" value="" id="rememberMe" name="remember">
+                    <label class="form-check-label" for="rememberMe">
+                      Remember me
+                    </label>
+                  </div>
+                  @if (Route::has("password.request"))
+                    <a href="{{ route("password.request") }}">
+                      Forgot Password
                     </a>
-                @endif
-
-                <x-primary-button class="ms-3">
-                    {{ __('Log in') }}
-                </x-primary-button>
+                  @endif
+                  {{-- <a href="forgot-password.html">Forgot Password</a> --}}
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn-md btn-theme w-100">Login</button>
+                </div>
+                <p>Don't have an account?<a href="{{ route("register") }}"> Register here</a></p>
+              </form>
             </div>
-        </form>
-    </x-guest-layout>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (session()->has("session_timeout"))
+    <div x-data='{show:true}' x-init="setTimeout(() => show = false, 3000)" x-show="show" class="position-fixed bottom-0 right-0 p-3"
+      style="z-index: 5555; right: 0; bottom: 0;">
+      <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+        <div class="toast-header">
+          <small>Just now</small>
+          <button type="button" class="ml-2 mb-1 close" @click="show = false" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          <div class="alert alert-success">
+            <p>{{ session("session_timeout") }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  @endif
 @endsection

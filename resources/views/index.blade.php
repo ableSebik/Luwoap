@@ -1,162 +1,190 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
-    <div class="slide-one-item home-slider owl-carousel">
-        @foreach ($props as $prop)
-            <div class="site-blocks-cover overlay"
-                style="background-image: url({{ asset('assets/images/' . $prop->image . '') }});" data-aos="fade"
-                data-stellar-background-ratio="0.5">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center text-center">
-                        <div class="col-md-10">
-                            <span class="d-inline-block bg-success text-white px-3 mb-3 property-offer-type rounded">
-                                {{ $prop->prop_type }}
-                            </span>
-                            <h1 class="mb-2">{{ $prop->title }}</h1>
-                            <p class="mb-5"><strong class="h2 text-success font-weight-bold">GHS
-                                    {{ $prop->price }}</strong>
-                            </p>
-                            <p><a href="{{ route('single.prop', $prop->id) }}"
-                                    class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">See
-                                    Details</a></p>
-                        </div>
+@section("content")
+  <!-- Banner start -->
+  <div class="banner" id="banner">
+    <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item banner-max-height active item-bg">
+          <div id="boxgallery" class="boxgallery" data-effect="effect-3">
+            <div class="panel"><img src="{{ asset("assets/img/banner/img-2.jpg") }}" alt="Image 1" /></div>
+            <div class="panel"><img src="{{ asset("assets/img/banner/img-3.jpg") }}" alt="Image 1" /></div>
+            <div class="panel"><img src="{{ asset("assets/img/banner/img-1.jpg") }}" alt="Image 1" /></div>
+            <div class="panel"><img src="{{ asset("assets/img/banner/img-5.jpg") }}" alt="Image 1" /></div>
+          </div>
+        </div>
+        <div class="carousel-caption d-flex h-100">
+          <div class="carousel-content container">
+            <div class="text-center bi-3">
+              <div class="clearfix">
+                <h3>Find Your Dream Home</h3>
+                <p>Ghana's No.1 Real Estate Portal</p>
+              </div>
+              <div class="clearfix"></div>
+              {{-- search bar --}}
+              <form action="{{ route("search") }}" method="get">
+                <div class="inline-search-area isa-5 isa-992 clearfix">
+
+                  <div class="row">
+                    <div class="col-md-9 col-lg-9 col-sm-12">
+                      <input class="form-control search-fields sf" name="query" placeholder="What are you looking for?">
                     </div>
+
+                    <div class="col-md-3 col-lg-3 col-sm-12">
+                      <button class="btn button-theme btn-search w-100 mb-0">
+                        <strong>Search</strong>
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              </form>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Banner end -->
+
+  {{-- Property listings --}}
+  <div class="property-section content-area">
+    <div class="container">
+      <!-- Main title -->
+      <div class="main-title">
+        <h1>Latest Properties</h1>
+        <p>BROWSE HOT OFFERS</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+          <div class="row">
+            @foreach ($props as $prop)
+              <div class="col-lg-4 col-md-6 col-sm-12">
+                <x-property-box :prop="$prop" />
+              </div>
+            @endforeach
+          </div>
+          <a href="/all-properties" class="btn-4 none-btn-992">More Properties <i
+              class="fa fa-angle-double-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{-- End Property listings --}}
+
+  <!-- Services start -->
+  <div class="services services-2 content-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 align-self-center">
+          <!-- Main title -->
+          <div class="main-title-5 main-title-7">
+            <h1>Why Choose <span>Us</span></h1>
+            <div class="title-border mb-4">
+              <div class="title-border-inner"></div>
+              <div class="title-border-inner"></div>
+              <div class="title-border-inner"></div>
+            </div>
+            <a href="services.html" class="btn-4 none-btn-992">Read More <i class="fa fa-angle-double-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-7 offset-lg-1">
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="single-info-2">
+                <div class="number">1</div>
+                <div class="icon">
+                  <div class="icon-inner">
+                    <i class="flaticon-apartment"></i>
+                  </div>
+                </div>
+                <h2>
+                  <a href="services.html">Apartments</a>
+                </h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="single-info-2">
+                <div class="number">2</div>
+                <div class="icon">
+                  <div class="icon-inner">
+                    <i class="flaticon-empire-state-building"></i>
+                  </div>
+                </div>
+                <h2>
+                  <a href="services.html">Houses</a>
+                </h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="single-info-2">
+                <div class="number">3</div>
+                <div class="icon">
+                  <div class="icon-inner">
+                    <i class="flaticon-car"></i>
+                  </div>
+                </div>
+                <h2>
+                  <a href="services.html">Garages</a>
+                </h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="single-info-2">
+                <div class="number">4</div>
+                <div class="icon">
+                  <div class="icon-inner">
+                    <i class="flaticon-trust"></i>
+                  </div>
+                </div>
+                <h2>
+                  <a href="services.html">Buyers Trust Us</a>
+                </h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Services end -->
+
+  <!-- Blog start -->
+  <div class="blog comon-slick content-area">
+    <div class="container">
+      <!-- Main title -->
+      <div class="main-title-3">
+        <p>Our Blog</p>
+        <h1>Latest <span>News</span></h1>
+      </div>
+      <div class="row">
+        @foreach ($recentPostsData["blogPosts"] as $recentBlogPost)
+          <div class="col-lg-4 col-md-4">
+            <div class="blog-2">
+              <div class="blog-image">
+                <img src="{{ asset("storage/Post/" . $recentBlogPost->post_ft_image) }}"
+                  alt="{{ $recentBlogPost->post_title }}" class="img-fluid bp">
+                <div class="date-box">
+                  <span>{{ $recentPostsData["post_day"] }}</span>{{ $recentPostsData["post_month"] }}
+                </div>
+
+              </div>
+              <div class="detail">
+                <h4>
+                  <a href="{{ route("postDetails.blog", $recentBlogPost->id) }}">{{ $recentBlogPost->post_title }}</a>
+                </h4>
+                <p>{{ $recentBlogPost->post_excerpt }}</p>
+                <a href="{{ route("postDetails.blog", $recentBlogPost->id) }}" class="read-more">Read more</a>
+              </div>
+            </div>
+          </div>
         @endforeach
-
+      </div>
+      <a href="/blog" class="btn-4 none-btn-992">More Blogs <i class="fa fa-angle-double-right"></i></a>
     </div>
-
-    {{-- search --}}
-    <div class="site-section site-section-sm pb-0">
-        <div class="container">
-            <div class="row">
-                <form class="form-search col-md-12" style="margin-top: -100px;">
-                    <div class="row  align-items-end">
-                        <div class="col-md-3">
-                            <label for="list-types">Listing Types</label>
-                            <div class="select-wrap">
-                                <span class="icon icon-arrow_drop_down"></span>
-                                <select name="list-types" id="list-types" class="form-control d-block rounded-0">
-                                    <option value="">Condo</option>
-                                    <option value="">Commercial Building</option>
-                                    <option value="">Land Property</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="offer-types">Offer Type</label>
-                            <div class="select-wrap">
-                                <span class="icon icon-arrow_drop_down"></span>
-                                <select name="offer-types" id="offer-types" class="form-control d-block rounded-0">
-                                    <option value="">For Sale</option>
-                                    <option value="">For Rent</option>
-                                    <option value="">For Lease</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="select-city">Select City</label>
-                            <div class="select-wrap">
-                                <span class="icon icon-arrow_drop_down"></span>
-                                <select name="select-city" id="select-city" class="form-control d-block rounded-0">
-                                    <option value="">New York</option>
-                                    <option value="">Brooklyn</option>
-                                    <option value="">London</option>
-                                    <option value="">Japan</option>
-                                    <option value="">Philippines</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="submit" class="btn btn-success text-white btn-block rounded-0" value="Search">
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="view-options bg-white py-3 px-3 d-md-flex align-items-center">
-                        <div class="mr-auto">
-                            <a href="index.html" class="icon-view view-module active"><span
-                                    class="icon-view_module"></span></a>
-                            <a href="view-list.html" class="icon-view view-list"><span class="icon-view_list"></span></a>
-
-                        </div>
-                        <div class="ml-auto d-flex align-items-center">
-                            <div>
-                                <a href="#" class="view-list px-3 border-right active">All</a>
-                                <a href="#" class="view-list px-3 border-right">Rent</a>
-                                <a href="#" class="view-list px-3">Sale</a>
-                            </div>
-
-
-                            <div class="select-wrap">
-                                <span class="icon icon-arrow_drop_down"></span>
-                                <select class="form-control form-control-sm d-block rounded-0">
-                                    <option value="">Sort by</option>
-                                    <option value="">Price Ascending</option>
-                                    <option value="">Price Descending</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    {{-- listings --}}
-    <div class="site-section site-section-sm bg-light">
-        <div class="container">
-
-            <div class="row mb-5">
-                @foreach ($props as $listing)
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="property-entry h-100">
-                            <a href="{{ route('single.prop', $listing->id) }}" class="property-thumbnail">
-                                <div class="offer-type-wrap">
-                                    <span class="offer-type bg-success">{{ $listing->home_type }}</span>
-                                    <span class="offer-type bg-danger">{{ $listing->prop_type }}</span>
-                                </div>
-                                <img src="{{ asset('assets/images/' . $listing->image . '') }}" alt="Image"
-                                    class="img-fluid">
-                            </a>
-                            <div class="p-4 property-body">
-                                <a href="{{ route('single.prop', $listing->id) }}" class="property-favorite"><span
-                                        class="icon-heart-o"></span></a>
-                                <h2 class="property-title"><a
-                                        href="{{ route('single.prop', $listing->id) }}">{{ $listing->title }}</a></h2>
-                                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span>
-                                    {{ $listing->location }}</span>
-                                <strong
-                                    class="property-price text-primary mb-3 d-block text-success">${{ $listing->price }}</strong>
-                                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                    <li>
-                                        <span class="property-specs">Beds</span>
-                                        <span class="property-specs-number">{{ $listing->beds }} <sup>+</sup></span>
-
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Baths</span>
-                                        <span class="property-specs-number">{{ $listing->baths }}</span>
-
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">SQ FT</span>
-                                        <span class="property-specs-number">{{ $listing->sq_ft }}</span>
-
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            {{ $props->links() }}
-        </div>
-    </div>
+  </div>
+  <!-- Blog end -->
 @endsection

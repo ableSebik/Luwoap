@@ -1,244 +1,383 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
-@section('content')
-    {{-- <div class="site-blocks-cover inner-page-cover overlay"
-        style="background-image: url({{ asset('assets/images/' . $singleProp->image . '') }});" data-aos="fade"
-        data-stellar-background-ratio="0.5">
-        <div class="container">
-            <div class="row align-items-center justify-content-center text-center">
-                <div class="col-md-10">
-                    <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Property Details of</span>
-                    <h1 class="mb-2">{{ $singleProp->title }}</h1>
-                    <p class="mb-5"><strong class="h2 text-success font-weight-bold">GHS {{ $singleProp->price }}</strong>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+@push("header")
+  <script src="https://cdn.tiny.cloud/1/yrqv9l2ukvxz17q6fnqs5bgfm1vzbtogf8s8e5yrwaqpwy29/tinymce/7/tinymce.min.js"
+    referrerpolicy="origin"></script>
+@endpush
 
-    <div class="slide-one-item home-slider owl-carousel">
-        @foreach ($propImages as $propImage)
-            <div class="site-blocks-cover overlay"
-                style="background-image: url({{ asset('assets/images/' . $propImage->image . '') }}); height: 85vh;"
-                data-aos="fade" data-stellar-background-ratio="0.5">
-                <div class="container">
-                    <div class="row align-items-center justify-content-center text-center">
-                        <div class="col-md-10">
-                            <span class="d-inline-block text-white px-3 mb-3 property-offer-type rounded">Property Details
-                                of</span>
-                            <h1 class="mb-2">{{ $singleProp->title }}</h1>
-                            <p class="mb-5"><strong class="h2 text-success font-weight-bold">GHS
-                                    {{ $singleProp->price }}</strong>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+@section("content")
+
+  <!-- Sub banner start -->
+  <div class="sub-banner">
+    <div class="container">
+      <div class="breadcrumb-area">
+        <h1>Property Details</h1>
+        <ul class="breadcrumbs">
+          <li><a href="/">Home</a></li>
+          <li class="active">Property Detail</li>
+        </ul>
+      </div>
     </div>
+  </div>
+  <!-- Sub Banner end -->
 
+  <!-- Property details page start -->
+  <div class="property-details-page content-area-6">
+    <div class="container">
 
-    <div class="site-section site-section-sm">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    {{-- <div>
-                        <div class="slide-one-item home-slider owl-carousel">
-                            @foreach ($propImages as $propImage)
-                                <div><img src="{{ asset('assets/images/' . $propImage->image . '') }}" alt="Image"
-                                        class="img-fluid"></div>
-                            @endforeach
-                        </div>
-                    </div> --}}
-                    <div class="bg-white property-body border-bottom border-left border-right">
-                        <div class="row mb-5">
-                            <div class="col-md-6">
-                                <strong class="text-success h1 mb-3">GHS {{ $singleProp->price }}</strong>
-                            </div>
-                            <div class="col-md-6">
-                                <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
-                                    <li>
-                                        <span class="property-specs">Beds</span>
-                                        <span class="property-specs-number">{{ $singleProp->beds }} <sup>+</sup></span>
-
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">Baths</span>
-                                        <span class="property-specs-number">{{ $singleProp->baths }}</span>
-
-                                    </li>
-                                    <li>
-                                        <span class="property-specs">SQ FT</span>
-                                        <span class="property-specs-number">{{ $singleProp->sq_ft }}</span>
-
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="row mb-5">
-                            <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
-                                <span class="d-inline-block text-black mb-0 caption-text">Property Type</span>
-                                <strong class="d-block">{{ $singleProp->home_type }}</strong>
-                            </div>
-                            <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
-                                <span class="d-inline-block text-black mb-0 caption-text">Year Built</span>
-                                <strong class="d-block">{{ $singleProp->year_built }}</strong>
-                            </div>
-                            <div class="col-md-6 col-lg-4 text-center border-bottom border-top py-3">
-                                <span class="d-inline-block text-black mb-0 caption-text">Price/Sqft</span>
-                                <strong class="d-block">GHS {{ $singleProp->price_per_sqft }}</strong>
-                            </div>
-                        </div>
-                        <h2 class="h4 text-black">More Info</h2>
-                        <p>{{ $singleProp->more_info }}</p>
-
-                        <div class="row no-gutters mt-5">
-                            <div class="col-12">
-                                <h2 class="h4 text-black mb-3">Gallery</h2>
-                            </div>
-                            @foreach ($propImages as $prop)
-                                <div class="col-sm-6 col-md-4 col-lg-3">
-                                    <a href="{{ asset('assets/images/' . $prop->image . '') }}"
-                                        class="image-popup gal-item"><img
-                                            src="{{ asset('assets/images/' . $prop->image . '') }}" alt="Image"
-                                            class="img-fluid"></a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-
-                {{-- contact agent form --}}
-                <div class="col-lg-4">
-
-                    <div class="bg-white widget border rounded">
-
-                        <h3 class="h4 text-black widget-title mb-3">Contact Agent</h3>
-                        <form method="POST" action="{{ route('insert.request', $singleProp->id) }}"
-                            class="form-contact-agent">
-                            @csrf
-
-                            {{-- hidden inputs --}}
-                            <div class="form-group hidden">
-                                <label for="prop_id">Prop id</label>
-                                <input type="text" id="prop_id" name ="prop_id" value="{{ $singleProp->id }}"
-                                    class="form-control">
-                            </div>
-                            <div class="form-group hidden">
-                                <label for="agent_name">agent name</label>
-                                <input type="text" id="agent_name" name ="agent_name"
-                                    value="{{ $singleProp->agent_name }}" class="form-control">
-                            </div>
-                            {{-- end hidden inputs --}}
-
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name ="name" class="form-control">
-                                @error('name')
-                                    <p class="tex-xs mt-1 text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control">
-                                @error('email')
-                                    <p class="tex-xs mt-1 text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" id="phone" name="phone" class="form-control">
-                                @error('phone')
-                                    <p class="tex-xs mt-1 text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" id="submit" class="btn btn-primary" value="Send Message">
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="bg-white widget border rounded">
-                        <h3 class="h4 text-black widget-title mb-3 ml-0">Share</h3>
-                        <div class="px-3" style="margin-left: -15px;">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('single.prop', $singleProp->id) }}&quote={{ $singleProp->title }}"
-                                class="pt-3 pb-3 pr-3 pl-0"><span class="icon-facebook"></span></a>
-                            <a href="https://twitter.com/intent/tweet?text={{ $singleProp->title }}&url={{ route('single.prop', $singleProp->id) }}"
-                                class="pt-3 pb-3 pr-3 pl-0"><span class="icon-twitter"></span></a>
-                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ route('single.prop', $singleProp->id) }}"
-                                class="pt-3 pb-3 pr-3 pl-0"><span class="icon-linkedin"></span></a>
-                        </div>
-                    </div>
-
-                </div>
-
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="heading-properties-2 mb-40">
+            <div class="clearfix">
+              <div class="pull-left">
+                <h1>{{ $singleProp->title }}</h1>
+              </div>
+              <div class="pull-right">
+                <h1><span>{{ $singleProp->currency }} {{ $singleProp->price }}</span></h1>
+              </div>
             </div>
+            <div class="clearfix">
+              <div class="pull-left">
+                <ul>
+                  <li><i class="flaticon-bed"></i> Bedroom {{ $singleProp->bed }}</li>
+                  <li><i class="flaticon-bathroom"></i> Bath {{ $singleProp->bath }}</li>
+                  <li><i class="flaticon-area"></i> SQ.FT {{ $singleProp->sq_ft }}</li>
+                  {{-- <li><i class="flaticon-car"></i> Garage 1</li>
+                  <li><i class="flaticon-window"></i> Balcony 1</li> --}}
+                </ul>
+              </div>
+              <div class="pull-right">
+                <div class="ratings-2">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                  <span>( 4.5/5 )</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-
-    {{-- Related Properties --}}
-    <div class="site-section site-section-sm bg-light">
-        <div class="container">
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="site-section-title mb-5">
-                        <h2>Related Properties</h2>
-                    </div>
-                </div>
+        <div class="col-lg-8 col-md-12">
+          <!-- Properties desciption start -->
+          <div class="product-slider-box cds-2 clearfix mb-40">
+            <div class="product-img-slide">
+              <div class="slider-for">
+                @foreach ($singleProp->images as $image)
+                  <img src="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}" class="img-fluid w-100"
+                    alt="slider-photo">
+                @endforeach
+              </div>
+              <div class="slider-nav">
+                @foreach ($singleProp->images as $image)
+                  <div class="thumb-slide"><img src="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}"
+                      alt="small-photo"></div>
+                @endforeach
+              </div>
             </div>
+          </div>
+          <!-- Properties description start -->
 
-            <div class="row mb-5">
-                @if ($relatedProp->count() > 0)
-                    @foreach ($relatedProp as $relatedProp)
-                        <div class="col-md-6 col-lg-4 mb-4">
-                            <div class="property-entry h-100">
-                                <a href="{{ route('single.prop', $relatedProp->id) }}" class="property-thumbnail">
-                                    <div class="offer-type-wrap">
-                                        <span class="offer-type bg-danger">{{ $relatedProp->home_type }}</span>
-                                        <span class="offer-type bg-success">{{ $relatedProp->prop_type }}</span>
-                                    </div>
-                                    <img src="{{ asset('assets/images/' . $relatedProp->image . '') }}" alt="Image"
-                                        class="img-fluid">
-                                </a>
-                                <div class="p-4 property-body">
-                                    <a href="#" class="property-favorite"><span class="icon-heart-o"></span></a>
-                                    <h2 class="property-title"><a
-                                            href="property-details.html">{{ $relatedProp->title }}</a>
-                                    </h2>
-                                    <span class="property-location d-block mb-3"><span
-                                            class="property-icon icon-room"></span>
-                                        {{ $relatedProp->location }}</span>
-                                    <strong class="property-price text-primary mb-3 d-block text-success">GHS
-                                        {{ $relatedProp->price }}</strong>
-                                    <ul class="property-specs-wrap mb-3 mb-lg-0">
-                                        <li>
-                                            <span class="property-specs">Beds</span>
-                                            <span class="property-specs-number">{{ $relatedProp->beds }}
-                                                <sup>+</sup></span>
+          <!-- Properties description start -->
+          <div class="properties-description mb-40">
+            <p><strong><mark> Property ID: {{ $singleProp->id }}</mark></strong></p>
+            <h3 class="heading-2">
+              Description
+            </h3>
 
-                                        </li>
-                                        <li>
-                                            <span class="property-specs">Baths</span>
-                                            <span class="property-specs-number">{{ $relatedProp->baths }}</span>
+            <p> {!! $singleProp->more_info !!}</p>
+          </div>
+          <!-- End Property description start -->
 
-                                        </li>
-                                        <li>
-                                            <span class="property-specs">SQ FT</span>
-                                            <span class="property-specs-number">{{ $relatedProp->sq_ft }}</span>
+          <!-- Amenities start -->
+          @unless (strlen($singleProp->amenities) < 1)
+            <div class="properties-amenities mb-40">
+              <h3 class="heading-2">
+                Amenities
+              </h3>
+              <div class="row">
+                @foreach (explode(",", $singleProp->amenities) as $amenity)
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                    <ul class="amenities">
+                      <li>
+                        <i class="fa fa-check"></i>{{ strtoupper($amenity) }}
+                      </li>
+                    </ul>
+                  </div>
+                @endforeach
 
-                                        </li>
-                                    </ul>
+              </div>
+            </div>
+          @endunless
 
-                                </div>
-                            </div>
-                        </div>
+          <!-- Photo gallery start -->
+          <div class="video mb-50">
+            <h3 class="heading-2">Gallery</h3>
+            {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> --}}
+            <div class="row filter-portfolio">
+              @foreach ($singleProp->images as $image)
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                  <div class="portfolio-item">
+                    <a href="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}"
+                      title="{{ $singleProp->title }}">
+                      <img src="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}" alt="gallery-photo"
+                        class="img-fluid">
+                    </a>
+                    <div class="portfolio-content">
+                      <div class="portfolio-content-inner">
+                        <span><i class="fa fa-search"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            </div>
+          </div>
+
+          <!-- Contact 2 start -->
+          <div class="contact-2 ca mtb-50">
+            <h3 class="heading">Interested in this Property?</h3>
+            <form method="POST" action="{{ route("insert.request", $singleProp->id) }}" id="request_callback_form">
+              @csrf
+              <div class="row">
+                <div class="d-none">
+                  <input type="number" id="prop_id" name="prop_id" value="{{ $singleProp->id }}">
+                  <input type="number" id="user_id" name="user_id"
+                    value="{{ auth()->check() ? Auth::user()->id : null }}">
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group name">
+                    <input type="text" name="name" value="{{ auth()->check() ? auth()->user()->name : "" }}"
+                      class="form-control" placeholder="Name" aria-label="Full Name">
+                    @error("name")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group email">
+                    <input type="email" name="email" value="{{ auth()->check() ? auth()->user()->email : "" }}"
+                      class="form-control" placeholder="Email Address" aria-label="Email Address">
+                    @error("email")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group number">
+                    <input type="text" name="phone" class="form-control" placeholder="Phone"
+                      value="{{ auth()->check() ? auth()->user()->phone : "" }}">
+                    @error("phone")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group message">
+                    <textarea class="form-control" name="message" placeholder="Write message" aria-label="Write message"></textarea>
+                    @error("message")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="send-btn">
+                    <button type="submit" class="btn-6">Send Message</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- Photo gallery end -->
+          <br>
+          {{-- <div class="location mb-50">
+            <div class="map">
+              <h3 class="heading-2">Property Location</h3>
+              <div id="map" class="contact-map"></div>
+            </div>
+          </div> --}}
+
+          <!-- Video start -->
+          {{-- <div class="video mb-50">
+            <h3 class="heading-2">
+              Property Video
+            </h3>
+            <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
+          </div> --}}
+          <br>
+          <!--Related Property -->
+          <div class="similar-property mb-20 bg-gray">
+            <h3 class="heading-2">Similar Properties</h3>
+            <div class="container">
+              @if ($relatedProps->count() > 0)
+                <div class="slick-slider-area">
+                  <div class="row slick-carousel"
+                    data-slick='{"slidesToShow": 2, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
+                    {{-- property box component --}}
+                    @foreach ($relatedProps as $relatedProp)
+                      <div class="slick-slide-item">
+                        <x-property-box :prop="$relatedProp" />
+                      </div>
                     @endforeach
-                @else
-                    <h4 class="d-block mb-3">
-                        There are no related properties</h4>
-                @endif
+                  </div>
+                  <div class="slick-prev slick-arrow-buton">
+                    <i class="fa fa-angle-left"></i>
+                  </div>
+                  <div class="slick-next slick-arrow-buton">
+                    <i class="fa fa-angle-right"></i>
+                  </div>
+                </div>
+              @else
+                <h5>No related properties.</h5>
+              @endif
             </div>
+          </div>
         </div>
+
+        {{-- Sidebar --}}
+        <div class="col-lg-4 col-md-12">
+          <div class="sidebar-right rounded">
+            <!-- Agent start -->
+            <div class="agent-3 widget">
+              <h3 class="sidebar-title">Contact Admin</h3>
+              <div class="s-border"></div>
+              <div class="m-border"></div>
+              <div class="media mb-4">
+                {{-- <a class="pr-3" href="agent-detail.html">
+                  <img src="{{ asset("assets/img/avatar/avatar-1.jpg") }}" alt="agent-3" class="img-fluid">
+                </a> --}}
+                <div class="media-body align-self-center">
+                  <h5>
+                    @if ($singleProp->user)
+                      Name: {{ strtoupper($singleProp->user->name) }}
+                    @else
+                      Name: Jedidiah Apenteng
+                    @endif
+                  </h5>
+                </div>
+              </div>
+              <div class="contact">
+                <ul>
+                  @if ($singleProp->user)
+                    <li>
+                      <i class="fa fa-envelope"> </i><a href="mailto:{{ $singleProp->user->email }}">
+                        {{ $singleProp->user->email }} </a>
+                    </li>
+                    <li>
+                      <i class="fa fa-phone"></i> <a href="tel:{{ $singleProp->user->phone }}">
+                        {{ $singleProp->user->phone }}</a>
+                    </li>
+                    <li>
+                      <i class="fa fa-whatsapp"> </i><a href="https://wa.me/233201492986">
+                        {{ $singleProp->user->phone }}</a>
+                    </li>
+                  @else
+                    <li>
+                      <i class="fa fa-envelope"> </i><a href="mailto:info@luwoap.com"> info@luwoap.com </a>
+                    </li>
+                    <li>
+                      <i class="fa fa-phone"> </i><a href="tel:233201492986">
+                        +233 20 149 2986</a>
+                    </li>
+                    <li>
+                      <i class="fa fa-whatsapp"> </i><a href="#"> +233 20 149 2986</a>
+                    </li>
+                  @endif
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-right rounded">
+            <!-- Advanced search start -->
+            <x-advanced-search />
+          </div>
+          <div class="sidebar-right rounded">
+            <!-- Social media share -->
+            <div class="widget-3 advanced-search">
+              <h3 class="sidebar-title">Share</h3>
+              <div class="s-border"></div>
+              <div class="m-border"></div>
+
+              <div class="social-media clearfix">
+                <div class="social-list">
+                  <a target="blank"
+                    href="https://www.facebook.com/sharer/sharer.php?u={{ route("single.prop", $singleProp->id) }}&quote={{ $singleProp->title }}">
+                    <div class="icon facebook">
+                      <div class="tooltip">Facebook</div>
+                      <span><i class="fa fa-facebook"></i></span>
+                    </div>
+                  </a>
+                  <a target="blank"
+                    href="https://twitter.com/intent/tweet?text={{ $singleProp->title }}&url={{ route("single.prop", $singleProp->id) }}">
+                    <div class="icon twitter">
+                      <div class="tooltip">Twitter</div>
+                      <span><i class="fa fa-twitter"></i></span>
+                    </div>
+                  </a>
+
+                  <a target="blank"
+                    href="https://www.linkedin.com/sharing/share-offsite/?url={{ route("single.prop", $singleProp->id) }}">
+                    <div class="icon linkedin mr-0">
+                      <div class="tooltip">LinkedIn</div>
+                      <span><i class="fa fa-linkedin"></i></span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  </div>
+  <!-- Property details page end -->
 @endsection
+
+@push("scripts")
+  {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script> --}}
+
+  <script>
+    $(document).ready(function() {
+      $('#request_callback_form').submit(function(e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+
+        // Serialize the form data
+        var formData = $(this).serialize();
+
+        // Submit the form via AJAX
+        $.ajax({
+          url: $(this).attr('action'),
+          type: 'POST',
+          data: formData,
+          success: function(response) {
+            // Handle successful response
+            console.log(response);
+            if (response.error) {
+
+
+              console.log(response.error);
+            } else {
+
+              // Reset the form
+              $('#request_callback_form')[0].reset();
+            }
+          },
+          error: function(xhr, status, error) {
+            // Handle error response
+            // console.error(xhr.responseText);
+          }
+        });
+      });
+    });
+  </script>
+
+  <script>
+    tinymce.init({
+      selector: 'textarea',
+    });
+  </script>
+@endpush

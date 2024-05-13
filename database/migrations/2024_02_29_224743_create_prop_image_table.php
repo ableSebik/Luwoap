@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prop_image', function (Blueprint $table) {
+        Schema::create('prop_images', function (Blueprint $table) {
             $table->id();
-            $table->integer('prop_id');
+            $table->foreignId('prop_id')->constrained()->onDelete('cascade');
             $table->string('image')->nullable();
             $table->timestamps();
         });

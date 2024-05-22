@@ -22,7 +22,7 @@ class Property extends Model
 		'ft_image',
 		'bed',
 		'bath',
-		'sq_ft',
+		'sqm',
 		'category',
 		'more_info',
 		'location',

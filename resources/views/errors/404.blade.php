@@ -1,4 +1,4 @@
-@extends("layouts.app")
+@extends("layouts.verified")
 
 @section("content")
   <!-- Pages 404 start -->
@@ -19,12 +19,12 @@
               <div class="col-xl-9 col-lg-10 col-md-8 col-sm-10 col-xs-10">
                 <div class="coming-form clearfix">
                   <div class="hr"></div>
-                  <p>Please try searching again</p>
                   <form class="form-inline d-flex" action="{{ route("search") }}" method="GET">
                     <input class="form-control" name="query" type="text" placeholder="What are you looking for?">
                     <button class="btn btn-color" type="submit">Search</button>
                   </form>
                 </div>
+                <h5>Click here to go back <a class="text-danger" href="/">home.</a></h5>
               </div>
             </div>
           </div>

@@ -27,7 +27,7 @@
           <div class="login-inner-form">
             <div class="details">
               <a href="/">
-                <x-application-logo class="w-20 h-20 text-black" />
+                <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
               </a>
               <h3>Create An Cccount</h3>
               <form method="POST" action="{{ route("register") }}">
@@ -82,7 +82,7 @@
                 <div class="form-group">
                   <button type="submit" class="btn-md btn-theme w-100">Register</button>
                 </div>
-                <p>Already a member?<a href="{{ route("login") }}"> Login here</a></p>
+                <p>Got account?<a href="{{ route("login") }}"> Login here</a></p>
               </form>
             </div>
           </div>

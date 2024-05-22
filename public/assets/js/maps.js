@@ -338,7 +338,7 @@ function drawInfoWindow(property) {
         "<h4><a href='properties-details.html'>" + title + "</a></h4>" +
         "<p class='address'> <i class='flaticon-pin'></i>" + address + "</p>" +
         "<div class='map-properties-fetures'> " +
-        "<span><i class='flaticon-area'></i>  " + area + " sqft</span> " +
+        "<span><i class='flaticon-area'></i>  " + area + " sqm</span> " +
         "<span><i class='flaticon-bed'></i>  " + bedroom + " Beds</span> " +
         "<span><i class='flaticon-bathroom'></i>  " + bathroom + " Baths</span> " +
         "</div>" +
@@ -443,7 +443,7 @@ function insertPropertyToArray(property, layout) {
             '                            </div>\n' +
             '                            <ul class="facilities-list clearfix">\n' +
             '                                <li>\n' +
-            '                                    <span>Area</span>' + area + ' Sqft\n' +
+            '                                    <span>Area</span>' + area + ' sqm\n' +
             '                                </li>\n' +
             '                                <li>\n' +
             '                                    <span>Beds</span> ' + bedroom + ' \n' +
@@ -493,7 +493,7 @@ function insertPropertyToArray(property, layout) {
             '                                </div>\n' +
             '                                <ul class="facilities-list clearfix">\n' +
             '                                    <li>\n' +
-            '                                        <span>Area</span>'+area+' Sqft\n' +
+            '                                        <span>Area</span>'+area+' sqm\n' +
             '                                    </li>\n' +
             '                                    <li>\n' +
             '                                        <span>Beds</span> ' + bedroom +' \n' +

@@ -20,7 +20,7 @@
   <!-- Sub Banner end -->
 
   {{-- Property listings --}}
-  <div class="property-section content-area">
+  <div class="properties-section-body content-area">
     <div class="container">
       <!-- Main title -->
       <div class="main-title">

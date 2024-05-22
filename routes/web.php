@@ -33,6 +33,12 @@ Route::get('props/offer_type/rent', [App\Http\Controllers\props\PropertiesContro
 //Sort by type=lease
 Route::get('props/offer_type/lease', [App\Http\Controllers\props\PropertiesController::class, 'leaseProps'])->name('lease.prop');
 
+//Sort by Category=Hostel
+Route::get('props/category/hostel', [App\Http\Controllers\props\PropertiesController::class, 'hostelProps'])->name('hostel.prop');
+
+//Sort by Category=Air BnB
+Route::get('props/category/airbnb', [App\Http\Controllers\props\PropertiesController::class, 'AirbnbProps'])->name('airbnb.prop');
+
 //********** End Sorting by Type **********//
 
 

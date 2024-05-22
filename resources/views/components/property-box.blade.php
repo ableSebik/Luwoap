@@ -25,9 +25,9 @@
     <li>
       <span class="fa fa-bathtub"></span> {{ $prop->bath }}
     </li>
-    @if ($prop->sq_ft != null)
+    @if ($prop->sqm != null)
       <li>
-        <span class="fa fa-cube"></span>{{ $prop->sq_ft }} Sqft
+        <span class="fa fa-cube"></span>{{ $prop->sqm }} sqm
       </li>
     @endif
   </ul>
@@ -50,7 +50,7 @@
         <a href="{{ route("single.prop", $prop->id) }}">{{ $prop->title }}</a>
       </h3>
       <div class="location">
-        <a href="properties-details.html">
+        <a href="{{ route("single.prop", $prop->id) }}">
           <i class="fa fa-map-marker"></i>{{ $prop->location }}
         </a>
       </div>
@@ -59,8 +59,8 @@
       <ul>
         <li><i class="flaticon-bed"></i> {{ $prop->bed }} Beds</li>
         <li><i class="flaticon-bathroom"></i> {{ $prop->bath }} Baths</li>
-        @if ($prop->sq_ft != null)
-          <li><i class="flaticon-area"></i> {{ $prop->sq_ft }} sqft</li>
+        @if ($prop->sqm != null)
+          <li><i class="flaticon-area"></i> {{ $prop->sqm }} sqm</li>
         @endif
       </ul>
     </div>

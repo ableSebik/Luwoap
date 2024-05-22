@@ -1,6 +1,6 @@
 <div class="blog-1">
   <div class="photo">
-    <img src="{{ asset("storage/Post/" . $blogPost->post_ft_image) }}" alt="big-blog" class="img-fluid w-100">
+    <img src="{{ asset("storage/Posts/" . $blogPost->post_ft_image) }}" alt="big-blog" class="img-fluid w-100">
     <div class="overlay-icon">
       <a href="{{ route("postDetails.blog", $blogPost->id) }}"><span><i class="fa fa-plus-square-o span"></i></span></a>
     </div>

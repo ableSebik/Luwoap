@@ -87,15 +87,6 @@
     <x-footer />
     <!-- Footer end -->
 
-    <!-- Full Page Search -->
-    <div id="full-page-search">
-      <button type="button" class="close">×</button>
-      <form action="" method="">
-        <input type="search" value="" placeholder="type keyword(s) here" />
-        <button type="submit" class="btn btn-sm button-theme">Search</button>
-      </form>
-    </div>
-
     <div class="d-none">
       <form method="POST" action="{{ route("logout") }}" id="logoutForm">
         @csrf
@@ -103,6 +94,7 @@
             class="flaticon-logout"></i> Logout</a>
       </form>
     </div>
+
     @php
       $bg = "";
       if (\Session::has("success")) {
@@ -116,7 +108,7 @@
       }
     @endphp
     @if (\Session::has("success") || \Session::has("error"))
-      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 999999999999">
+      <div class="position-fixed p-3" style="bottom: 15%; right: 0; z-index: 999999">
         <div class="toast align-items-center text-white border-0 {{ $bg }}" role="alert"
           aria-live="assertive" aria-atomic="true" id="liveToast">
           <div class="d-flex">

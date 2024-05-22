@@ -95,10 +95,10 @@
 
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-              <label for="sq_ft">Square Feet</label>
-              <input type="text" pattern="\d+(\.\d{1,2})?" name="sq_ft" id="sq_ft"
-                class="form-control selectpicker search-fields" placeholder="Property size (sqft)"
-                value='{{ old("sq_ft") }}'>
+              <label for="sqm">Square Metre</label>
+              <input type="text" pattern="\d+(\.\d{1,2})?" name="sqm" id="sqm"
+                class="form-control selectpicker search-fields" placeholder="Property size (sqm)"
+                value='{{ old("sqm") }}'>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12">
@@ -341,7 +341,7 @@
 
   <script>
     // $(document).ready(function() {
-    //   $('#sq_ft, #price').on('input', function() {
+    //   $('#sqm, #price').on('input', function() {
     //     // Remove any non-numeric characters except decimal point and trim leading zeroes
     //     $(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^0+/, ''));
 
@@ -354,7 +354,7 @@
     //     }
     //   });
     // });
-    $('#sq_ft, #price').on('input', function() {
+    $('#sqm, #price').on('input', function() {
       // Remove non-numeric characters except decimal point
       var value = $(this).val().replace(/[^0-9.]/g, '');
 

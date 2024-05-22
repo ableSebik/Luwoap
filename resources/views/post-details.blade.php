@@ -22,7 +22,7 @@
           <!-- Blog 1 start -->
           <div class="blog-1 blog-big">
             <div class="blog-photo">
-              <img src="{{ asset("storage/Post/" . $postDetails->post_ft_image) }}" alt="blog-img"
+              <img src="{{ asset("storage/Posts/" . $postDetails->post_ft_image) }}" alt="blog-img"
                 class="img-fluid w-100">
             </div>
             <div class="detail">

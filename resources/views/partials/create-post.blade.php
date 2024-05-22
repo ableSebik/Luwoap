@@ -5,14 +5,14 @@
     <div class="dashboard-header clearfix">
       <div class="row">
         <div class="col-sm-12 col-md-5">
-          <h4>Publish a Post</h4>
+          <h4>Publish a Blog</h4>
         </div>
       </div>
     </div>
     <div class="submit-address dashboard-list">
       <form id="create-post-form" method="POST" action="{{ route("post.create") }}" enctype="multipart/form-data">
         @csrf
-        <h4 class="bg-grea-3">Basic Information</h4>
+        <h4 class="bg-grea-3">Blog Information</h4>
         <div class="search-contents-sidebar">
           <div class="row pad-20">
             <div class="col-lg-6 col-md-6 col-sm-12">

@@ -57,21 +57,6 @@
               <div class="col-lg-6 col-md-6 col-sm-12">
                 <h3>Showing {{ $firstItem }}-{{ $lastItem }} of {{ $totalItems }} Listings</h3>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="sorting-options">
-                  <a href="list-fullwidth.html" class="change-view-btn"><i class="fa fa-th-list"></i></a>
-                  <a href="grid-fullwidth.html" class="change-view-btn active-view-btn"><i class="fa fa-th-large"></i></a>
-                </div>
-                <div class="sorting-options2">
-                  <select class="selectpicker search-fields" name="default-order">
-                    <option>Sort by: Default</option>
-                    <option>Price High to Low</option>
-                    <option>Price: Low to High</option>
-                    <option>Newest listing</option>
-                    <option>Oldest listing</option>
-                  </select>
-                </div>
-              </div>
             </div>
           </div>
           <div class="row">

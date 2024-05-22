@@ -43,22 +43,21 @@
     <script src="https://cdn.tiny.cloud/1/yrqv9l2ukvxz17q6fnqs5bgfm1vzbtogf8s8e5yrwaqpwy29/tinymce/7/tinymce.min.js"
       referrerpolicy="origin"></script>
     @stack("header")
-    {{-- @vite(["resources/css/app.css", "resources/js/app.js"]) --}}
+    @vite(["resources/css/app.css", "resources/js/app.js"])
   </head>
 
   <body>
     <div class="page_loader"></div>
 
     <!-- Main header start -->
-    <header class="main-header header-transparent sticky-header">
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
       <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <a class="navbar-brand logo" href="/">
-            <img src="{{ asset("assets/img/avatar/avatar-5.jpg") }}" alt="logo">
-          </a>
-        </nav>
+        <a class="navbar-brand" href="/">
+          <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo" width="150" height="auto"
+            class="d-inline-block align-text-top">
+        </a>
       </div>
-    </header>
+    </nav>
     <!-- Main header end -->
     <br>
     <br>

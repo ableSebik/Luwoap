@@ -41,7 +41,7 @@
                 <ul>
                   <li><i class="flaticon-bed"></i> Bedroom {{ $singleProp->bed }}</li>
                   <li><i class="flaticon-bathroom"></i> Bath {{ $singleProp->bath }}</li>
-                  <li><i class="flaticon-area"></i> SQ.FT {{ $singleProp->sq_ft }}</li>
+                  <li><i class="flaticon-area"></i> SQ.FT {{ $singleProp->sqm }}</li>
                   {{-- <li><i class="flaticon-car"></i> Garage 1</li>
                   <li><i class="flaticon-window"></i> Balcony 1</li> --}}
                 </ul>
@@ -335,11 +335,24 @@
   </div>
   </div>
   <!-- Property details page end -->
+
+  <!-- Toast -->
+  <div class="position-fixed p-3 d-none" id="toast-div" style="bottom: 15%; right: 0; z-index: 999999">
+    <div class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true"
+      id="liveToast">
+      <div class="d-flex">
+        <div class="toast-body">
+          <!-- This will be dynamically filled by the JavaScript -->
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+  <!-- end Toast -->
 @endsection
 
 @push("scripts")
-  {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script> --}}
-
   <script>
     $(document).ready(function() {
       $('#request_callback_form').submit(function(e) {
@@ -355,23 +368,35 @@
           data: formData,
           success: function(response) {
             // Handle successful response
-            console.log(response);
             if (response.error) {
-
-
-              console.log(response.error);
+              showToast('Request already submitted for this property.', 'bg-danger');
             } else {
-
               // Reset the form
               $('#request_callback_form')[0].reset();
+              showToast('Success: Request submitted successfully.', 'bg-success');
             }
           },
           error: function(xhr, status, error) {
             // Handle error response
-            // console.error(xhr.responseText);
+            showToast('Error: Something went wrong.', 'bg-danger');
           }
         });
       });
+
+      function showToast(message, bgClass) {
+        //remove hidden class
+        $('#toast-div').removeClass('d-none');
+
+        // Update the toast body content
+        $('#liveToast .toast-body').text(message);
+
+        // Update the background class
+        $('#liveToast').removeClass('bg-success bg-danger').addClass(bgClass);
+
+        // Show the toast
+        var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+        toast.show();
+      }
     });
   </script>
 

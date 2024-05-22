@@ -104,7 +104,7 @@ span {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: #262525;
-    font-family: 'Jost', sans-serif;
+    font-family: 'Lato', Helvetica, Arial, Lucida, sans-serif;
     margin-top: 0;
 }
 
@@ -348,6 +348,10 @@ ul {
     background: #33CCFF;
     color: #fff;
 }
+.tiktok-bg {
+    background: #000;
+    color: #fff;
+}
 
 .google-bg {
     background: #db4437;
@@ -376,6 +380,11 @@ ul {
 
 .twitter-bg:hover {
     background: #56d7fe;
+    color: #fff;
+}
+
+.tiktok-bg:hover {
+    background: #000;
     color: #fff;
 }
 
@@ -3324,7 +3333,7 @@ input[type=checkbox]:checked + label:before {
 }
 
 .service-info-4:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.116);
     transition: 0.3s cubic-bezier(0.24, 0.74, 0.58, 1);
 }
 
@@ -5739,31 +5748,31 @@ mark {
     transform: translateY(-5px);
 }
 
-.service-info-4:hover i {
+/* .service-info-4:hover i {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
-}
+} */
 
 .service-info-4:hover::before {
     height: 100%;
 }
 
 .service-info-4:hover p {
-    color: #fff;
+    /* color: #fff; */
 }
 
 .service-info-4:hover h3 {
-    color: #fff;
+    /* color: #fff; */
     font-size: 20px;
     font-weight: 500;
 }
 
 .service-info-4:hover .read-more {
-    color: #ffffff;
+    /* color: #ffffff; */
 }
 
 .service-info-4:hover i{
-    color: #fff;
+    /* color: #fff; */
 }
 
 .service-info-4 .read-more:hover {
@@ -6588,6 +6597,10 @@ mark {
     background: #56d7fe!important;
 }
 
+.sub-footer .tiktok-bg:hover {
+    background: #000!important;
+}
+
 .sub-footer .google-bg:hover {
     background: #f15446!important;
 }
@@ -6685,7 +6698,7 @@ mark {
 
 
 .main-footer-2 img{
-    height: 50px;
+    height: 70px;
 }
 
 .main-footer-2 .copy-right {
@@ -7829,6 +7842,9 @@ mark {
 .contact-section .social-list a.twitter-bg {
     color: #33CCFF;
 }
+.contact-section .social-list a.tiktok-bg {
+    color: #FE2C55;
+}
 
 .contact-section .social-list a.google-bg {
     color: #db4437;
@@ -8919,8 +8935,9 @@ margin-top: 30px;
 
 /** Sub Banner start **/
 .sub-banner {
-    background: rgba(0, 0, 0, 0.04) url(../img/img-2.jpg) top left repeat;
+    background: rgba(0, 0, 0, 0.04) url(../img/img-3.jpg) top left repeat;
     background-size: cover;
+    background-attachment: fixed;
     height: 400px;
     background-position: center center;
     background-repeat: no-repeat;
@@ -8949,7 +8966,7 @@ margin-top: 30px;
 
 .sub-banner .breadcrumb-area h1 {
     margin: 5px;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     color: #fff;
     line-height: normal;
@@ -13053,6 +13070,20 @@ margin-top: 30px;
     .heading-properties-3{
         margin-bottom: 20px;
     }
+
+    .prop-type{
+        position: relative;
+        margin-top: -150px;
+        z-index: 999;
+        background-color: #062abb;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    }
+
+    .prop-type-card{
+        height: 300px;
+        border-radius: 5px;
+    }
+
 
 }
 

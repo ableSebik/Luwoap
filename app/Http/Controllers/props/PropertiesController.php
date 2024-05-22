@@ -103,9 +103,9 @@ class PropertiesController extends Controller
       'name' => 'required',
       'phone' => 'required',
       'email' => 'required|email',
-      'message' => 'nullable',
     ]);
 
+    $validatedData['message'] = $request['message'];
     $validatedData['status'] = 'new';
 
     // Check if the combination of prop_id and phone already exists
@@ -188,7 +188,49 @@ class PropertiesController extends Controller
 
     return view('props/prop-category', compact('props', 'daysSinceCreation', 'totalItems', 'firstItem', 'lastItem'));
   }
+  public function hostelProps()
+  {
+    $props = Property::select()
+      ->where('category', 'hostel')
+      ->take(9)->orderBy('created_at', 'desc')
+      ->paginate(9);
 
+    // Calculate the number of days since creation for each property
+    foreach ($props as $prop) {
+      $prop->daysSinceCreation = Carbon::parse($prop->created_at)->diffInDays(Carbon::now());
+    }
+
+    $daysSinceCreation = Carbon::now()->diffInDays(Carbon::now());
+
+    // Extract pagination information
+    $totalItems = $props->total();
+    $firstItem = $props->firstItem();
+    $lastItem = $props->lastItem();
+
+    return view('props/prop-category', compact('props', 'daysSinceCreation', 'totalItems', 'firstItem', 'lastItem'));
+  }
+
+  public function AirbnbProps()
+  {
+    $props = Property::select()
+      ->where('category', 'Air BnB')
+      ->take(9)->orderBy('created_at', 'desc')
+      ->paginate(9);
+
+    // Calculate the number of days since creation for each property
+    foreach ($props as $prop) {
+      $prop->daysSinceCreation = Carbon::parse($prop->created_at)->diffInDays(Carbon::now());
+    }
+
+    $daysSinceCreation = Carbon::now()->diffInDays(Carbon::now());
+
+    // Extract pagination information
+    $totalItems = $props->total();
+    $firstItem = $props->firstItem();
+    $lastItem = $props->lastItem();
+
+    return view('props/prop-category', compact('props', 'daysSinceCreation', 'totalItems', 'firstItem', 'lastItem'));
+  }
 
   public function leaseProps()
   {

@@ -19,7 +19,6 @@ class AgentRequest extends Model
     'email',
     'message',
     'status',
-
   ];
 
   public $timestamps = true;

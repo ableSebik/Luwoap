@@ -129,7 +129,7 @@ mark {
 }
 
 .service-info-4::before {
-    background: #ff214f;
+    /* background: #ff214f; */
 }
 
 .btn-4:hover{
@@ -1127,7 +1127,7 @@ li.active.btn.filtr-button.filtr {
 }
 
 #main-header-6{
-    background: #ff214f;
+    background: #00e1ff;
 }
 
 /** Media **/
@@ -1155,11 +1155,11 @@ li.active.btn.filtr-button.filtr {
     }
 
     #main-header-6.header-shrink .navbar-expand-lg .navbar-nav .h-icon  {
-        color: #ff214f;
+        color: #ff214f!important;
     }
 
     #main-header-6 .navbar-expand-lg .navbar-nav .h-icon:hover {
-        color: #ff214f!important;
+        color: #000000!important;
     }
 }
 
@@ -1177,7 +1177,7 @@ li.active.btn.filtr-button.filtr {
     }
 
     #main-header-6 {
-        background: #ff214f!important;
+        background: #00e1ff!important;
     }
 }
 

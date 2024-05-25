@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
   //Global variable for common tags
   private $commonTags;
+
+
 
   public function __construct()
   {
@@ -18,29 +21,56 @@ class BlogController extends Controller
     $this->commonTags = $this->getCommonTags();
   }
 
+
+
+
+
+
   // show all Posts
+  // public function blogPosts()
+  // {
+  //   // dd($this->commonTags);
+  //   $blogPosts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(9);
+
+  //   // Get post Day and Month year
+  //   foreach ($blogPosts as $blogPost) {
+  //     $created = $blogPost->created_at;
+  //   }
+  //   $post_month = $created->format('M');
+  //   $post_year = $created->format('y');
+  //   $post_day = $created->format('d');
+
+  //   return view('blog', ([
+  //     'blogPosts' => $blogPosts,
+  //     'post_month' => $post_month,
+  //     'post_day' => $post_day,
+  //     'post_year' => $post_year,
+  //     'commonTags' => $this->commonTags,
+  //   ]));
+  //   // return view('blog', compact('blogPosts'));
+  // }
   public function blogPosts()
   {
-    // dd($this->commonTags);
     $blogPosts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(9);
 
-    // Get post Day and Month year
+    // Add post month, day, and year to each blog post
     foreach ($blogPosts as $blogPost) {
-      $created = $blogPost->created_at;
+      $blogPost->post_month = $blogPost->created_at->format('M');
+      $blogPost->post_year = $blogPost->created_at->format('y');
+      $blogPost->post_day = $blogPost->created_at->format('d');
     }
-    $post_month = $created->format('M');
-    $post_year = $created->format('y');
-    $post_day = $created->format('d');
 
-    return view('blog', ([
+    return view('blog', [
       'blogPosts' => $blogPosts,
-      'post_month' => $post_month,
-      'post_day' => $post_day,
-      'post_year' => $post_year,
       'commonTags' => $this->commonTags,
-    ]));
-    // return view('blog', compact('blogPosts'));
+    ]);
   }
+
+
+
+
+
+
 
   //Get Recent Posts
   public function recentPost()
@@ -76,25 +106,28 @@ class BlogController extends Controller
 
 
 
+
+
+
   // create a new post
   public function createPost(Request $request)
   {
     // Validate data
     $validatedData = $request->validate([
       'post_title' => 'required|string',
-      'post_ft_image' => 'nullable|image|max:5000',
+      'post_ft_image' => 'required|image|mimes:jpg,jpeg,png|max:5000',
       'post_content' => 'required',
-      'post_excerpt' => 'nullable|string|max:255',
+      'post_excerpt' => 'nullable|string',
       'post_tags' => 'nullable|string|max:255',
     ]);
 
     // Add authenticated user's ID as user_id
-    $validatedData['user_id'] = auth()->user()->id;
+    $validatedData['user_id'] = Auth::id();;
 
     // Process post ft image
     if ($request->hasFile('post_ft_image')) {
 
-      $postDir = 'public/Posts';
+      $postDir = 'public/posts';
       if (!Storage::exists($postDir)) {
         Storage::makeDirectory($postDir);
       }
@@ -109,8 +142,113 @@ class BlogController extends Controller
     Blog::create($validatedData);
 
     // Redirect back with success message
-    return redirect()->back()->with('success', 'Post created successfully.');
+    return redirect()->back()->with('success', 'Blog created successfully.');
   }
+
+
+
+
+
+
+  // Method to delete a blog post
+  public function deletePost($id)
+  {
+    // Find the blog post by ID
+    $blog = Blog::findOrFail($id);
+
+    // If the blog post has a featured image, delete it from storage
+
+    $filePath =  'public/posts/' . $blog->post_ft_image;
+
+    if (Storage::exists($filePath)) {
+      Storage::delete($filePath);
+    }
+
+    // Delete the blog post from db
+    $blog->delete();
+
+    // Redirect back with success message
+    return redirect()->back()->with('success', 'Post deleted successfully.');
+  }
+
+
+
+
+
+  //Show Edit Post form
+  public function editPostView($id)
+  {
+    $blog = Blog::findOrFail($id);
+    return view('partials.edit-post', compact('blog'));
+  }
+
+
+
+
+
+  // Update a specific post
+  public function updatePost(Request $request, $id)
+  {
+    // Validate the incoming request
+    $validatedData = $request->validate([
+      'post_title' => 'required|string',
+      'post_ft_image' => 'sometimes|image|mimes:jpg,jpeg,png|max:5000',
+      'post_content' => 'required',
+      'post_excerpt' => 'nullable|string',
+      'post_tags' => 'nullable|string|max:255',
+    ]);
+
+    // Find the post by ID
+    $post = Blog::findOrFail($id);
+
+    // Update post data
+    $post->post_title = $request->input('post_title');
+    $post->post_content = $request->input('post_content');
+    $post->post_excerpt = $request->input('post_excerpt');
+    $post->post_tags = $request->input('post_tags');
+
+    // Handle the featured image upload
+    if ($request->hasFile('post_ft_image')) {
+      // Delete the old image if it exists
+      if ($post->post_ft_image && Storage::exists('public/posts/' . $post->post_ft_image)) {
+        Storage::delete('public/posts/' . $post->post_ft_image);
+      }
+
+      // Store the new image
+      $file = $request->file('post_ft_image');
+      $fileName = sha1(time() . $file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+      $file->storeAs(
+        'public/posts',
+        $fileName
+      );
+
+      // Update the post with the new image filename
+      $post->post_ft_image = $fileName;
+    }
+
+    // Save the updated post
+    $post->save();
+
+    // Redirect back with a success message
+    return redirect()->route('post.all', $post->id)->with('success', 'Post updated successfully.');
+  }
+
+
+
+
+
+
+
+  //Manage list of blog page
+  public function allPosts()
+  {
+    $posts = Blog::orderBy('created_at', 'desc')->paginate(10);
+    return view('partials.all-posts', compact('posts'));
+  }
+
+
+
+
 
   // show post details/single post page
   public function postDetails($id)
@@ -148,32 +286,38 @@ class BlogController extends Controller
     ]);
   }
 
+
+
+
+
   //Find posts by tags
   public function postsByTag($tag)
   {
-    // Find posts where the post_tags column contains the specified tag
-    $relatedPosts = Blog::where('post_tags', 'like', '%' . $tag . '%')
+    $decodedTag = urldecode($tag);
+
+    $relatedPosts = Blog::where('post_tags', 'like', '%' . $decodedTag . '%')
       ->orderBy('created_at', 'desc')
       ->get();
 
-    // Get post Day and Month year
-    foreach ($relatedPosts as $blogPost) {
-      $created = $blogPost->created_at;
-    }
-    $post_month = $created->format('M');
-    $post_year = $created->format('y');
-    $post_day = $created->format('d');
-
+    // Get post Day, Month, and Year for display
+    $post_month = $relatedPosts->first()->created_at->format('M');
+    $post_year = $relatedPosts->first()->created_at->format('y');
+    $post_day = $relatedPosts->first()->created_at->format('d');
 
     return view('blog', [
-      'tag' => $tag,
-      'relatedPosts' => $relatedPosts,
+      'tag' => $decodedTag,
+      'blogPosts' => $relatedPosts,
       'post_month' => $post_month,
       'post_day' => $post_day,
       'post_year' => $post_year,
       'commonTags' => $this->commonTags,
     ]);
   }
+
+
+
+
+
 
   //Get requently used tags
   public function getCommonTags()
@@ -193,8 +337,14 @@ class BlogController extends Controller
     arsort($tagCounts);
 
     // Get the most common tags (e.g., top 10)
-    $commonTags = array_slice($tagCounts, 0, 10, true);
+    $unencodedTags = array_slice($tagCounts, 0, 10, true);
 
-    return $commonTags;
+    // URL-encode the tags
+    $CommonTags = [];
+    foreach ($unencodedTags as $tag => $count) {
+      $CommonTags[urlencode($tag)] = $count;
+    }
+
+    return $CommonTags;
   }
 }

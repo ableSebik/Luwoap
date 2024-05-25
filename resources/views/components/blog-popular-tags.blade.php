@@ -4,7 +4,7 @@
   <div class="m-border"></div>
   <ul class="tags">
     @foreach ($commonTags as $commonTag => $count)
-      <li><a href="{{ route("posts.byTag", $commonTag) }}">{{ $commonTag }}</a></li>
+      <li><a href="{{ route("posts.byTag", $commonTag) }}">{{ urldecode($commonTag) }}</a></li>
     @endforeach
 
   </ul>

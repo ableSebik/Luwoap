@@ -67,7 +67,6 @@
     <script src="{{ asset("assets/js/leaflet.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet-providers.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet.markercluster.js") }}"></script>
-    <script src="{{ asset("assets/js/dropzone.js") }}"></script>
     <script src="{{ asset("assets/js/slick.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.magnific-popup.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.countdown.js") }}"></script>

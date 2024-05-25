@@ -3,13 +3,9 @@
 namespace App\Http\Controllers\props;
 
 use Carbon\Carbon;
-use App\Http\Controllers\BlogController;
 use Illuminate\Http\Request;
 use App\Models\prop\Property;
 use App\Models\prop\SaveProp;
-use App\Models\Blog;
-use App\Models\prop\PropImage;
-use App\Models\prop\AgentRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -94,35 +90,6 @@ class PropertiesController extends Controller
 
     return view('props.single', compact('singleProp', 'relatedProps'));
   }
-
-  public function insertRequests(Request $request)
-  {
-    // Validate the incoming request data
-    $validatedData = $request->validate([
-      'prop_id' => 'required',
-      'name' => 'required',
-      'phone' => 'required',
-      'email' => 'required|email',
-    ]);
-
-    $validatedData['message'] = $request['message'];
-    $validatedData['status'] = 'new';
-
-    // Check if the combination of prop_id and phone already exists
-    $requestExists = AgentRequest::where('prop_id', $request->prop_id)
-      ->where('phone', $validatedData['phone'])
-      ->exists();
-
-    if ($requestExists) {
-      return response()->json(['error' => true]);
-    } else {
-      // Create a new AgentRequest instance
-      AgentRequest::create($validatedData);
-
-      return response()->json(['success' => true]);
-    }
-  }
-
 
 
   public function saveProps(Request $request)

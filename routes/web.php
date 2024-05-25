@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\props\PropertyManagerController;
+use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,16 +101,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     //Delete a Property
     Route::delete('/property/{prop}', [App\Http\Controllers\props\PropertyManagerController::class, 'deleteProperty'])->name('properties.delete');
 
-    //Create a Property
+    //Create a Property View
     Route::get('/submit-property', function () {
         return view('partials.submit-property');
     });
     //Create a Property
 
-    //Show Requests from clients
-    Route::get('/incoming-requests', function () {
-        return view('partials.incoming-requests');
-    });
+    //Show Requests from clients view
+    Route::get('/incoming-requests', [RequestController::class, 'allRequests'])->name('all.requests');
+
+    // Manage Incoming Client Request
 
     //Show Booking from page
     Route::get('/bookings', function () {
@@ -115,28 +118,38 @@ Route::middleware(['auth', 'admin'])->group(function () {
     });
 
     //Displaying property for auth user
-    Route::get('/manage-properties', [App\Http\Controllers\props\PropertyManagerController::class, 'manageProperties'])->name('manage.prop');
+    Route::get('/manage-properties', [PropertyManagerController::class, 'manageProperties'])->name('manage.prop');
 
     Route::get('/user/bookmark-property', function () {
         return view('partials.bookmark-property');
     });
 
     // Creat a Property
-    Route::post('/property/create', [App\Http\Controllers\props\PropertyManagerController::class, 'addProperty'])->name('property.create');
+    Route::post('/property/create', [PropertyManagerController::class, 'addProperty'])->name('property.create');
 
     // Publish a blog
-    Route::post('/publish-post', [App\Http\Controllers\BlogController::class, 'createPost'])->name('post.create');
+    Route::post('/publish-post', [BlogController::class, 'createPost'])->name('post.create');
 
     // Show Creat a blog form
     Route::get('/create-post', function () {
         return view('partials.create-post');
     });
+
+    // Show All blogs to be managed
+    Route::get('/all-posts', [BlogController::class, 'allPosts'])->name('post.all');
+
+    Route::get('/post/{id}/edit', [BlogController::class, 'editPostView'])->name('post.edit');
+
+    Route::put('/post/{id}', [BlogController::class, 'updatePost'])->name('post.update');
+
+    //Delete a Post/Blog
+    Route::delete('/blog/{id}', [BlogController::class, 'deletePost'])->name('blog.delete');
 });
 //****************** End ******************//
 
 
 //inserting  request for callback
-Route::post('props/prop-details/{id}', [App\Http\Controllers\props\PropertiesController::class, 'insertRequests'])->name('insert.request');
+Route::post('props/prop-details/{id}', [RequestController::class, 'insertRequests'])->name('insert.request');
 
 //Saving property/bookmarking property
 Route::post('props/save-props/{id}', [App\Http\Controllers\props\PropertiesController::class, 'saveProps'])->name('save.prop');

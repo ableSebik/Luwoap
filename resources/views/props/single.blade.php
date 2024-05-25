@@ -48,97 +48,95 @@
               </div>
               <div class="pull-right">
                 <div class="ratings-2">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-o"></i>
-                  <span>( 4.5/5 )</span>
+                  <span>{{ $singleProp->offer_type }}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-8 col-md-12">
-          <!-- Properties desciption start -->
+        <div class="col-lg-8 col-md-12 bg-white">
+          <!-- Properties description start -->
           <div class="product-slider-box cds-2 clearfix mb-40">
             <div class="product-img-slide">
               <div class="slider-for">
                 @foreach ($singleProp->images as $image)
-                  <img src="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}" class="img-fluid w-100"
+                  <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}" class="img-fluid w-100"
                     alt="slider-photo">
                 @endforeach
               </div>
               <div class="slider-nav">
                 @foreach ($singleProp->images as $image)
-                  <div class="thumb-slide"><img src="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}"
+                  <div class="thumb-slide"><img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                       alt="small-photo"></div>
                 @endforeach
               </div>
             </div>
           </div>
           <!-- Properties description start -->
+          <div class=" bg-white">
+            <!-- Properties description start -->
+            <div class="properties-description mb-40 container">
 
-          <!-- Properties description start -->
-          <div class="properties-description mb-40">
-            <p><strong><mark> Property ID: {{ $singleProp->id }}</mark></strong></p>
-            <h3 class="heading-2">
-              Description
-            </h3>
-
-            <p> {!! $singleProp->more_info !!}</p>
-          </div>
-          <!-- End Property description start -->
-
-          <!-- Amenities start -->
-          @unless (strlen($singleProp->amenities) < 1)
-            <div class="properties-amenities mb-40">
-              <h3 class="heading-2">
-                Amenities
+              <h3 class="heading">
+                Description
               </h3>
-              <div class="row">
-                @foreach (explode(",", $singleProp->amenities) as $amenity)
-                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <ul class="amenities">
-                      <li>
-                        <i class="fa fa-check"></i>{{ strtoupper($amenity) }}
-                      </li>
-                    </ul>
-                  </div>
-                @endforeach
+              <p class="alert alert-danger">Property ID: {{ $singleProp->id }}</p>
 
-              </div>
+              <p> {!! $singleProp->more_info !!}</p>
             </div>
-          @endunless
+            <!-- End Property description start -->
 
-          <!-- Photo gallery start -->
-          <div class="video mb-50">
-            <h3 class="heading-2">Gallery</h3>
-            {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> --}}
-            <div class="row filter-portfolio">
-              @foreach ($singleProp->images as $image)
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                  <div class="portfolio-item">
-                    <a href="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}"
-                      title="{{ $singleProp->title }}">
-                      <img src="{{ asset("storage/uploads/$image->prop_id/" . $image->image) }}" alt="gallery-photo"
-                        class="img-fluid">
-                    </a>
-                    <div class="portfolio-content">
-                      <div class="portfolio-content-inner">
-                        <span><i class="fa fa-search"></i></span>
+            <!-- Amenities start -->
+            @unless (strlen($singleProp->amenities) < 1)
+              <div class="properties-amenities mb-40 container">
+                <h3 class="heading-2">
+                  Amenities
+                </h3>
+                <div class="row">
+                  @foreach (explode(",", $singleProp->amenities) as $amenity)
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                      <ul class="amenities">
+                        <li>
+                          <i class="fa fa-check"></i>{{ strtoupper($amenity) }}
+                        </li>
+                      </ul>
+                    </div>
+                  @endforeach
+
+                </div>
+              </div>
+            @endunless
+
+            <!-- Photo gallery start -->
+            <div class="video mb-50 container">
+              <h3 class="heading-2">Gallery</h3>
+              {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> --}}
+              <div class="row filter-portfolio">
+                @foreach ($singleProp->images as $image)
+                  <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="portfolio-item">
+                      <a href="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                        title="{{ $singleProp->title }}">
+                        <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}" alt="gallery-photo"
+                          class="img-fluid">
+                      </a>
+                      <div class="portfolio-content">
+                        <div class="portfolio-content-inner">
+                          <span><i class="fa fa-search"></i></span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              @endforeach
+                @endforeach
+              </div>
             </div>
+            <!-- Photo gallery end -->
           </div>
-
           <!-- Contact 2 start -->
-          <div class="contact-2 ca mtb-50">
+          <div class="contact-2 ca mtb-50 container">
             <h3 class="heading">Interested in this Property?</h3>
-            <form method="POST" action="{{ route("insert.request", $singleProp->id) }}" id="request_callback_form">
+            <form class="needs-validation" novalidate method="POST"
+              action="{{ route("insert.request", $singleProp->id) }}" id="request_callback_form">
               @csrf
               <div class="row">
                 <div class="d-none">
@@ -147,30 +145,41 @@
                     value="{{ auth()->check() ? Auth::user()->id : null }}">
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group name">
-                    <input type="text" name="name" value="{{ auth()->check() ? auth()->user()->name : "" }}"
-                      class="form-control" placeholder="Name" aria-label="Full Name">
-                    @error("name")
+                  <div class="form-group name has-validation">
+                    <input required type="text" name="name"
+                      value="{{ auth()->check() ? auth()->user()->name : "" }}" class="form-control" placeholder="Name"
+                      aria-label="Full Name">
+                    <div class="invalid-feedback">
+                      Please provide your name.
+                    </div>
+                    {{-- @error("name")
                       <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                    @enderror
+                    @enderror --}}
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group email">
-                    <input type="email" name="email" value="{{ auth()->check() ? auth()->user()->email : "" }}"
-                      class="form-control" placeholder="Email Address" aria-label="Email Address">
-                    @error("email")
+                  <div class="form-group email has-validation">
+                    <input required type="email" name="email"
+                      value="{{ auth()->check() ? auth()->user()->email : "" }}" class="form-control"
+                      placeholder="Email Address" aria-label="Email Address">
+                    <div class="invalid-feedback">
+                      Please provide a valid email.
+                    </div>
+                    {{-- @error("email")
                       <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                    @enderror
+                    @enderror --}}
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group number">
-                    <input type="text" name="phone" class="form-control" placeholder="Phone"
+                  <div class="form-group number has-validation">
+                    <input required type="text" name="phone" class="form-control" placeholder="Phone"
                       value="{{ auth()->check() ? auth()->user()->phone : "" }}">
-                    @error("phone")
+                    <div class="invalid-feedback">
+                      Please provide a phone number.
+                    </div>
+                    {{-- @error("phone")
                       <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                    @enderror
+                    @enderror --}}
 
                   </div>
                 </div>
@@ -190,14 +199,7 @@
               </div>
             </form>
           </div>
-          <!-- Photo gallery end -->
           <br>
-          {{-- <div class="location mb-50">
-            <div class="map">
-              <h3 class="heading-2">Property Location</h3>
-              <div id="map" class="contact-map"></div>
-            </div>
-          </div> --}}
 
           <!-- Video start -->
           {{-- <div class="video mb-50">
@@ -207,10 +209,11 @@
             <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
           </div> --}}
           <br>
+
           <!--Related Property -->
-          <div class="similar-property mb-20 bg-gray">
+          <div class="similar-property mb-20 bg-gray container">
             <h3 class="heading-2">Similar Properties</h3>
-            <div class="container">
+            <div class="">
               @if ($relatedProps->count() > 0)
                 <div class="slick-slider-area">
                   <div class="row slick-carousel"
@@ -353,7 +356,7 @@
 @endsection
 
 @push("scripts")
-  <script>
+  {{-- <script>
     $(document).ready(function() {
       $('#request_callback_form').submit(function(e) {
         e.preventDefault(); // Prevent the default form submission behavior
@@ -398,6 +401,68 @@
         toast.show();
       }
     });
+  </script> --}}
+  <script>
+    (function() {
+      'use strict';
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation');
+
+      // Loop over them and prevent submission if there are invalid fields
+      Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+          form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+              form.classList.add('was-validated');
+            } else {
+              event.preventDefault(); // Prevent the default form submission behavior
+
+              // Serialize the form data
+              var formData = $(form).serialize();
+
+              // Submit the form via AJAX
+              $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                  // Handle successful response
+                  if (response.error) {
+                    showToast('Request already submitted for this property.', 'bg-danger');
+                  } else {
+                    // Reset the form
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    showToast('Success: Request submitted successfully.', 'bg-success');
+                  }
+                },
+                error: function(xhr, status, error) {
+                  // Handle error response
+                  showToast('Error: Something went wrong.', 'bg-danger');
+                }
+              });
+            }
+          }, false);
+        });
+    })();
+
+    function showToast(message, bgClass) {
+      // Remove hidden class
+      $('#toast-div').removeClass('d-none');
+
+      // Update the toast body content
+      $('#liveToast .toast-body').text(message);
+
+      // Update the background class
+      $('#liveToast').removeClass('bg-success bg-danger').addClass(bgClass);
+
+      // Show the toast
+      var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+      toast.show();
+    }
   </script>
 
   <script>

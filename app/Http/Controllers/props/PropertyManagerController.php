@@ -125,7 +125,7 @@ class PropertyManagerController extends Controller
     $propImages = PropImage::where('prop_id', $prop->id)->get();
 
     // Pass the property and its images to the view
-    return view('partials.edit', compact('prop', 'propImages'));
+    return view('partials.edit-property', compact('prop', 'propImages'));
   }
 
 

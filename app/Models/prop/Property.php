@@ -47,6 +47,11 @@ class Property extends Model
 	{
 		return $this->hasMany(PropImage::class, 'prop_id');
 	}
+	// Define relationship with Requests
+	public function clientRequests()
+	{
+		return $this->hasMany(AgentRequest::class, 'prop_id');
+	}
 
 	//Relationship with User
 	public function user()

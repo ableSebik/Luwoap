@@ -132,7 +132,6 @@
     <script src="{{ asset("assets/js/jquery.min.js") }}"></script>
     <script src="{{ asset("assets/js/bootstrap-submenu.js") }}"></script>
     <script src="{{ asset("assets/js/rangeslider.js") }}"></script>
-    <script src="{{ asset("assets/js/jquery.mb.YTPlayer.js") }}"></script>
     <script src="{{ asset("assets/js/bootstrap-select.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.easing.1.3.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.scrollUp.js") }}"></script>
@@ -140,7 +139,6 @@
     <script src="{{ asset("assets/js/leaflet.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet-providers.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet.markercluster.js") }}"></script>
-    <script src="{{ asset("assets/js/dropzone.js") }}"></script>
     <script src="{{ asset("assets/js/slick.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.magnific-popup.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.countdown.js") }}"></script>
@@ -156,27 +154,32 @@
     <script>
       // Wait for the document to fully load
       document.addEventListener('DOMContentLoaded', function() {
-        // Get a reference to the logout button
-        var logoutBtn = document.getElementById('logoutBtn');
 
-        // Get a reference to the logout form
-        var logoutForm = document.getElementById('logoutForm');
+        if ($(document).find('#logoutBtn').length > 0) {
+          // Get a reference to the logout button
+          var logoutBtn = document.getElementById('logoutBtn');
 
-        // Add a click event listener to the logout button
-        logoutBtn.addEventListener('click', function(event) {
-          // Prevent the default form submission behavior
-          event.preventDefault();
+          // Get a reference to the logout form
+          var logoutForm = document.getElementById('logoutForm');
 
-          // Submit the logout form
-          logoutForm.submit();
-        });
+          // Add a click event listener to the logout button
+          logoutBtn.addEventListener('click', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Submit the logout form
+            logoutForm.submit();
+          });
+        }
       });
     </script>
     <!-- JavaScript to show the toast -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var liveToast = new bootstrap.Toast(document.getElementById('liveToast'));
-        liveToast.show();
+        if ($(document).find('#liveToast').length > 0) {
+          var liveToast = new bootstrap.Toast(document.getElementById('liveToast'));
+          liveToast.show();
+        }
       });
     </script>
 

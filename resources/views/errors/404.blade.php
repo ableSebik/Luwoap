@@ -13,7 +13,7 @@
         <div class="col-xl-6 col-lg-6 col-md-12">
           <div class="nobottomborder">
             <h1>Ooops, This Page Could Not Be Found!</h1>
-            <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+            <p>The page you are looking for might have been removed, or is temporarily unavailable.
             </p>
             <div class="row">
               <div class="col-xl-9 col-lg-10 col-md-8 col-sm-10 col-xs-10">
@@ -24,7 +24,8 @@
                     <button class="btn btn-color" type="submit">Search</button>
                   </form>
                 </div>
-                <h5>Click here to go back <a class="text-danger" href="/">home.</a></h5>
+                <h5>Click <a href="{{ url()->previous() ?? "/" }}" class="text-primary">here</a> to go back.
+                </h5>
               </div>
             </div>
           </div>

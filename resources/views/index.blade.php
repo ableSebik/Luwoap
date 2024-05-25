@@ -25,15 +25,13 @@
               <form action="{{ route("search") }}" method="get">
                 @csrf
                 <div class="inline-search-area isa-5 isa-992 clearfix">
-
                   <div class="row">
                     <div class="col-md-9 col-lg-9 col-sm-12">
                       <input required class="form-control search-fields sf" name="query"
                         placeholder="What are you looking for?">
                     </div>
-
                     <div class="col-md-3 col-lg-3 col-sm-12">
-                      <button class="btn button-theme btn-search w-100 mb-0">
+                      <button class="btn-5 button-theme btn-search w-100">
                         <strong>Search</strong>
                       </button>
                     </div>
@@ -46,6 +44,7 @@
       </div>
     </div>
   </div>
+
   <!-- Banner end -->
 
   <!-- Property Type listing -->
@@ -115,16 +114,22 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
           <div class="row">
-            @foreach ($props as $prop)
+            @forelse ($props as $prop)
               <div class="col-lg-4 col-md-6 col-sm-12">
                 <x-property-box :prop="$prop" />
               </div>
-            @endforeach
+            @empty
+              <div class="col-lg-4 col-md-6 col-sm-12">
+                <p class="alert alert-danger">No Properties.
+                </p>
+              </div>
+            @endforelse
           </div>
-          <a href="/all-properties" class="btn-4 none-btn-992">More Properties <i
-              class="fa fa-angle-double-right"></i></a>
         </div>
       </div>
+
+      <a href="/all-properties" class="btn-5 none-btn-992 my-5">More Properties <i
+          class="fa fa-angle-double-right"></i></a>
     </div>
   </div>
   {{-- End Property listings --}}
@@ -273,10 +278,10 @@
           <div class="col-lg-4 col-md-4">
             <div class="blog-2">
               <div class="blog-image">
-                <img src="{{ asset("storage/Posts/" . $recentBlogPost->post_ft_image) }}"
+                <img src="{{ asset("storage/posts/" . $recentBlogPost->post_ft_image) }}"
                   alt="{{ $recentBlogPost->post_title }}" class="img-fluid bp">
                 <div class="date-box">
-                  <span>{{ $recentPostsData["post_day"] }}</span>{{ $recentPostsData["post_month"] }}
+                  <span>{{ $recentBlogPost->post_day }}</span>{{ $recentBlogPost->post_month }}
                 </div>
 
               </div>

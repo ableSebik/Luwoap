@@ -5,7 +5,16 @@
     <div class="dashboard-list">
       <h4 class="bg-grea-3">My Properties List</h4>
       <div class="row pad-20">
-        @if (!empty($props))
+        @if ($props->isEmpty())
+          <div class="container">
+            <h6>No Properties.
+              <a href="/submit-property" type="button" class="btn-theme pull-right rounded">
+                <i class="lnr lnr-plus-circle"></i>
+                Upload Property
+              </a>
+            </h6>
+          </div>
+        @else
           <table class="manage-table">
             <tbody class="responsive-table">
               @foreach ($props as $prop)
@@ -20,65 +29,75 @@
                     <h6 class="table-property-price">
                       {{ $prop->currency }} {{ $prop->price }}
                       @php
-                        $offertype = false;
-                        if ($prop->offer_type == "Rent" || $prop->offer_type == "Lease") {
-                            $offertype = true;
-                        }
+                        $offertype = in_array($prop->offer_type, ["Rent", "Lease"]);
                       @endphp
                       {{ $offertype ? "/month" : "" }}
                     </h6>
                   </td>
                   <td class="expire-date"></td>
                   <td class="action">
-                    <a href="/property/{{ $prop->id }}/edit"><i class="fa fa-pencil"></i> Edit</a>
-                    {{-- <a href="#"><i class="fa  fa-eye-slash"></i> Hide</a> --}}
-                    <a type="button" data-bs-toggle="modal" data-bs-target="#confirmPropDelModal"><i
-                        class="fa fa-remove"></i>
-                      Delete</a>
+                    <ul>
+                      <li><a href="/property/{{ $prop->id }}/edit"><i class="fa fa-pencil"></i> Edit</a></li>
+                      <li>
+                        <a href="javascript(void)" class="delete-btn" data-id="{{ $prop->id }}" data-bs-toggle="modal"
+                          data-bs-target="#confirmPropDelModal"><i class="fa fa-remove"></i>
+                          Delete
+                        </a>
+                      </li>
+                      {{-- <li><a href="#"><i class="fa  fa-eye-slash"></i> Hide</a></li> --}}
+                    </ul>
+
                   </td>
                 </tr>
               @endforeach
             </tbody>
           </table>
-        @else
-          <br>
-          <div class="container">
-            <h5>No Properties.
-              <a href="/submit-property" type="button" class="btn btn-theme">
-                <i class="fa fa-plus"></i>
-                Upload Propery
-              </a>
-            </h5>
-          </div>
         @endif
       </div>
     </div>
   </div>
-@endsection
 
-{{-- modal Prompt to confirm delete Property --}}
-<div class="modal fade" id="confirmPropDelModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="/property/{{ $prop->id }}" method="POST" class="form">
-          @csrf
-          @method("DELETE")
-          <p> Are you sure you want to permanently delete this property and its related data?
-            <br><span class="text-danger">This action is not reversible.</span>
-          </p>
+  {{-- Modal Prompt to confirm delete Property --}}
+  <div class="modal fade" id="confirmPropDelModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+          <span data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></span>
+        </div>
+        <div class="modal-body">
+          <form id="deleteForm" method="POST" class="form">
+            @csrf
+            @method("DELETE")
+            <p> Are you sure you want to permanently delete this property and its related data?
+              <br><span class="text-danger">This action is not reversible.</span>
+            </p>
 
-          <br>
-          <button class="btn btn-danger delete" type="submit">
-            <i class="fa fa-trash"></i> Delete Property
-          </button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </form>
+            <br>
+            <button class="btn btn-danger delete" type="submit">
+              <i class="fa fa-trash"></i> Delete Property
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+@endsection
+
+@push("scripts")
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const deleteButtons = document.querySelectorAll('.delete-btn');
+      const deleteForm = document.getElementById('deleteForm');
+
+      deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const propertyId = this.dataset.id;
+          deleteForm.action = `/property/${propertyId}`;
+        });
+      });
+    });
+  </script>
+@endpush

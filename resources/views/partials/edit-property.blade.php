@@ -13,6 +13,7 @@
       <form method="POST" action="{{ route("update.prop", $prop->id) }}" enctype="multipart/form-data">
         @csrf
         @method("put")
+
         <h4 class="bg-grea-3">Basic Information</h4>
         <div class="search-contents-sidebar">
           <div class="row pad-20">

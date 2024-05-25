@@ -56,15 +56,15 @@ class AppServiceProvider extends ServiceProvider
 			];
 		}
 
-		// Get data for the most recent post
-		$mostRecentPost = $recentBlogPosts->first();
-		$post_month = $mostRecentPost->created_at->format('M');
-		$post_day = $mostRecentPost->created_at->format('d');
+		// Add post month, day, and year to each blog post
+		foreach ($recentBlogPosts as $blogPost) {
+			$blogPost->post_month = $blogPost->created_at->format('M');
+			$blogPost->post_year = $blogPost->created_at->format('y');
+			$blogPost->post_day = $blogPost->created_at->format('d');
+		}
 
 		return [
 			'blogPosts' => $recentBlogPosts,
-			'post_month' => $post_month,
-			'post_day' => $post_day,
 		];
 	}
 }

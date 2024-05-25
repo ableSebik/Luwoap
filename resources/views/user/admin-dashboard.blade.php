@@ -25,7 +25,7 @@
 
     @stack("header")
 
-    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/admin/slick.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/slick.css") }}">
 
     <!-- Custom stylesheet -->
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/admin/style.css") }}">
@@ -42,8 +42,12 @@
 
     <script src="https://cdn.tiny.cloud/1/yrqv9l2ukvxz17q6fnqs5bgfm1vzbtogf8s8e5yrwaqpwy29/tinymce/7/tinymce.min.js"
       referrerpolicy="origin"></script>
-    @stack("header")
-    @vite(["resources/css/app.css", "resources/js/app.js"])
+
+    <style>
+      a {
+        text-decoration: none;
+      }
+    </style>
   </head>
 
   <body>
@@ -61,8 +65,7 @@
     <!-- Main header end -->
     <br>
     <br>
-    <br>
-    <br>
+
     <!-- Dashbord start -->
     <div class="dashboard content-area-16">
       <div class="container">
@@ -81,34 +84,56 @@
                 </div>
               </div>
               <div class="detail">
-                <ul>
-                  @if (auth()->check() ? Auth::user()->role : "admin")
-                    <li><a href="incoming-requests"><i class="flaticon-mail"></i> Requests </a>
+                @if (Auth::user()->role == "admin")
+                  <h4>Incoming</h4>
+                  <ul>
+                    <li><a href="/incoming-requests"><i class="lnr lnr-envelope"></i> Requests </a>
                     </li>
-                    <li><a href="/bookings"><i class="flaticon-calendar"></i> Bookings</a></li>
+                    <li><a href="/bookings"><i class="lnr lnr-calendar-full"></i> Bookings</a></li>
+                  </ul>
+                @endif
+                <h4>Listings</h4>
+                <ul>
+                  <li><a href="#"><i class="lnr lnr-heart"></i>Favorite Properties</a></li>
+                  @if (Auth::user()->role == "admin")
                     <li>
-                      <a href="/manage-properties"><i class="flaticon-empire-state-building"></i>My
+                      <a href="/manage-properties"><i class="lnr lnr-home"></i>My
                         Properties</a>
                     </li>
-                    <li><a href="#"><i class="flaticon-heart"></i>Favorite Properties</a></li>
-                    <li><a href="/submit-property"><i class="flaticon-plus"></i>Submit Property</a></li>
-                    <li><a href="/create-post"><i class="fa fa-newspaper-o"></i>Create Post</a></li>
+                    <li><a href="/submit-property"><i class="lnr lnr-plus-circle"></i>Submit Property</a></li>
                   @endif
-
-                  <li><a href="/user-profile"><i class="flaticon-male"></i>My Profile</a></li>
-                  <li><a id="logoutBtn">Logout </a></li>
+                </ul>
+                @if (Auth::user()->role == "admin")
+                  <h4>Posts</h4>
+                  <ul>
+                    <li><a href="/create-post"><i class="lnr lnr-file-add"></i>Create Post</a></li>
+                    <li><a href="/all-posts"><i class="lnr lnr-layers"></i>My Posts</a></li>
+                  </ul>
+                @endif
+                <ul class="pb-3">
+                  <h4>Account</h4>
+                  <li><a href="/user-profile"><i class="lnr lnr-user"></i>My Profile</a></li>
+                  <li><a href="#" id="logoutBtn"><i class="lnr lnr-exit"></i> Logout </a></li>
                 </ul>
               </div>
             </div>
           </div>
           <div id="main-content-container" class="col-lg-8 col-md-12 col-sm-12">
-            {{-- <div class="page_loader_local"></div> --}}
             @yield("content")
           </div>
         </div>
       </div>
     </div>
     <!-- Dashbord end -->
+
+    <!-- logout form -->
+    <div class="d-none">
+      <form method="POST" action="{{ route("logout") }}" id="logoutForm">
+        @csrf
+        <a href="route('logout')" onclick="event.preventDefault();this.closest('form').submit();"><i
+            class="flaticon-logout"></i> Logout</a>
+      </form>
+    </div>
 
     @php
       $bg = "";
@@ -122,8 +147,9 @@
           $bg = "bg-info";
       }
     @endphp
+
     @if (\Session::has("success") || \Session::has("error"))
-      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 999999999999">
+      <div class="position-fixed p-3" style="bottom: 15%; right: 0; z-index: 999999">
         <div class="toast align-items-center text-white border-0 {{ $bg }}" role="alert"
           aria-live="assertive" aria-atomic="true" id="liveToast">
           <div class="d-flex">
@@ -147,7 +173,6 @@
     <script src="{{ asset("assets/js/jquery.min.js") }}"></script>
     <script src="{{ asset("assets/js/bootstrap-submenu.js") }}"></script>
     <script src="{{ asset("assets/js/rangeslider.js") }}"></script>
-    <script src="{{ asset("assets/js/jquery.mb.YTPlayer.js") }}"></script>
     <script src="{{ asset("assets/js/bootstrap-select.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.easing.1.3.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.scrollUp.js") }}"></script>
@@ -162,6 +187,8 @@
     <script src="{{ asset("assets/js/boxes-component.js") }}"></script>
     <script src="{{ asset("assets/js/boxes-core.js") }}"></script>
     <script src="{{ asset("assets/js/app.js") }}"></script>
+
+    @stack("scripts")
 
     <script>
       tinymce.init({
@@ -180,11 +207,34 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        var liveToast = new bootstrap.Toast(document.getElementById('liveToast'));
-        liveToast.show();
+        if ($(document).find('#liveToast').length > 0) {
+          var liveToast = new bootstrap.Toast(document.getElementById('liveToast'));
+          liveToast.show();
+        }
       });
     </script>
 
-    @stack("scripts")
+    <script>
+      // Wait for the document to fully load
+      document.addEventListener('DOMContentLoaded', function() {
+
+        if ($(document).find('#logoutBtn').length > 0) {
+          // Get a reference to the logout button
+          var logoutBtn = document.getElementById('logoutBtn');
+
+          // Get a reference to the logout form
+          var logoutForm = document.getElementById('logoutForm');
+
+          // Add a click event listener to the logout button
+          logoutBtn.addEventListener('click', function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Submit the logout form
+            logoutForm.submit();
+          });
+        }
+      });
+    </script>
 
 </html>

@@ -12,11 +12,11 @@ class PostCard extends Component
     public $postDay;
     public $postMonth;
 
-    public function __construct($blogPost, $postDay, $postMonth)
+    public function __construct($blogPost)
     {
         $this->blogPost = $blogPost;
-        $this->postDay = $postDay;
-        $this->postMonth = $postMonth;
+        // $this->postDay = $postDay;
+        // $this->postMonth = $postMonth;
     }
 
     /**

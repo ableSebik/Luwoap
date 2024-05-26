@@ -63,7 +63,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
-          <span data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></span>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form id="deleteForm" method="POST" class="form">

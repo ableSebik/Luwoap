@@ -55,8 +55,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Request Details</h5>
-          {{-- <span data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></span> --}}
-          <button data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="card mb-4">
@@ -93,7 +92,7 @@
               <hr>
               <div class="row">
                 <div class="col-md-6">
-                  <p><a id="modalViewProperty" target="_blank" href="#">View Property</a></p>
+                  <p><a id="modalViewProperty" class="text-primary" target="_blank" href="#">View Property</a></p>
                 </div>
                 <div class="col-md-6">
                   <p id="modalTimeSince"></p>
@@ -132,7 +131,7 @@
       modal.find('#modalClientEmail').text(email);
       modal.find('#modalClientStatus').text(status);
       modal.find('#modalClientMessage').text(message);
-      modal.find('#modalViewProperty').attr('href', '/property/' + propId);
+      modal.find('#modalViewProperty').attr('href', '/props/prop-details/' + propId);
       if (hrSince < 24) {
         modal.find('#modalTimeSince').text(hrSince + ' hrs ago.');
       } else if (daysSince <= 3) {

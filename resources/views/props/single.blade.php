@@ -147,8 +147,8 @@
                 <div class="col-md-6">
                   <div class="form-group name has-validation">
                     <input required type="text" name="name"
-                      value="{{ auth()->check() ? auth()->user()->name : "" }}" class="form-control" placeholder="Name"
-                      aria-label="Full Name">
+                      value="{{ auth()->check() ? auth()->user()->name : "" }}" class="form-control text-capitalize"
+                      placeholder="Name" aria-label="Full Name">
                     <div class="invalid-feedback">
                       Please provide your name.
                     </div>
@@ -356,52 +356,6 @@
 @endsection
 
 @push("scripts")
-  {{-- <script>
-    $(document).ready(function() {
-      $('#request_callback_form').submit(function(e) {
-        e.preventDefault(); // Prevent the default form submission behavior
-
-        // Serialize the form data
-        var formData = $(this).serialize();
-
-        // Submit the form via AJAX
-        $.ajax({
-          url: $(this).attr('action'),
-          type: 'POST',
-          data: formData,
-          success: function(response) {
-            // Handle successful response
-            if (response.error) {
-              showToast('Request already submitted for this property.', 'bg-danger');
-            } else {
-              // Reset the form
-              $('#request_callback_form')[0].reset();
-              showToast('Success: Request submitted successfully.', 'bg-success');
-            }
-          },
-          error: function(xhr, status, error) {
-            // Handle error response
-            showToast('Error: Something went wrong.', 'bg-danger');
-          }
-        });
-      });
-
-      function showToast(message, bgClass) {
-        //remove hidden class
-        $('#toast-div').removeClass('d-none');
-
-        // Update the toast body content
-        $('#liveToast .toast-body').text(message);
-
-        // Update the background class
-        $('#liveToast').removeClass('bg-success bg-danger').addClass(bgClass);
-
-        // Show the toast
-        var toast = new bootstrap.Toast(document.getElementById('liveToast'));
-        toast.show();
-      }
-    });
-  </script> --}}
   <script>
     (function() {
       'use strict';

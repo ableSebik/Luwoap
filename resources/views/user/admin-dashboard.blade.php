@@ -9,7 +9,7 @@
     <title>{{ config("app.name", "Laravel") }}</title>
 
     <!-- External CSS libraries -->
-    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/admin/bootstrap.min.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/bootstrap.min.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/admin/animate.min.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/admin/bootstrap-submenu.css") }}">
 

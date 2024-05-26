@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Mail\ClientEnquiryMail;
 use App\Models\prop\AgentRequest;
 use Illuminate\Support\Facades\Mail;
 
 class RequestController extends Controller
 {
+
   //Insert a Client Request
   public function insertRequests(Request $request)
   {
@@ -33,6 +35,12 @@ class RequestController extends Controller
     } else {
       // Create a new AgentRequest instance
       AgentRequest::create($validatedData);
+
+      $clientName = $validatedData['name'];
+      $prop_id = $validatedData['prop_id'];
+      // Send a confirmation email
+      Mail::to($validatedData['email'])->send(new ClientEnquiryMail($clientName, $prop_id));
+
 
       return response()->json(['success' => true]);
     }

@@ -47,7 +47,7 @@
         <h4 class="bg-grea-3">Content</h4>
         <div class="row pad-20">
           <div class="col-lg-12">
-            <textarea class="input-text" name="post_content" id="post_content" placeholder="Detailed Information">{{ $blog->post_content }}</textarea>
+            <textarea class="input-text" name="post_content" id="update_post_content" placeholder="Detailed Information">{{ $blog->post_content }}</textarea>
             @error("post_content")
               <p class="text-danger">{{ $message }}</p>
             @enderror

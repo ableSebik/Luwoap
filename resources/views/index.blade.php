@@ -17,8 +17,8 @@
           <div class="carousel-content container">
             <div class="text-center bi-3">
               <div class="clearfix">
-                <h3>FIND YOUR PERFECT HOME</h3>
-                <p>Ghana's No.1 Real Estate Portal</p>
+                <h3>Welcome to Your New Home</h3>
+                <p>Discover a wide range of properties that fit your lifestyle and budget.</p>
               </div>
               <div class="clearfix"></div>
               {{-- search bar --}}
@@ -296,7 +296,7 @@
           </div>
         @endforeach
       </div>
-      <a href="/blog" class="btn-4 none-btn-992">More Blogs <i class="fa fa-angle-double-right"></i></a>
+      <a href="/blog" class="btn-5 none-btn-992">Visit Our Blogs <i class="fa fa-angle-double-right"></i></a>
     </div>
   </div>
   <!-- Blog end -->

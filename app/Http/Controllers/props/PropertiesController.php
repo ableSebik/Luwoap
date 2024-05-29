@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\prop\Property;
 use App\Models\prop\SaveProp;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Auth;
 
 class PropertiesController extends Controller
 {
+
+  protected $ratingController;
+  public function __construct(RatingController $ratingController)
+  {
+    $this->ratingController = $ratingController;
+  }
+
   public function index()
   {
     // Retrieve paginated properties with their associated image count
@@ -73,7 +81,7 @@ class PropertiesController extends Controller
   {
 
     // Retrieve the property details with owner details and property images loaded
-    $singleProp = Property::with(['user', 'images'])->find($id);
+    $singleProp = Property::with(['user', 'images', 'ratings'])->findOrFail($id);
 
     if (!$singleProp) {
       // Handle the case where the property is not found
@@ -87,6 +95,10 @@ class PropertiesController extends Controller
       ->orderBy('created_at', 'desc')
       ->take(4)
       ->get();
+
+
+
+
 
     return view('props.single', compact('singleProp', 'relatedProps'));
   }
@@ -221,42 +233,42 @@ class PropertiesController extends Controller
     return view('props/prop-category', compact('props', 'daysSinceCreation', 'totalItems', 'firstItem', 'lastItem'));
   }
 
-  // //Search Bar
-  // public function searchBar(Request $request)
-  // {
-  //   // Get the search parameters from the request
-  //   $offerType = $request->input('offer_type');
-  //   $category = $request->input('category');
-  //   $bed = $request->input('bed');
-  //   $bath = $request->input('bath');
+  //Search Bar
+  public function searchBar(Request $request)
+  {
+    // Get the search parameters from the request
+    $offerType = $request->input('offer_type');
+    $category = $request->input('category');
+    $bed = $request->input('bed');
+    $bath = $request->input('bath');
 
-  //   // Query properties based on the search parameters
-  //   $properties = Property::query();
+    // Query properties based on the search parameters
+    $properties = Property::query();
 
-  //   // Filter by offer type
-  //   if ($offerType) {
-  //     $properties->where('offer_type', $offerType);
-  //   }
+    // Filter by offer type
+    if ($offerType) {
+      $properties->where('offer_type', $offerType);
+    }
 
-  //   // Filter by category
-  //   if ($category) {
-  //     $properties->where('category', $category);
-  //   }
+    // Filter by category
+    if ($category) {
+      $properties->where('category', $category);
+    }
 
-  //   // Filter by number of bedrooms
-  //   if ($bed) {
-  //     $properties->where('bed', $bed);
-  //   }
+    // Filter by number of bedrooms
+    if ($bed) {
+      $properties->where('bed', $bed);
+    }
 
-  //   // Filter by number of bathrooms
-  //   if ($bath) {
-  //     $properties->where('bath', $bath);
-  //   }
+    // Filter by number of bathrooms
+    if ($bath) {
+      $properties->where('bath', $bath);
+    }
 
-  //   // Get the filtered properties
-  //   $filteredProperties = $properties->paginate(9);
-  //   // dd($filteredProperties);
-  //   // You can pass the filtered properties to a view to display the results
-  //   return view('props/search_results', compact('filteredProperties'));
-  // }
+    // Get the filtered properties
+    $filteredProperties = $properties->paginate(9);
+    // dd($filteredProperties);
+    // You can pass the filtered properties to a view to display the results
+    return view('props/search_results', compact('filteredProperties'));
+  }
 }

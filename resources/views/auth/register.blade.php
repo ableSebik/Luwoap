@@ -34,8 +34,8 @@
                 @csrf
 
                 <div class="form-group form-box">
-                  <input type="text" name="name" class="form-control" value="{{ old("name") }}" placeholder="Name"
-                    aria-label="Name">
+                  <input type="text" name="name" class="form-control text-capitalize" value="{{ old("name") }}"
+                    placeholder="Name" aria-label="Name">
                   @error("name")
                     <p class="text-danger pull-left mb-3">{{ $message }}</p>
                   @enderror
@@ -64,7 +64,7 @@
                   @enderror
                 </div>
                 <div class="form-group form-box">
-                  <input type="password" name="password_confirmation" class="form-control" autocomplete="off"
+                  <input type="password" required name="password_confirmation" class="form-control" autocomplete="off"
                     placeholder="Confirm Password" aria-label="Confirm Password">
                   @error("password_confirmation")
                     <p class="text-danger pull-left mb-3">{{ $message }}</p>

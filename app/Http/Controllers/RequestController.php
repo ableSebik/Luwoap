@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Mail\ClientEnquiryMail;
 use App\Models\prop\AgentRequest;
@@ -20,10 +21,13 @@ class RequestController extends Controller
       'name' => 'required|string|max:255',
       'phone' => 'required|string|max:20',
       'email' => 'required|email|max:255',
-      'message' => 'nullable|string', // Optional message field
+      'message' => 'nullable|string|max:1000', // Optional message field
     ]);
 
     $validatedData['status'] = 'new';
+
+
+
 
     // Check if the combination of prop_id and phone already exists
     $requestExists = AgentRequest::where('prop_id', $request->prop_id)
@@ -31,20 +35,27 @@ class RequestController extends Controller
       ->exists();
 
     if ($requestExists) {
+      // If the request already exists, return an error response
       return response()->json(['error' => true]);
     } else {
       // Create a new AgentRequest instance
       AgentRequest::create($validatedData);
 
-      $clientName = $validatedData['name'];
-      $prop_id = $validatedData['prop_id'];
+      try {
+        Mail::to('fakulti47@gmail.com')->send(new ClientEnquiryMail('Abel Sebik', '1'));
+        return response()->json(['success' => true]);
+      } catch (\Exception $e) {
+        //log error
+        Log::error('Email sending failed:' . $e->getMessage());
+        return response()->json(['error' => 'Email sending failed.']);
+      }
       // Send a confirmation email
-      Mail::to($validatedData['email'])->send(new ClientEnquiryMail($clientName, $prop_id));
+      // Mail::to($validatedData['email'])->send(new ClientEnquiryMail($validatedData['name'], $validatedData['prop_id']));
 
-
-      return response()->json(['success' => true]);
+      // Return a success response
     }
   }
+
 
 
   // Display all Requests

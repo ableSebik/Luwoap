@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\props\PropertyManagerController;
-use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,12 +77,14 @@ Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('sub
 Route::post('props/save-props/{id}', [App\Http\Controllers\props\PropertiesController::class, 'saveProps'])->name('save.prop');
 
 
+
 //********** Auth Role="null" (non-admin) **********//
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/user-profile', function () {
         return view('partials.profile');
     });
+    Route::post('/ratings', [RatingController::class, 'addRatings']);
 });
 //********** End **********//
 

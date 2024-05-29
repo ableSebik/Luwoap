@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->string('message')->nullable();
-            $table->enum('status', ['new', 'seen']);
+            $table->text('message')->nullable();
+            $table->enum('status', ['new', 'seen', 'archive']);
             $table->timestamps();
         });
     }

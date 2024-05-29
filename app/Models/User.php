@@ -52,4 +52,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Property::class, 'user_id');
     }
+
+    // Relationship with Ratings
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

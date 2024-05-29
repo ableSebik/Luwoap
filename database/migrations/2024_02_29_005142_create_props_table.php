@@ -31,11 +31,6 @@ return new class extends Migration
 			// // Define the foreign key constraint
 			// $table->foreign('agent_id')->references('id')->on('agents');
 		});
-
-		Schema::table('props', function (Blueprint $table) {
-			// Add indexes for frequently queried columns
-			$table->index(['title', 'price', 'category', 'location', 'user_id']); // Include agent_id in the index
-		});
 	}
 
 

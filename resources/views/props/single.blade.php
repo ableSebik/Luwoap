@@ -1,8 +1,25 @@
 @extends("layouts.app")
 
 @push("header")
-  <script src="https://cdn.tiny.cloud/1/yrqv9l2ukvxz17q6fnqs5bgfm1vzbtogf8s8e5yrwaqpwy29/tinymce/7/tinymce.min.js"
-    referrerpolicy="origin"></script>
+  <style>
+    .half-star {
+      position: relative;
+      display: inline-block;
+    }
+
+    .half-star .fa-star,
+    .half-star .fa-star-o {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .half-star .fa-star-half {
+      width: 50%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  </style>
 @endpush
 
 @section("content")
@@ -29,8 +46,13 @@
         <div class="col-lg-12">
           <div class="heading-properties-2 mb-40">
             <div class="clearfix">
-              <div class="pull-left">
-                <h1>{{ $singleProp->title }}</h1>
+              <div class="pull-left d-flex" style="align-items: center;">
+                <h1 style="margin: auto;">{{ $singleProp->title }} </h1>
+                @if ($singleProp->offer_type != "For Sale")
+                  <div class="ratings-2 mx-2">
+                    <span>{{ $singleProp->offer_type }}</span>
+                  </div>
+                @endif
               </div>
               <div class="pull-right">
                 <h1><span>{{ $singleProp->currency }} {{ $singleProp->price }}</span></h1>
@@ -42,15 +64,40 @@
                   <li><i class="flaticon-bed"></i> Bedroom {{ $singleProp->bed }}</li>
                   <li><i class="flaticon-bathroom"></i> Bath {{ $singleProp->bath }}</li>
                   <li><i class="flaticon-area"></i> SQ.FT {{ $singleProp->sqm }}</li>
-                  {{-- <li><i class="flaticon-car"></i> Garage 1</li>
-                  <li><i class="flaticon-window"></i> Balcony 1</li> --}}
                 </ul>
               </div>
+
               <div class="pull-right">
                 <div class="ratings-2">
-                  <span>{{ $singleProp->offer_type }}</span>
+                  @if ($singleProp->offer_type != "For Sale")
+
+                    @php
+                      $ratingAvg = $singleProp->ratings->avg("rating_val");
+                      $fullStars = intval($ratingAvg);
+                      $halfStar = $ratingAvg - $fullStars >= 0.5 ? true : false;
+                      $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+                    @endphp
+
+                    @if ($singleProp->ratings->count() >= 1)
+                      @for ($i = 0; $i < $fullStars; $i++)
+                        <i class="fa fa-star"></i>
+                      @endfor
+
+                      @if ($halfStar)
+                        <i class="fa half-star fa-star-half"></i>
+                      @endif
+
+                      @for ($i = 0; $i < $emptyStars; $i++)
+                        <i class="fa fa-star-o"></i>
+                      @endfor
+                      <span>( {{ $ratingAvg }}/5 )</span>
+                    @endif
+                  @else
+                    <span>{{ $singleProp->offer_type }}</span>
+                  @endif
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -78,9 +125,12 @@
             <div class="properties-description mb-40 container">
 
               <h3 class="heading">
-                Description
+                About This Listing
               </h3>
-              <p class="alert alert-danger">Property ID: {{ $singleProp->id }}</p>
+              <h5>
+                <button class="btn-6">Property ID: {{ $singleProp->id }}</button>
+
+              </h5>
 
               <p> {!! $singleProp->more_info !!}</p>
             </div>
@@ -162,6 +212,7 @@
                     <input required type="email" name="email"
                       value="{{ auth()->check() ? auth()->user()->email : "" }}" class="form-control"
                       placeholder="Email Address" aria-label="Email Address">
+
                     <div class="invalid-feedback">
                       Please provide a valid email.
                     </div>
@@ -185,7 +236,8 @@
                 </div>
                 <div class="col-md-12">
                   <div class="form-group message">
-                    <textarea class="form-control" name="message" placeholder="Write message" aria-label="Write message"></textarea>
+                    <textarea class="form-control" name="message" placeholder="Write message" aria-label="Write message"
+                      maxlength="9000"></textarea>
                     @error("message")
                       <p class="text-danger pull-left mb-4">{{ $message }}</p>
                     @enderror
@@ -290,6 +342,31 @@
                   @endif
                 </ul>
               </div>
+            </div>
+          </div>
+
+          <!-- Rate Property -->
+          <div class="sidebar-right rounded">
+            <div class="widget-3">
+              <h3 class="sidebar-title">Rate this Property</h3>
+              <div class="s-border"></div>
+              <div class="s-border"></div>
+
+              <div class="text text-start">
+                <div class="ratings-2 text-warning">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star-o"></i>
+                  <span>( {{ $singleProp->ratings->count() }} Reviews )</span>
+                </div>
+              </div>
+              <div class="social-media clearfix">
+                <div data-coreui-toggle="rating" data-coreui-tooltips="Very bad, Bad, Meh, Good, Very good"
+                  data-coreui-value="3" id="myRatingCustomIcons1"></div>
+              </div>
+
             </div>
           </div>
           <div class="sidebar-right rounded">
@@ -417,11 +494,5 @@
       var toast = new bootstrap.Toast(document.getElementById('liveToast'));
       toast.show();
     }
-  </script>
-
-  <script>
-    tinymce.init({
-      selector: 'textarea',
-    });
   </script>
 @endpush

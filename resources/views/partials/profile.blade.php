@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                   <div class="form-group email">
-                    <label>Your Title</label>
+                    <label>Role</label>
                     <input type="text" name="title" disabled value="{{ Auth::user()->role }}" class="form-control">
                   </div>
                 </div>
@@ -42,47 +42,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="dashboard-list">
-          <h3 class="heading">Change Password</h3>
-          <div class="dashboard-message contact-2">
-            <form action="" method="GET">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group name">
-                    <label>Current Password</label>
-                    <input type="password" name="current-password" class="form-control" placeholder="Current Password">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group email">
-                    <label>New Password</label>
-                    <input type="password" name="new-password" class="form-control" placeholder="New Password">
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group subject">
-                    <label>Confirm New Password</label>
-                    <input type="password" name="confirm-new-password" class="form-control"
-                      placeholder="Confirm New Password">
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="send-btn">
-                    <button type="submit" class="btn btn-md button-theme">Change
-                      Password</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 @endsection

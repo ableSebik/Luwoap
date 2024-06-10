@@ -57,8 +57,8 @@
     </div>
     <div class="properties-listing clearfix">
       <ul>
-        <li><i class="flaticon-bed"></i> {{ $prop->bed }} Beds</li>
-        <li><i class="flaticon-bathroom"></i> {{ $prop->bath }} Baths</li>
+        <li><i class="flaticon-bed"></i> {{ $prop->bed }} Bedroom(s)</li>
+        <li><i class="flaticon-bathroom"></i> {{ $prop->bath }} Washroom(s)</li>
         @if ($prop->sqm != null)
           <li><i class="flaticon-area"></i> {{ $prop->sqm }} sqm</li>
         @endif

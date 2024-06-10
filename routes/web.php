@@ -1,12 +1,20 @@
 <?php
 
+use Illuminate\Http\Request;
+use App\Mail\ClientEnquiryMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\props\PropertiesController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\props\PropertyManagerController;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,12 +55,13 @@ Route::get('props/category/airbnb', [App\Http\Controllers\props\PropertiesContro
 
 
 
-
 //********** Nav Pages **********//
 
 Route::get('/about', function () {
     return view('about');
 });
+
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 //Show all Posts
 Route::get('/all-properties', [App\Http\Controllers\props\PropertiesController::class, 'allProps'])->name('all-properties');
@@ -114,6 +123,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/incoming-requests', [RequestController::class, 'allRequests'])->name('all.requests');
 
     // Manage Incoming Client Request
+    Route::post('/requests/{id}/status', [RequestController::class, 'updateRequestStatus'])->name('requests.updateStatus');
 
     //Show Booking from page
     Route::get('/bookings', function () {
@@ -154,6 +164,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 //inserting  request for callback
 Route::post('props/prop-details/{id}', [RequestController::class, 'insertRequests'])->name('insert.request');
 
+
+
 //Saving property/bookmarking property
 Route::post('props/save-props/{id}', [App\Http\Controllers\props\PropertiesController::class, 'saveProps'])->name('save.prop');
 
@@ -163,6 +175,22 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Email verification routes
+Route::get('/verify-email', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 
 //show single property
 Route::get('props/prop-details/{id}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');

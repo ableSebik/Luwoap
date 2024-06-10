@@ -62,7 +62,7 @@
               <div class="pull-left">
                 <ul>
                   <li><i class="flaticon-bed"></i> Bedroom {{ $singleProp->bed }}</li>
-                  <li><i class="flaticon-bathroom"></i> Bath {{ $singleProp->bath }}</li>
+                  <li><i class="flaticon-bathroom"></i> Washroom {{ $singleProp->bath }}</li>
                   <li><i class="flaticon-area"></i> SQ.FT {{ $singleProp->sqm }}</li>
                 </ul>
               </div>
@@ -454,24 +454,31 @@
               // Serialize the form data
               var formData = $(form).serialize();
 
+              // Include CSRF token for Laravel
+              var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
               // Submit the form via AJAX
               $.ajax({
                 url: $(form).attr('action'),
                 type: 'POST',
                 data: formData,
+                headers: {
+                  'X-CSRF-TOKEN': csrfToken
+                },
                 success: function(response) {
                   // Handle successful response
                   if (response.error) {
-                    showToast('Request already submitted for this property.', 'bg-danger');
+                    showToast(response.message, 'bg-danger');
                   } else {
                     // Reset the form
                     form.reset();
                     form.classList.remove('was-validated');
-                    showToast('Success: Request submitted successfully.', 'bg-success');
+                    showToast(response.message, 'bg-success');
                   }
                 },
                 error: function(xhr, status, error) {
                   // Handle error response
+                  console.error('Error:', xhr.responseText);
                   showToast('Error: Something went wrong.', 'bg-danger');
                 }
               });

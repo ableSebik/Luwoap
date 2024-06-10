@@ -118,19 +118,19 @@ $(function () {
                     $('.sticky-header').addClass('header-shrink');
                 }
                 if($('.do-sticky').length < 1) {
-                    $('.logo img').attr('src', 'img/logos/black-logo.png');
+                    $('.logo img').attr('src', 'img/logos/luwoap-wt.png');
                 }
             }
             else {
                 $('.sticky-header').removeClass('header-shrink');
                 if($('.do-sticky').length < 1 && $('.fixed-header').length == 0 && $('.fixed-header2').length == 0) {
-                    $('.logo img').attr('src', 'img/logos/logo.png');
+                    $('.logo img').attr('src', 'img/logos/luwoap-wt.png');
                 } else {
-                    $('.logo img').attr('src', 'img/logos/logo.png');
+                    $('.logo img').attr('src', 'img/logos/luwoap-dark.png');
                 }
             }
         } else {
-            $('.logo img').attr('src', 'img/logos/black-logo.png');
+            $('.logo img').attr('src', 'img/logos/luwoap-dark.png');
         }
     }
 
@@ -471,7 +471,7 @@ $(function () {
     $('.slider-for').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: false,
+        arrows: true,
         fade: true,
         asNavFor: '.slider-nav'
     });
@@ -480,7 +480,7 @@ $(function () {
         slidesToScroll: 1,
         vertical:true,
         asNavFor: '.slider-for',
-        dots: false,
+        dots: true,
         focusOnSelect: true,
         verticalSwiping:true
     });

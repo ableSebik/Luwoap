@@ -1043,7 +1043,7 @@ input[type=checkbox]:checked + label:before {
 
 /** Megamenu **/
 .megamenu-li {
-    position: static;
+    /* position: static; */
 }
 
 .megamenu {
@@ -1097,6 +1097,8 @@ input[type=checkbox]:checked + label:before {
 /** Banner**/
 #banner {
     position: relative;
+    height: 80vh;
+    /* margin-top: -125px; */
 }
 
 .carousel-control-next, .carousel-control-prev {
@@ -3299,14 +3301,17 @@ input[type=checkbox]:checked + label:before {
 }
 
 .plan-price {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 700;
-    padding: 0;
+    padding: 0 10px;
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     z-index: 40;
     right: 20px;
     font-family: 'Jost', sans-serif;
+    background-color: #4b02659f;
+    backdrop-filter: blur(5px);
+    border-radius: 5px;
 }
 
 .plan-price sup {

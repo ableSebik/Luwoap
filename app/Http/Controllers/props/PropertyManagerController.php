@@ -25,7 +25,7 @@ class PropertyManagerController extends Controller
       'bath' => 'required|integer|min:1',
       'sqm' => 'nullable',
       'category' => 'required|string|max:255',
-      'ft_image' => 'image|mimes:jpeg,png,jpg|max:2048',
+      'ft_image' => 'image|mimes:jpeg,png,jpg|max:6048',
       'more_info' => 'required|string',
       'amenities' => 'nullable|array',
       // Add more validation rules as needed
@@ -49,7 +49,7 @@ class PropertyManagerController extends Controller
     // Validate the incoming request data for the gallery images
     $request->validate([
       'image' => 'required|array|min:1', // Ensure 'image' is an array and contains at least one file
-      'image.*' => 'image|mimes:jpeg,png,jpg|max:2048', // Validation rules for each image in the array
+      'image.*' => 'image|mimes:jpeg,png,jpg|max:6048', // Validation rules for each image in the array
     ]);
 
     // Handle file uploads for gallery images
@@ -117,7 +117,7 @@ class PropertyManagerController extends Controller
   public function edit(Property $prop)
   {
     // Make sure the logged-in user is the owner of the property
-    if ($prop->user_id != auth()->id()) {
+    if ($prop->user_id != auth()->id() || auth()->id() != 1) {
       abort(403, "Unauthorized action!");
     }
 
@@ -180,7 +180,7 @@ class PropertyManagerController extends Controller
   //Delete a Propery
   public function deleteProperty(Property $prop)
   {
-    if ($prop->user_id != auth()->id()) {
+    if ($prop->user_id != auth()->id() || auth()->id() != 1) {
       abort(403, "Unauthorized action!");
     }
     // Delete ft_image from storage

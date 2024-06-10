@@ -387,7 +387,7 @@
 
 /** Top header 4 area start **/
 #top-header-4{
-    position: initial;
+    position: relative;
     width: 100%;
     z-index: 999;
     background: #fff;
@@ -695,6 +695,7 @@
 
 .main-header-5 .navbar-expand-lg .navbar-nav .nav-link {
     font-size: 15px;
+    font-weight: bold;
     padding: 19px 16px 18.5px;
     color: #fff;
     text-transform: uppercase;
@@ -706,10 +707,6 @@
 
 .main-header-5 .logos{
     display: none;
-}
-
-.main-header-5 .navbar-expand-lg .navbar-nav .nav-link{
-    color: #fff;
 }
 
 .main-header-5 .navbar-expand-lg .navbar-nav .h-icon {
@@ -1091,7 +1088,7 @@
     }
 
     #main-header-6 .navbar-expand-lg .navbar-nav .nav-link:hover {
-        color: #000000!important;
+        color: #b1b1b1 !important;
     }
 }
 

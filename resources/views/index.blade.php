@@ -6,7 +6,7 @@
     <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item banner-max-height active item-bg">
-          <div id="boxgallery" class="boxgallery" data-effect="effect-2">
+          <div id="boxgallery" class="boxgallery" data-effect="effect-3">
             <div class="panel"><img src="{{ asset("assets/img/banner/img-3.jpg") }}" alt="Image 1" /></div>
             <div class="panel"><img src="{{ asset("assets/img/banner/img-2.jpg") }}" alt="Image 1" /></div>
             <div class="panel"><img src="{{ asset("assets/img/banner/img-1.jpg") }}" alt="Image 1" /></div>
@@ -48,7 +48,7 @@
   <!-- Banner end -->
 
   <!-- Property Type listing -->
-  <div class="" style="z-index: 99; margin-top:-30px;position:relative">
+  <div class="" style="z-index: 99; margin-top:0;position:relative">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-md-12">

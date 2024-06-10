@@ -42,16 +42,15 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="sidebar-logo d-md-none">
-        <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="sidebarlogo">
+        <img src="{{ asset("assets/img/logos/luwoap-wt.png") }}" alt="sidebarlogo">
       </div>
       <button class="navbar-toggler" id="drawer" type="button">
         <span class="fa fa-bars"></span>
       </button>
       <div class="navbar-collapse collapse w-100" id="navbar">
-        <ul class="navbar-nav w-100 justify-content-start">
-        </ul>
-        <ul class="navbar-nav w-100 justify-content-center">
-          <li class="nav-item active">
+
+        <ul class="navbar-nav w-100 ">
+          <li class="nav-item">
             <a class="nav-link" href="/">
               Home
             </a>
@@ -96,6 +95,11 @@
           <li class="nav-item ">
             <a class="nav-link" href="/about">
               About Us
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/contact">
+              Contact
             </a>
           </li>
           <li class="nav-item dropdown">

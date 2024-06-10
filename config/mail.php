@@ -37,7 +37,7 @@ return [
         'smtp' => [
             'transport' => 'smtp',
             'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', 'mail.luwoap.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
@@ -108,11 +108,14 @@ return [
     */
 
     'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'info@luwoap.com'),
+        'name' => env('MAIL_FROM_NAME', 'LUWOAP'),
+    ],
+
+    'reply_to' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
-
-    'reply_to' => ['address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'), env('MAIL_FROM_NAME', 'Example') => env('APP_NAME', 'LUWOAP')],
 
     /*
     |--------------------------------------------------------------------------

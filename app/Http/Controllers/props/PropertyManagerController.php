@@ -17,15 +17,17 @@ class PropertyManagerController extends Controller
     // Validate the incoming request data
     $validatedData = $request->validate([
       'title' => 'required|string|max:255',
-      'offer_type' => 'required|string|in:For Sale,Rent,Lease',
-      'price' => 'required|string|max:255',
+      'offer_type' => 'required|string|in:sale,rent,lease',
+      'price' => 'nullable|string|max:255',
+      'price_range' => 'nullable|string|max:255',
+      'period' => 'nullable|string|max:255',
       'currency' => 'required|string|in:GHC,$',
       'location' => 'required|string|max:255',
       'bed' => 'required|integer|min:1',
       'bath' => 'required|integer|min:1',
       'sqm' => 'nullable',
       'category' => 'required|string|max:255',
-      'ft_image' => 'image|mimes:jpeg,png,jpg|max:6048',
+      'ft_image' => 'image|mimes:jpeg,png,jpg|max:20000',
       'more_info' => 'required|string',
       'amenities' => 'nullable|array',
       // Add more validation rules as needed
@@ -49,7 +51,7 @@ class PropertyManagerController extends Controller
     // Validate the incoming request data for the gallery images
     $request->validate([
       'image' => 'required|array|min:1', // Ensure 'image' is an array and contains at least one file
-      'image.*' => 'image|mimes:jpeg,png,jpg|max:6048', // Validation rules for each image in the array
+      'image.*' => 'image|mimes:jpeg,png,jpg|max:20000', // Validation rules for each image in the array
     ]);
 
     // Handle file uploads for gallery images
@@ -84,15 +86,11 @@ class PropertyManagerController extends Controller
   private function uploadGalleryImages(Request $request, Property $prop)
   {
     if ($request->hasFile('image')) {
-      // Delete old gallery images if they exist
-      $oldImages = $prop->images()->pluck('image');
-      foreach ($oldImages as $oldImage) {
-        Storage::delete('public/uploads/' . $prop->id . '/' . $oldImage);
-      }
-
       $propertyDirectory = 'public/uploads/' . $prop->id;
       if (!Storage::exists($propertyDirectory)) {
         Storage::makeDirectory($propertyDirectory);
+        // Set directory permissions to 755
+        chmod(storage_path('app/public/uploads/' . $prop->id), 0755);
       }
 
       $images = $request->file('image');
@@ -112,12 +110,13 @@ class PropertyManagerController extends Controller
   }
 
 
+
   // ***************************************************************//
 
   public function edit(Property $prop)
   {
-    // Make sure the logged-in user is the owner of the property
-    if ($prop->user_id != auth()->id() || auth()->id() != 1) {
+    // Make sure the logged-in user is an admin
+    if (auth()->user()->role != 'admin') {
       abort(403, "Unauthorized action!");
     }
 
@@ -135,8 +134,10 @@ class PropertyManagerController extends Controller
     // Validate the incoming request data
     $validatedData = $request->validate([
       'title' => 'required|string|max:255',
-      'offer_type' => 'required|string|in:For Sale,Rent,Lease',
-      'price' => 'required|string|max:255',
+      'offer_type' => 'required|string|in:sale,rent,lease',
+      'price' => 'nullable|string|max:255',
+      'price_range' => 'nullable|string|max:255',
+      'period' => 'nullable|string|max:255',
       'currency' => 'required|string|in:GHC,$',
       'location' => 'required|string|max:255',
       'bed' => 'required|integer|min:1',
@@ -154,7 +155,7 @@ class PropertyManagerController extends Controller
     $validatedData['amenities'] = $amenities;
 
     // Add authenticated user's ID as agent_id
-    $validatedData['user_id'] = auth()->user()->id;
+    // $validatedData['user_id'] = auth()->user()->id;
 
     // Handle file upload for feature image if provided
     if ($request->hasFile('ft_image')) {
@@ -180,7 +181,7 @@ class PropertyManagerController extends Controller
   //Delete a Propery
   public function deleteProperty(Property $prop)
   {
-    if ($prop->user_id != auth()->id() || auth()->id() != 1) {
+    if (auth()->user()->role != 'admin') {
       abort(403, "Unauthorized action!");
     }
     // Delete ft_image from storage
@@ -203,7 +204,7 @@ class PropertyManagerController extends Controller
   //Manage user Properties
   public function manageProperties()
   {
-    $props = auth()->user()->property()->orderBy('created_at', 'desc')->paginate(10);
+    $props = Property::orderBy('created_at', 'desc')->paginate(10);
     return view('partials.manage-properties', compact('props'));
   }
 }

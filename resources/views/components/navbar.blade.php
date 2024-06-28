@@ -56,7 +56,7 @@
             </a>
           </li>
           <li class="nav-item dropdown megamenu-li">
-            <a class="nav-link dropdown-toggle" href="/all-properties" id="dropdown01" data-toggle="dropdown"
+            <a class="nav-link dropdown-toggle" href="/properties" id="dropdown01" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">Properties</a>
             <div class="dropdown-menu megamenu" aria-labelledby="dropdown01">
               <div class="megamenu-area">
@@ -73,19 +73,19 @@
                   <div class="col-sm-6 col-md-4 col-lg-4">
                     <div class="megamenu-section">
                       <h6 class="megamenu-title">Category</h6>
-                      <a class="dropdown-item" href="#">Apartment</a>
-                      <a class="dropdown-item" href="#">Hostel</a>
-                      <a class="dropdown-item" href="#">Air BnB</a>
-                      <a class="dropdown-item" href="#">Office Spaces</a>
+                      <a class="dropdown-item" href="{{ route("apartment.prop") }}">Apartment</a>
+                      <a class="dropdown-item" href="{{ route("hostel.prop") }}">Hostel</a>
+                      <a class="dropdown-item" href="{{ route("airbnb.prop") }}">Air BnB</a>
+                      <a class="dropdown-item" href="{{ route("office.prop") }}">Office Spaces</a>
                     </div>
                   </div>
                   <div class="col-sm-6 col-md-4 col-lg-4">
                     <div class="megamenu-section">
                       <h6 class="megamenu-title">Category</h6>
-                      <a class="dropdown-item" href="#">Luxury App</a>
-                      <a class="dropdown-item" href="#">Hotel</a>
-                      <a class="dropdown-item" href="#">Guest House</a>
-                      <a class="dropdown-item" href="#">Commercial Space</a>
+                      <a class="dropdown-item" href="{{ route("luxury.prop") }}">Luxury Apartment</a>
+                      <a class="dropdown-item" href="{{ route("hotel.prop") }}">Hotel</a>
+                      <a class="dropdown-item" href="{{ route("guest.prop") }}">Guest House</a>
+                      <a class="dropdown-item" href="{{ route("commercial.prop") }}">Commercial Space</a>
                     </div>
                   </div>
                 </div>

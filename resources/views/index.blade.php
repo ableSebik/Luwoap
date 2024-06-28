@@ -44,57 +44,59 @@
       </div>
     </div>
   </div>
-
   <!-- Banner end -->
 
   <!-- Property Type listing -->
-  <div class="" style="z-index: 99; margin-top:0;position:relative">
+  <div class="" style="z-index: 99; margin-top:65px;position:relative">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-md-12">
-          <div class="service-info-4">
-            <div class="icon">
-              <i class="fa fa-shopping-cart"></i>
+          <a href="{{ route("buy.prop") }}" class="service-info-4-link">
+            <div class="service-info-4">
+              <div class="icon">
+                <i class="fas fa-building"></i>
+              </div>
+              <div class="detail align-self-center">
+                <h3>Houses for Sale/Rent</h3>
+                <p>With years of experience in the real estate industry, we bring a wealth of knowledge of market trends
+                  to help you find the perfect home, whether you're looking to buy or rent.
+                </p>
+                <span class="read-more">View Listing</span>
+              </div>
             </div>
-            <div class="detail align-self-center">
-              <h3>Houses for Sale/Rent</h3>
-              <p>With years of experience in the real estate industry, we bring a wealth of knowledge of market trends to
-                help you find the perfect home, whether you're looking to buy or rent.
-              </p>
-              <a type="button" class="read-more" href="{{ route("buy.prop") }}">View Listing</a>
-
-            </div>
-          </div>
+          </a>
         </div>
         <div class="col-lg-4 col-md-12">
-          <div class="service-info-4">
-            <div class="icon">
-              <i class="fa fa-building-o"></i>
+          <a href="{{ route("hostel.prop") }}">
+            <div class="service-info-4">
+              <div class="icon">
+                <i class="fas fa-hotel"></i>
+              </div>
+              <div class="detail align-self-center">
+                <h3>Hostel Facilities</h3>
+                <p>Offering top-notch hostel facilities, we ensure a comfortable and secure stay with modern amenities and
+                  friendly services, tailored to meet the needs of students and travelers alike.
+                </p>
+                <span class="read-more">View Listing</span>
+              </div>
             </div>
-            <div class="detail align-self-center">
-              <h3>Hostel Facilities</h3>
-              <p>Offering top-notch hostel facilities, we ensure a comfortable and secure stay with modern amenities and
-                friendly services, tailored to meet the needs of students and travelers alike.
-              </p>
-              <a type="button" class="read-more" href="{{ route("hostel.prop") }}">View Listing</a>
-
-            </div>
-          </div>
+          </a>
         </div>
         <div class="col-lg-4 col-md-12">
-          <div class="service-info-4">
-            <div class="icon">
-              <i class="fa fa-hotel"></i>
+          <a href="{{ route("airbnb.prop") }}">
+            <div class="service-info-4">
+              <div class="icon">
+                <i class="fab fa-airbnb"></i>
+              </div>
+              <div class="detail align-self-center">
+                <h3>Air BnB</h3>
+                <p>Experience the perfect blend of comfort and convenience with our carefully curated Air BnB listings,
+                  providing unique accommodations that cater to all preferences and budgets.
+                </p>
+                <span class="read-more">View Listing</span>
+              </div>
             </div>
-            <div class="detail align-self-center">
-              <h3>Air BnB</h3>
-              <p>Experience the perfect blend of comfort and convenience with our carefully curated Air BnB listings,
-                providing unique accommodations that cater to all preferences and budgets.
-              </p>
-              <a type="button" class="read-more" href="{{ route("airbnb.prop") }}">View Listing</a>
-
-            </div>
-          </div>
+          </a>
         </div>
 
       </div>
@@ -128,8 +130,7 @@
         </div>
       </div>
 
-      <a href="/all-properties" class="btn-5 none-btn-992 my-5">More Properties <i
-          class="fa fa-angle-double-right"></i></a>
+      <a href="/properties" class="btn-5 none-btn-992 my-5">More Properties <i class="fa fa-angle-double-right"></i></a>
     </div>
   </div>
   {{-- End Property listings --}}

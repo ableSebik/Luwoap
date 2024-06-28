@@ -33,6 +33,7 @@
                   <p>All req.</p>
                 </div>
               </div>
+              {{ $requests->links("vendor.pagination.bootstrap-4") }}
             </div>
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="accordion accordion-flush" id="accordionFlushExample7">
@@ -74,6 +75,7 @@
                   </div>
                 </div>
               </div>
+              {{ $requests->links("vendor.pagination.bootstrap-4") }}
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <div class="accordion accordion-flush" id="accordionFlushExample2">
@@ -81,6 +83,7 @@
                   <p>sec.</p>
                 </div>
               </div>
+              {{ $requests->links("vendor.pagination.bootstrap-4") }}
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
               <div class="accordion accordion-flush" id="accordionFlushExample3">
@@ -88,6 +91,7 @@
                   <p>3rd.</p>
                 </div>
               </div>
+              {{ $requests->links("vendor.pagination.bootstrap-4") }}
             </div>
           </div>
         </div>

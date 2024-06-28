@@ -41,7 +41,7 @@
               <a href="about" class="link-inner"><span> About Us</span></a>
             </li>
             <li>
-              <a href="all-properties" class="link-inner"><span> Properties</span></a>
+              <a href="/properties" class="link-inner"><span> Properties</span></a>
             </li>
             <li>
               <a href="blog" class="link-inner"><span> Blog</span></a>
@@ -113,19 +113,19 @@
               <a href="/">Home</a>
             </li>
             <li class="li">
-              <a href="all-properties">Properties</a>
+              <a href="/properties">Properties</a>
             </li>
             <li class="li">
-              <a href="blog">Blog</a>
+              <a href="/blog">Blog</a>
             </li>
             <li class="li">
-              <a href="contact">Contact</a>
+              <a href="/contact">Contact</a>
             </li>
             <li class="li">
-              <a href="about">About Us</a>
+              <a href="/about">About Us</a>
             </li>
             <li class="li">
-              <a href="login">Login</a>
+              <a href="/login">Login</a>
             </li>
           </ul>
         </div>
@@ -133,23 +133,23 @@
           <div class="social-list">
             <div class="icon facebook">
               <div class="tooltip">Facebook</div>
-              <span><i class="fa fa-facebook"></i></span>
+              <span><i class="fab fa-facebook"></i></span>
             </div>
             <div class="icon twitter">
               <div class="tooltip">Twitter</div>
-              <span><i class="fa fa-twitter"></i></span>
+              <span><i class="fab fa-twitter"></i></span>
             </div>
             <div class="icon tiktok">
               <div class="tooltip">Tiktok</div>
-              <span><i class="fa fa-tiktok"></i></span>
+              <span><i class="fab fa-tiktok"></i></span>
             </div>
             <div class="icon instagram">
               <div class="tooltip">Instagram</div>
-              <span><i class="fa fa-instagram"></i></span>
+              <span><i class="fab fa-instagram"></i></span>
             </div>
             <div class="icon youtube mr-0">
               <div class="tooltip">Youtube</div>
-              <span><i class="fa fa-youtube"></i></span>
+              <span><i class="fab fa-youtube"></i></span>
             </div>
           </div>
         </div>

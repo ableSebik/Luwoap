@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset("assets/css/leaflet.css") }}" type="text/css">
     <link rel="stylesheet" href="{{ asset("assets/css/map.css") }}" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/font-awesome/css/font-awesome.min.css") }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link type="text/css" rel="stylesheet" href="{{ asset("assets/fonts/bootstrap-icons/bootstrap-icons.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/flaticon/font/flaticon.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/linearicons/style.css") }}">

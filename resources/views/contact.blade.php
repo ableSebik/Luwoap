@@ -83,7 +83,7 @@
                 </div>
               </div>
               <div class="ca-box d-flex mb-30">
-                <i class="fa fa-whatsapp me-3 "></i>
+                <i class="fab fa-whatsapp me-3 "></i>
                 <div class="detail">
                   <h5>Whatsapp</h5>
                   <p><a href="https://wa.me/233201492986">+233-20-149-2986</a></p>
@@ -95,32 +95,32 @@
                   <a target="blank" href="">
                     <div class="icon facebook">
                       <div class="tooltip">Facebook</div>
-                      <span><i class="fa fa-facebook"></i></span>
+                      <span><i class="fab fa-facebook"></i></span>
                     </div>
                   </a>
                   <a target="blank" href="">
                     <div class="icon twitter">
                       <div class="tooltip">Twitter</div>
-                      <span><i class="fa fa-twitter"></i></span>
+                      <span><i class="fab fa-twitter"></i></span>
                     </div>
                   </a>
 
                   <a target="blank" href="">
                     <div class="icon linkedin mr-0">
                       <div class="tooltip">LinkedIn</div>
-                      <span><i class="fa fa-linkedin"></i></span>
+                      <span><i class="fab fa-linkedin"></i></span>
                     </div>
                   </a>
                   <a target="blank" href="">
                     <div class="icon instagram mr-0">
                       <div class="tooltip">Instagram</div>
-                      <span><i class="fa fa-instagram"></i></span>
+                      <span><i class="fab fa-instagram"></i></span>
                     </div>
                   </a>
                   <a target="blank" href="">
                     <div class="icon tiktok mr-0">
                       <div class="tooltip">Tiktok</div>
-                      <span><i class="fa fa-tiktok"></i></span>
+                      <span><i class="fab fa-tiktok"></i></span>
                     </div>
                   </a>
                 </div>

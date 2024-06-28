@@ -46,6 +46,7 @@
                 @endforelse
               </tbody>
             </table>
+            {{ $posts->links("vendor.pagination.bootstrap-4") }}
           </div>
           {{-- <table class="manage-table">
             <tbody class="responsive-table">

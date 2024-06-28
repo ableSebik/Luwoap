@@ -16,6 +16,7 @@
           </div>
         @else
           <table class="manage-table">
+            {{ $props->links("vendor.pagination.bootstrap-4") }}
             <tbody class="responsive-table">
               @foreach ($props as $prop)
                 <tr>
@@ -29,7 +30,7 @@
                     <h6 class="table-property-price">
                       {{ $prop->currency }} {{ $prop->price }}
                       @php
-                        $offertype = in_array($prop->offer_type, ["Rent", "Lease"]);
+                        $offertype = in_array($prop->offer_type, ["rent", "lease"]);
                       @endphp
                       {{ $offertype ? "/month" : "" }}
                     </h6>
@@ -54,6 +55,7 @@
           </table>
         @endif
       </div>
+      {{ $props->links("vendor.pagination.bootstrap-4") }}
     </div>
   </div>
 

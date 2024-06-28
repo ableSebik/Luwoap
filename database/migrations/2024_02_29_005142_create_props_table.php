@@ -15,6 +15,8 @@ return new class extends Migration
 			$table->id();
 			$table->string('title');
 			$table->string('price'); // Assuming price is a decimal with 10 digits in total and 2 decimal places
+			$table->string('price_range'); // for only hostel property(not required field)
+			$table->enum('period', ['yr', 'mth', 'day', 'sem']);
 			$table->enum('currency', ['GHC', '$']);
 			$table->string('ft_image')->nullable();
 			$table->integer('bed');

@@ -79,7 +79,7 @@
                 </div>
                 <div class="profile-photo">
                   <div class="profile-photo-inner">
-                    <img src="{{ asset("assets/img/avatar/avatar-5.jpg") }}" alt="avatar" class="img-fluid use-ing">
+                    <img src="{{ asset("assets/img/avatar/avatar.jpg") }}" alt="avatar" class="img-fluid use-ing">
                   </div>
                 </div>
               </div>

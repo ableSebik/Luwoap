@@ -22,9 +22,9 @@
               <label for="offer_type">Status</label>
               <select class="selectpicker search-fields" name="offer_type" id="offer_type">
                 <option value=""></option>
-                <option value="For Sale">For Sale</option>
-                <option value="Rent">Rent</option>
-                <option value="Lease">Lease</option>
+                <option value="sale">For Sale</option>
+                <option value="rent">Rent</option>
+                <option value="lease">Lease</option>
               </select>
               @error("offer_type")
                 <p class="text-danger">{{ $message }}</p>
@@ -34,28 +34,22 @@
 
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-              <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <label>Price</label>
-                  <input type="text" name="price" id="price" class="form-control selectpicker search-fields"
-                    value='{{ old("price") }}'>
-                  @error("price")
-                    <p class="text-danger">{{ $message }}</p>
-                  @enderror
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <label for="currency">Currency</label>
-                  <select class="selectpicker search-fields" name="currency" id="currency">
-                    <option value=""></option>
-                    <option value="GHC" selected>GHC</option>
-                    <option value="$">USD</option>
-                  </select>
-                  @error("currency")
-                    <p class="text-danger">{{ $message }}</p>
-                  @enderror
-                </div>
-              </div>
-
+              <label for="category">Category</label>
+              <select class="selectpicker search-fields" name="category" id="category">
+                <option value=""></option>
+                <option value="air bnb">Airbnb</option>
+                <option value="apartment">Apartment</option>
+                <option value="commercial space">Commercial Space</option>
+                <option value="guest house">Guest House</option>
+                <option value="hostel">Hostel</option>
+                <option value="hotel">Hotel</option>
+                <option value="house">House</option>
+                <option value="luxury apartment">Luxury Apartment</option>
+                <option value="office space">Office Space</option>
+              </select>
+              @error("category")
+                <p class="text-danger">{{ $message }}</p>
+              @enderror
             </div>
           </div>
 
@@ -103,23 +97,59 @@
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
-              <label for="category">Category</label>
-              <select class="selectpicker search-fields" name="category" id="category">
-                <option value=""></option>
-                <option value="Airbnb">Airbnb</option>
-                <option value="Appartment">Apartment</option>
-                <option value="Commercial Space">Commercial Space</option>
-                <option value="Guest House">Guest House</option>
-                <option value="Hostel">Hostel</option>
-                <option value="Hotel">Hotel</option>
-                <option value="House">House</option>
-                <option value="Luxury App">Luxury Apartment</option>
-                <option value="Office Space">Office Space</option>
-              </select>
-              @error("category")
-                <p class="text-danger">{{ $message }}</p>
-              @enderror
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label>Price</label>
+                  <input type="text" name="price" id="price" class="form-control selectpicker search-fields"
+                    value='{{ old("price") }}'>
+                  @error("price")
+                    <p class="text-danger">{{ $message }}</p>
+                  @enderror
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label for="currency">Currency</label>
+                  <select class="selectpicker search-fields" name="currency" id="currency">
+                    <option value=""></option>
+                    <option value="GHC" selected>GHC</option>
+                    <option value="$">USD</option>
+                  </select>
+                  @error("currency")
+                    <p class="text-danger">{{ $message }}</p>
+                  @enderror
+                </div>
+              </div>
             </div>
+            <div class="form-group" id="price_range_group">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <label for="price_range">Price Range <small> (For Hostel property only)</small></label>
+                  <input type="text" name="price_range" id="price_range"
+                    class="form-control selectpicker search-fields" value='{{ old("price_range") }}'>
+                  @error("price_range")
+                    <p class="text-danger">{{ $message }}</p>
+                  @enderror
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" id="period_group">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <label for="currency">Period</label>
+                  <select class="selectpicker search-fields" name="period" id="period">
+                    <option value=""></option>
+                    <option value="yr">Year</option>
+                    <option value="mth">Month</option>
+                    <option value="day">Day</option>
+                    <option value="sem">Semester</option>
+                  </select>
+                  @error("period")
+                    {{ $message }}
+                  @enderror
+                </div>
+              </div>
+            </div>
+
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="form-group">
@@ -287,73 +317,7 @@
     </div>
   @endif
 
-  {{-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var form = document.getElementById("create-property-form");
-
-      form.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
-
-        // Create FormData object to serialize form data
-        var formData = new FormData(form);
-
-        // Submit form data via AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "{{ route("property.create") }}", true);
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              // Request was successful
-              console.log(xhr.responseText);
-              showAlert('alert-success', 'Property uploaded successfully!');
-              // Optionally, you can redirect or display a success message
-            } else {
-              // Request failed
-              console.error(xhr.responseText);
-              showAlert('alert-danger', 'Failed to upload property. Please try again.');
-              // Optionally, you can display an error message
-            }
-          }
-        };
-
-        xhr.send(formData); // Send form data
-
-      });
-
-      // Function to display alert messages
-      function showAlert(className, message) {
-        // Create alert element
-        var alertElement = document.createElement('div');
-        alertElement.className = 'alert ' + className;
-        alertElement.textContent = message;
-
-        // Append alert element to the page
-        document.body.appendChild(alertElement);
-
-        // Automatically remove the alert after 3 seconds (3000 milliseconds)
-        setTimeout(function() {
-          alertElement.remove();
-        }, 3000);
-      }
-    });
-  </script> --}}
-
   <script>
-    // $(document).ready(function() {
-    //   $('#sqm, #price').on('input', function() {
-    //     // Remove any non-numeric characters except decimal point and trim leading zeroes
-    //     $(this).val($(this).val().replace(/[^0-9.]/g, '').replace(/^0+/, ''));
-
-    //     // Limit decimal places to two
-    //     var value = $(this).val();
-    //     var parts = value.split('.');
-    //     if (parts.length > 1) {
-    //       parts[1] = parts[1].slice(0, 2);
-    //       $(this).val(parts.join('.'));
-    //     }
-    //   });
-    // });
     $('#sqm, #price').on('input', function() {
       // Remove non-numeric characters except decimal point
       var value = $(this).val().replace(/[^0-9.]/g, '');
@@ -383,6 +347,42 @@
 
       // Update the input value
       $(this).val(value);
+    });
+  </script>
+
+  <script>
+    $(document).ready(function() {
+
+      // Initially hide the price range group
+      togglePriceRange();
+      togglePeriod();
+
+      // Set up event listener for changes in the select input
+      $('#category').change(function() {
+        togglePriceRange();
+      });
+      $('#offer_type').change(function() {
+        togglePeriod();
+      });
+      // Function to toggle visibility based on selection
+      function togglePriceRange() {
+        if ($('#category').val() === 'hostel') {
+          $('#price_range_group').show();
+        } else {
+          $('#price_range_group').hide();
+        }
+      }
+
+      //Function to toggle vissibilty of Period if category != "sale"
+      function togglePeriod() {
+        if (['rent', 'lease'].includes($('#offer_type').val())) {
+          $('#period_group').show();
+        } else {
+          $('#period_group').hide();
+        }
+      }
+
+
     });
   </script>
 @endpush

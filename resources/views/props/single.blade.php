@@ -48,14 +48,25 @@
             <div class="clearfix">
               <div class="pull-left d-flex" style="align-items: center;">
                 <h1 style="margin: auto;">{{ $singleProp->title }} </h1>
-                @if ($singleProp->offer_type != "For Sale")
+                @if ($singleProp->offer_type != "sale")
                   <div class="ratings-2 mx-2">
                     <span>{{ $singleProp->offer_type }}</span>
                   </div>
                 @endif
               </div>
               <div class="pull-right">
-                <h1><span>{{ $singleProp->currency }} {{ $singleProp->price }}</span></h1>
+                <h1>
+                  <span>
+                    {{ $singleProp->currency }} @if ($singleProp->category == "hostel")
+                      {{ $singleProp->price_range }}
+                    @else
+                      {{ $singleProp->price }}
+                    @endif
+                  </span>
+                  @if ($singleProp->offer_type != "sale")
+                    <span>/{{ $singleProp->period }}</span>
+                  @endif
+                </h1>
               </div>
             </div>
             <div class="clearfix">
@@ -69,7 +80,7 @@
 
               <div class="pull-right">
                 <div class="ratings-2">
-                  @if ($singleProp->offer_type != "For Sale")
+                  @if ($singleProp->offer_type != "sale")
 
                     @php
                       $ratingAvg = $singleProp->ratings->avg("rating_val");
@@ -101,9 +112,11 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-8 col-md-12 bg-white">
+      </div>
+      <div class="row">
+        <div class="col-lg-8 col-md-12">
           <!-- Properties description start -->
-          <div class="product-slider-box cds-2 clearfix mb-40">
+          <div class="product-slider-box mb-5">
             <div class="product-img-slide">
               <div class="slider-for">
                 @foreach ($singleProp->images as $image)
@@ -119,10 +132,11 @@
               </div>
             </div>
           </div>
+
           <!-- Properties description start -->
-          <div class=" bg-white">
+          <div class="bg-white py-3">
             <!-- Properties description start -->
-            <div class="properties-description mb-40 container">
+            <div class="properties-description container">
 
               <h3 class="heading">
                 About This Listing
@@ -160,7 +174,6 @@
             <!-- Photo gallery start -->
             <div class="video mb-50 container">
               <h3 class="heading-2">Gallery</h3>
-              {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> --}}
               <div class="row filter-portfolio">
                 @foreach ($singleProp->images as $image)
                   <div class="col-lg-4 col-md-6 col-sm-6">
@@ -182,6 +195,83 @@
             </div>
             <!-- Photo gallery end -->
           </div>
+
+          <!-- Leave a Comment -->
+          @auth
+            <div class="contact-2 ca mtb-50">
+              <h3 class="heading-2">Leave a Comment</h3>
+              <form action="{{ route("comments.store") }}" method="POST" id="comment_form">
+                @csrf
+                <div class="row">
+                  <div class="d-none">
+                    <input type="hidden" name="prop_id" value="{{ $singleProp->id }}">
+                    <input type="number" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <textarea class="form-control" name="comment" placeholder="Write comment" aria-label="Write message" maxlength="3000"></textarea>
+                      @error("comment")
+                        <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                      @enderror
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="send-btn">
+                      <button type="submit" class="btn-6">Submit</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          @endauth
+
+          <div class="contact-2 ca mtb-50">
+            <h3 class="heading-2">Comments Section</h3>
+            <!-- Comments start -->
+            <ul class="comments">
+              @forelse ($singleProp->comments as $comment)
+                <li>
+                  <div class="comment">
+                    <div class="comment-content">
+                      <div class="comment-meta">
+                        <h3>
+                          {{ $comment->user->name }}
+                        </h3>
+                        <div class="comment-meta">
+                          8:42 PM 1/28/2022<a href="#">Reply</a>
+                        </div>
+                      </div>
+                      <p>{{ $comment->comment }}</p>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>
+                      <div class="comment">
+                        <div class="comment-content">
+                          <div class="comment-meta">
+                            <h3>
+                              Brady Anne
+                            </h3>
+                            <div class="comment-meta">
+                              8:42 PM 1/28/2022<a href="#">Reply</a>
+                            </div>
+                          </div>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam.
+                            Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim, tincidunt vel
+                            turpis vel, dapibus tempus nulla.</p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              @empty
+                <p>No comments.</p>
+              @endforelse
+            </ul>
+          </div>
+
           <!-- Contact 2 start -->
           <div class="contact-2 ca mtb-50 container">
             <h3 class="heading">Interested in this Property?</h3>
@@ -325,7 +415,7 @@
                         {{ $singleProp->user->phone }}</a>
                     </li>
                     <li>
-                      <i class="fa fa-whatsapp"> </i><a href="https://wa.me/233201492986">
+                      <i class="fab fa-whatsapp"> </i><a href="https://wa.me/233201492986">
                         {{ $singleProp->user->phone }}</a>
                     </li>
                   @else
@@ -337,7 +427,7 @@
                         +233 20 149 2986</a>
                     </li>
                     <li>
-                      <i class="fa fa-whatsapp"> </i><a href="#"> +233 20 149 2986</a>
+                      <i class="fab fa-whatsapp"> </i><a href="#"> +233 20 149 2986</a>
                     </li>
                   @endif
                 </ul>
@@ -386,14 +476,14 @@
                     href="https://www.facebook.com/sharer/sharer.php?u={{ route("single.prop", $singleProp->id) }}&quote={{ $singleProp->title }}">
                     <div class="icon facebook">
                       <div class="tooltip">Facebook</div>
-                      <span><i class="fa fa-facebook"></i></span>
+                      <span><i class="fab fa-facebook"></i></span>
                     </div>
                   </a>
                   <a target="blank"
                     href="https://twitter.com/intent/tweet?text={{ $singleProp->title }}&url={{ route("single.prop", $singleProp->id) }}">
                     <div class="icon twitter">
                       <div class="tooltip">Twitter</div>
-                      <span><i class="fa fa-twitter"></i></span>
+                      <span><i class="fab fa-twitter"></i></span>
                     </div>
                   </a>
 
@@ -401,7 +491,7 @@
                     href="https://www.linkedin.com/sharing/share-offsite/?url={{ route("single.prop", $singleProp->id) }}">
                     <div class="icon linkedin mr-0">
                       <div class="tooltip">LinkedIn</div>
-                      <span><i class="fa fa-linkedin"></i></span>
+                      <span><i class="fab fa-linkedin"></i></span>
                     </div>
                   </a>
                 </div>
@@ -486,6 +576,31 @@
           }, false);
         });
     })();
+
+    $('#comment_form').on('submit', function(event) {
+      event.preventDefault();
+
+      $.ajax({
+        url: "{{ route("comments.store") }}",
+        method: "POST",
+        data: $(this).serialize(),
+        success: function(response) {
+          // Handle successful response
+          if (response.error) {
+            showToast(response.message, 'bg-danger');
+          } else {
+            // Reset the form
+            form.reset();
+            showToast(response.message, 'bg-success');
+          }
+        },
+        error: function(xhr, status, error) {
+          // Handle error response
+          console.error('Error:', xhr.responseText);
+          showToast('Error: Something went wrong.', 'bg-danger');
+        }
+      });
+    });
 
     function showToast(message, bgClass) {
       // Remove hidden class

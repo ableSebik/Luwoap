@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('post_ft_image');
             $table->text('post_excerpt');
             $table->text('post_tags');
+            $table->string('slug')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -18,8 +18,26 @@
     if (Request::is("props/category/airbnb")) {
         $pageTitle = "Air BnB";
     }
-    if (Request::is("props/category/appartment")) {
-        $pageTitle = "Appartment";
+    if (Request::is("props/category/apartment")) {
+        $pageTitle = "Apartment";
+    }
+    if (Request::is("props/category/office-space")) {
+        $pageTitle = "Office Space";
+    }
+    if (Request::is("props/category/luxury-apartment")) {
+        $pageTitle = "Luxury Properties";
+    }
+    if (Request::is("props/category/hotel")) {
+        $pageTitle = "Hotel Properties";
+    }
+    if (Request::is("props/category/house")) {
+        $pageTitle = "Housing Properties";
+    }
+    if (Request::is("props/category/guest-house")) {
+        $pageTitle = "Guest House";
+    }
+    if (Request::is("props/category/commercial-property")) {
+        $pageTitle = "Commercial Properties";
     }
   @endphp
 

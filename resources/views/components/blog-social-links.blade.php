@@ -4,9 +4,8 @@
   <div class="s-border"></div>
   <div class="m-border"></div>
   <ul class="social-list clearfix">
-    <li><a href="#" class="facebook-bg"><i class="fa fa-facebook"></i></a></li>
-    <li><a href="#" class="twitter-bg"><i class="fa fa-twitter"></i></a></li>
-    <li><a href="#" class="linkedin-bg"><i class="fa fa-linkedin"></i></a></li>
-    <li><a href="#" class="pinterest-bg"><i class="fa fa-pinterest"></i></a></li>
+    <li><a href="#" class="facebook-bg"><i class="fab fa-facebook"></i></a></li>
+    <li><a href="#" class="twitter-bg"><i class="fab fa-twitter"></i></a></li>
+    <li><a href="#" class="linkedin-bg"><i class="fab fa-linkedin"></i></a></li>
   </ul>
 </div>

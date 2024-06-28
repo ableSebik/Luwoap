@@ -251,15 +251,10 @@ class BlogController extends Controller
 
 
   // show post details/single post page
-  public function postDetails($id)
+  public function postDetails($slug)
   {
     // Get post details including user relationship
-    $postDetails = Blog::with('user')->find($id);
-
-    if (!$postDetails) {
-      // Handle case where post with given ID is not found
-      return response()->json(['error' => 'Post not found'], 404);
-    }
+    $postDetails = Blog::with('user')->where('slug', $slug)->firstOrFail();
 
     // Extract tags from the current post
     $postTags = $postDetails->post_tags;
@@ -268,7 +263,7 @@ class BlogController extends Controller
     $currentPostTags = str_getcsv($postTags);
 
     // Find related posts based on common tags
-    $relatedPosts = Blog::where('id', '!=', $id)
+    $relatedPosts = Blog::where('id', '!=', $postDetails->id)
       ->where(function ($query) use ($currentPostTags) {
         foreach ($currentPostTags as $tag) {
           $query->orWhere('post_tags', 'like', '%' . $tag . '%');
@@ -285,6 +280,7 @@ class BlogController extends Controller
       'commonTags' => $this->commonTags,
     ]);
   }
+
 
 
 

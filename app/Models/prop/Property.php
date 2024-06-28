@@ -5,6 +5,7 @@ namespace App\Models\prop;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Rating;
+use App\Models\Comments;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,9 @@ class Property extends Model
   protected $fillable = [
     'title',
     'price',
+    'price_range',
     'currency',
+    'period',
     'ft_image',
     'bed',
     'bath',
@@ -64,5 +67,11 @@ class Property extends Model
   public function ratings()
   {
     return $this->hasMany(Rating::class, 'prop_id');
+  }
+
+  //Relationship with Comments
+  public function comments()
+  {
+    return $this->hasMany(Comments::class, 'prop_id');
   }
 }

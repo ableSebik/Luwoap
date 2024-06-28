@@ -24,6 +24,7 @@ $(function () {
         type: 'image',
         gallery:{enabled:true}
     });
+ 
 
     // Sidebar
     $("#sidebar").mCustomScrollbar({
@@ -151,8 +152,8 @@ $(function () {
         $('.dashboard').css('top', headerHeight);
     }
 
-    if($(document).find('#boxgallery').length > 0) {
-        new BoxesFx( document.getElementById( 'boxgallery' ) );
+    if ($('#boxgallery').length > 0) {
+        new BoxesFx(document.getElementById('boxgallery'));
     }
 
     // Banner slider
@@ -176,8 +177,9 @@ $(function () {
 
     // Initialize carousel
     $myCarousel.carousel({
+        autoplay: true,
         interval: 3000,  // Time in milliseconds between automatically cycling items
-        pause: "false"   // Prevents the carousel from pausing on hover
+        pause: false   // Prevents the carousel from pausing on hover
     });
 
     // Animate captions in first slide on page load
@@ -236,32 +238,6 @@ $(function () {
         });
     });
 
-
-    // Countdown activation
-    // $( function() {
-    //     // Add background image
-    //     //$.backstretch('../img/nature.jpg');
-    //     var endDate = "December  27, 2019 15:03:25";
-    //     $('.countdown.simple').countdown({ date: endDate });
-    //     $('.countdown.styled').countdown({
-    //         date: endDate,
-    //         render: function(data) {
-    //             $(this.el).html("<div>" + this.leadingZeros(data.days, 3) + " <span>Days</span></div><div>" + this.leadingZeros(data.hours, 2) + " <span>Hours</span></div><div>" + this.leadingZeros(data.min, 2) + " <span>Minutes</span></div><div>" + this.leadingZeros(data.sec, 2) + " <span>Seconds</span></div>");
-    //         }
-    //     });
-    //     $('.countdown.callback').countdown({
-    //         date: +(new Date) + 10000,
-    //         render: function(data) {
-    //             $(this.el).text(this.leadingZeros(data.sec, 2) + " sec");
-    //         },
-    //         onEnd: function() {
-    //             $(this.el).addClass('ended');
-    //         }
-    //     }).on("click", function() {
-    //         $(this).removeClass('ended').data('countdown').update(+(new Date) + 10000).start();
-    //     });
-
-    // });
 
     $(".range-slider-ui").each(function () {
         var minRangeValue = $(this).attr('data-min');
@@ -372,14 +348,16 @@ $(function () {
     (function() {
         var slideContainer = $('.slide-container');
         slideContainer.slick({
-            arrows: false,
-            initialSlide:0,
-            centerMode: true,
-            centerPadding: '40px',
-            slidesToShow: 4,
-            swipeToSlide:true,
-            responsive: [
-                {
+        arrows: false,
+        initialSlide: 0,
+        centerMode: true,
+        centerPadding: '40px',
+        slidesToShow: 4,
+        swipeToSlide: true,
+        autoplay: true,          
+        autoplaySpeed: 2000,     
+        responsive: [
+            {
                     breakpoint: 1224,
                     settings: {
                         arrows: false,
@@ -448,11 +426,13 @@ $(function () {
     $('.slick').slick({
         dots: false,
         infinite: true,
-        touchThreshold : 100,
+        touchThreshold: 100,
         speed: 300,
         slidesToShow: 3,
         slidesToScroll: 3,
         centerMode: true,
+        autoplay: true,          
+        autoplaySpeed: 2000,     
         nextArrow: '<button class="slick-next"><i class="fas fa-chevron-right"></i></button>',
         prevArrow: '<button class="slick-prev"><i class="fas fa-chevron-left"></i></button>',
     });
@@ -465,24 +445,28 @@ $(function () {
         arrows: true,
         autoplay: true,
         autoplaySpeed: 2000,
+        adaptiveHeight: true,
     });
 
     //product-slider-box
     $('.slider-for').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
-        arrows: true,
+        arrows: false,
         fade: true,
-        asNavFor: '.slider-nav'
+        asNavFor: '.slider-nav',
+        adaptiveHeight: true
     });
     $('.slider-nav').slick({
         slidesToShow: 4,
         slidesToScroll: 1,
         vertical:true,
         asNavFor: '.slider-for',
-        dots: true,
+        dots: false,
         focusOnSelect: true,
-        verticalSwiping:true
+        verticalSwiping:true,
+        autoplay: true,
+        autoplaySpeed: 2000,
     });
 
     // Banner 2 start initialization.

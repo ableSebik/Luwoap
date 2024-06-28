@@ -1,13 +1,10 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Mail\ClientEnquiryMail;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RatingController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\NewsletterController;
@@ -34,7 +31,9 @@ Route::get('/', [App\Http\Controllers\props\PropertiesController::class, 'index'
 //Search Bar
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
 
-//**********Sorting Property by Type **********//
+
+
+//**********Sorting Property by Category **********//
 
 //Sort by type=buy
 Route::get('props/offer_type/for-sale', [App\Http\Controllers\props\PropertiesController::class, 'buyProps'])->name('buy.prop');
@@ -48,11 +47,36 @@ Route::get('props/offer_type/lease', [App\Http\Controllers\props\PropertiesContr
 //Sort by Category=Hostel
 Route::get('props/category/hostel', [App\Http\Controllers\props\PropertiesController::class, 'hostelProps'])->name('hostel.prop');
 
+//Sort by Category=Hotel
+Route::get('props/category/hotel', [App\Http\Controllers\props\PropertiesController::class, 'hotelProps'])->name('hotel.prop');
+
 //Sort by Category=Air BnB
-Route::get('props/category/airbnb', [App\Http\Controllers\props\PropertiesController::class, 'AirbnbProps'])->name('airbnb.prop');
+Route::get('props/category/airbnb', [App\Http\Controllers\props\PropertiesController::class, 'airbnbProps'])->name('airbnb.prop');
+
+//Sort by Category=Apartment
+Route::get('props/category/apartnemt', [App\Http\Controllers\props\PropertiesController::class, 'apartmentProps'])->name('apartment.prop');
+
+//Sort by Category=Office Space
+Route::get('props/category/office-space', [App\Http\Controllers\props\PropertiesController::class, 'officeProps'])->name('office.prop');
+
+//Sort by Category=Luxury Property
+Route::get('props/category/luxury-apartment', [App\Http\Controllers\props\PropertiesController::class, 'luxuryProps'])->name('luxury.prop');
+
+//Sort by Category=Guest House
+Route::get('props/category/guest-house', [App\Http\Controllers\props\PropertiesController::class, 'guestProps'])->name('guest.prop');
+
+//Sort by Category=House
+Route::get('props/category/house', [App\Http\Controllers\props\PropertiesController::class, 'houseProps'])->name('house.prop');
+
+//Sort by Category=Commercial Property
+Route::get('props/category/commercial-property', [App\Http\Controllers\props\PropertiesController::class, 'commercialProps'])->name('commercial.prop');
 
 //********** End Sorting by Type **********//
 
+
+
+//Submit Property Comment
+Route::post('/comments', [PropertiesController::class, 'commentStore'])->name('comments.store');
 
 
 //********** Nav Pages **********//
@@ -64,13 +88,13 @@ Route::get('/about', function () {
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 //Show all Posts
-Route::get('/all-properties', [App\Http\Controllers\props\PropertiesController::class, 'allProps'])->name('all-properties');
+Route::get('/properties', [App\Http\Controllers\props\PropertiesController::class, 'allProps'])->name('all-properties');
 
 //Show all Posts
-Route::get('/blog', [App\Http\Controllers\BlogController::class, 'blogPosts'])->name('blogPosts');
+Route::get('blog', [App\Http\Controllers\BlogController::class, 'blogPosts'])->name('blogPosts');
 
 // show Post Details/
-Route::get('blog/{id}', [App\Http\Controllers\BlogController::class, 'postDetails'])->name('postDetails.blog');
+Route::get('blog/{slug}', [App\Http\Controllers\BlogController::class, 'postDetails'])->name('postDetails.blog');
 
 //Find Related Posts by Tags
 Route::get('/posts/tag/{tag}', [App\Http\Controllers\BlogController::class, 'postsByTag'])->name('posts.byTag');

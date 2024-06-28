@@ -32,9 +32,9 @@
                 <label for="offer_type">Status</label>
                 <select class="selectpicker search-fields" name="offer_type" id="offer_type">
                   <option value=""></option>
-                  <option value="For Sale">For Sale</option>
-                  <option value="Rent">Rent</option>
-                  <option value="Lease">Lease</option>
+                  <option value="sale">For Sale</option>
+                  <option value="rent">Rent</option>
+                  <option value="lease">Lease</option>
                 </select>
                 @error("offer_type")
                   <p class="text-danger">{{ $message }}</p>
@@ -44,28 +44,22 @@
 
             <div class="col-lg-6 col-md-6 col-sm-12">
               <div class="form-group">
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <label>Price</label>
-                    <input type="text" name="price" id="price" class="form-control selectpicker search-fields"
-                      value='{{ $prop->price }}'>
-                    @error("price")
-                      {{ $message }}
-                    @enderror
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                    <label for="currency">Currency</label>
-                    <select class="selectpicker search-fields" name="currency" id="currency">
-                      <option value=""></option>
-                      <option value="GHC">GHC</option>
-                      <option value="$">USD</option>
-                    </select>
-                    @error("currency")
-                      {{ $message }}
-                    @enderror
-                  </div>
-                </div>
-
+                <label for="category">Category</label>
+                <select class="selectpicker search-fields" name="category" id="category" value="{{ $prop->category }}">
+                  <option value=""></option>
+                  <option value="air bnb">Airbnb</option>
+                  <option value="apartment">Apartment</option>
+                  <option value="commercial space">Commercial Space</option>
+                  <option value="guest house">Guest House</option>
+                  <option value="hostel">Hostel</option>
+                  <option value="hotel">Hotel</option>
+                  <option value="house">House</option>
+                  <option value="luxury apartment">Luxury Apartment</option>
+                  <option value="office space">Office Space</option>
+                </select>
+                @error("category")
+                  <p class="text-danger">{{ $message }}</p>
+                @enderror
               </div>
             </div>
 
@@ -111,26 +105,63 @@
                   value='{{ $prop->sqm }}'>
               </div>
             </div>
+
             <div class="col-lg-6 col-md-6 col-sm-12">
               <div class="form-group">
-                <label for="category">Category</label>
-                <select class="selectpicker search-fields" name="category" id="category" value="{{ $prop->category }}">
-                  <option value=""></option>
-                  <option value="Airbnb">Airbnb</option>
-                  <option value="Appartment">Apartment</option>
-                  <option value="Commercial Space">Commercial Space</option>
-                  <option value="Guest House">Guest House</option>
-                  <option value="Hostel">Hostel</option>
-                  <option value="Hotel">Hotel</option>
-                  <option value="House">House</option>
-                  <option value="Luxury App">Luxury Apartment</option>
-                  <option value="Office Space">Office Space</option>
-                </select>
-                @error("category")
-                  <p class="text-danger">{{ $message }}</p>
-                @enderror
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label>Price</label>
+                    <input type="text" name="price" id="price" class="form-control selectpicker search-fields"
+                      value='{{ $prop->price }}'>
+                    @error("price")
+                      {{ $message }}
+                    @enderror
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <label for="currency">Currency</label>
+                    <select class="selectpicker search-fields" name="currency" id="currency">
+                      <option value=""></option>
+                      <option value="GHC">GHC</option>
+                      <option value="$">USD</option>
+                    </select>
+                    @error("currency")
+                      {{ $message }}
+                    @enderror
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" id="price_range_group">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="price_range">Price Range <small> (For Hostel property only)</small></label>
+                    <input type="text" name="price_range" id="price_range"
+                      class="form-control selectpicker search-fields" value='{{ $prop->price_range }}'>
+                    @error("price_range")
+                      <p class="text-danger">{{ $message }}</p>
+                    @enderror
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" id="period_group">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <label for="currency">Period</label>
+                    <select class="selectpicker search-fields" name="period" id="period">
+                      <option value=""></option>
+                      <option value="yr">Year</option>
+                      <option value="mth">Month</option>
+                      <option value="day">Day</option>
+                      <option value="sem">Semester</option>
+                    </select>
+                    @error("period")
+                      {{ $message }}
+                    @enderror
+                  </div>
+                </div>
               </div>
             </div>
+
             <div class="col-lg-6 col-md-6 col-sm-12">
               <div class="form-group">
                 <label for="ft_image">Feature Image <small> (Main property thumbnail)</small></label>
@@ -363,22 +394,48 @@
         }
       });
 
-    });
-  </script>
+      // Initially hide the price range group
+      togglePriceRange();
+      togglePeriod();
 
-  <script>
-    // This function auto selects the option of a select input using value from Db
-    function setSelectedOption(dbValue, selectId) {
-      if (dbValue) {
-        // Loop through each option in the select element
-        $('#' + selectId + ' option').each(function() {
-          // Check if the value of the option matches the value from the database
-          if ($(this).val() === dbValue) {
-            // If it matches, set the selected attribute to true
-            $(this).prop('selected', true);
-          }
-        });
+      // Set up event listener for changes in the select input
+      $('#category').change(function() {
+        togglePriceRange();
+      });
+      $('#offer_type').change(function() {
+        togglePeriod();
+      });
+      // Function to toggle visibility based on selection
+      function togglePriceRange() {
+        if ($('#category').val() === 'hostel') {
+          $('#price_range_group').show();
+        } else {
+          $('#price_range_group').hide();
+        }
       }
-    }
+
+      //Function to toggle vissibilty of Period if category != "sale"
+      function togglePeriod() {
+        if (['rent', 'lease'].includes($('#offer_type').val())) {
+          $('#period_group').show();
+        } else {
+          $('#period_group').hide();
+        }
+      }
+      // This function auto selects the option of a select input using value from Db
+      function setSelectedOption(dbValue, selectId) {
+        if (dbValue) {
+          // Loop through each option in the select element
+          $('#' + selectId + ' option').each(function() {
+            // Check if the value of the option matches the value from the database
+            if ($(this).val() === dbValue) {
+              // If it matches, set the selected attribute to true
+              $(this).prop('selected', true);
+            }
+          });
+        }
+      }
+
+    });
   </script>
 @endpush

@@ -21,6 +21,11 @@ class CreateCommentsTable extends Migration
             $table->text('comment');
             $table->enum('status', ['pending', 'approved'])->default('pending');
             $table->timestamps();
+
+            // Indexes for performance
+            $table->index('user_id');
+            $table->index('prop_id');
+            $table->index('parent_id');
         });
     }
 

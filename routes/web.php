@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
@@ -77,15 +76,32 @@ Route::get('props/category/commercial-property', [App\Http\Controllers\props\Pro
 
 //Submit Property Comment
 Route::post('/comments', [PropertiesController::class, 'commentStore'])->name('comments.store');
+//Submit Comment reply
+Route::post('/reply', [PropertiesController::class, 'replyStore'])->name('reply.store');
 
 
 //********** Nav Pages **********//
 
 Route::get('/about', function () {
-    return view('about');
-});
+    $pageTitle = "Our Story | LUWOAP: Excellence in Real Estate and Accommodation";
+    $metaDescription = "Learn about LUWOAP, your trusted real estate partner in Ghana. Since 2021, we've been providing luxury units and well-organized accommodation properties.";
 
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+    return view('about', compact(
+        'pageTitle',
+        'metaDescription'
+    ));
+});
+Route::get('/contact', function () {
+    $pageTitle = "Contact LUWOAP | Get in Touch for Luxury Real Estate Solutions";
+    $metaDescription = "Contact LUWOAP, your trusted real estate partner in Ghana, for luxury units and well-organized accommodation properties for short-term and long-term stays.";
+
+    return view('contact', compact(
+        'pageTitle',
+        'metaDescription'
+    ));
+})->name('contact');
+
+
 
 //Show all Posts
 Route::get('/properties', [App\Http\Controllers\props\PropertiesController::class, 'allProps'])->name('all-properties');
@@ -216,8 +232,13 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
-//show single property
+// Load more comments
+Route::get('/property/{propertyId}/comments/{page}', [App\Http\Controllers\props\PropertiesController::class, 'loadMoreComments'])->name('property.loadMoreComments');
+
+// Show single property
 Route::get('props/prop-details/{id}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');
+
+
 
 
 require __DIR__ . '/auth.php';

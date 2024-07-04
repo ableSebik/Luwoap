@@ -1,6 +1,7 @@
 <div class="property-box-4">
   <div class="property-photo">
-    <img class="img-fluid w-100" src="{{ Storage::url("uploads/ft_images/" . $prop->ft_image) }}" alt="properties">
+    <img class="img-fluid w-100" src="{{ Storage::url("uploads/ft_images/" . $prop->ft_image) }}"
+      alt="{{ $prop->title }}">
     <div class="tag">{{ $prop->offer_type }}</div>
     <div class="category-box">{{ $prop->category }}</div>
     <div class="plan-price"><sup>{{ $prop->currency }}</sup>

@@ -59,7 +59,7 @@
                         <div class="property-photo">
                           <a href="{{ route("single.prop", $property->id) }}" class="property-img">
                             <img src="{{ asset("storage/uploads/ft_images/" . $property->ft_image) }}"
-                              alt="big-properties" class="img-fluid">
+                              alt="{{ $property->title }}" class="img-fluid">
                             <div class="tag">{{ $property->offer_type }}</div>
                             <div class="price-box">
                               <span>{{ $property->currency }}{{ $property->price }}</span>

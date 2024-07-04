@@ -14,6 +14,7 @@
     </div>
   </div>
   <!-- Sub Banner end -->
+
   <!-- Blog body start -->
   <div class="blog-body content-area">
     <div class="container">
@@ -22,7 +23,7 @@
           <!-- Blog 1 start -->
           <div class="blog-1 blog-big">
             <div class="blog-photo">
-              <img src="{{ asset("storage/posts/" . $postDetails->post_ft_image) }}" alt="blog-img"
+              <img src="{{ asset("storage/posts/" . $postDetails->post_ft_image) }}" alt="{{ $postDetails->slug }}"
                 class="img-fluid w-100">
             </div>
             <div class="detail">

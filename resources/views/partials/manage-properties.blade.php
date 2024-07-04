@@ -21,7 +21,7 @@
               @foreach ($props as $prop)
                 <tr>
                   <td class="listing-photoo">
-                    <img src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}" alt="listing-photo"
+                    <img src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}" alt="{{ $prop->title }}"
                       class="img-fluid">
                   </td>
                   <td class="title-container">
@@ -40,8 +40,8 @@
                     <ul>
                       <li><a href="/property/{{ $prop->id }}/edit"><i class="fa fa-pencil"></i> Edit</a></li>
                       <li>
-                        <a href="javascript(void)" class="delete-btn" data-id="{{ $prop->id }}" data-bs-toggle="modal"
-                          data-bs-target="#confirmPropDelModal"><i class="fa fa-remove"></i>
+                        <a href="javascript::void(0)" class="delete-btn" data-id="{{ $prop->id }}"
+                          data-bs-toggle="modal" data-bs-target="#confirmPropDelModal"><i class="fa fa-remove"></i>
                           Delete
                         </a>
                       </li>

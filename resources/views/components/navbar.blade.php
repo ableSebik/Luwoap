@@ -42,7 +42,7 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="sidebar-logo d-md-none">
-        <img src="{{ asset("assets/img/logos/luwoap-wt.png") }}" alt="sidebarlogo">
+        <img src="{{ asset("assets/img/logos/luwoap-wt.png") }}" alt="luwoap logo sidebarlogo">
       </div>
       <button class="navbar-toggler" id="drawer" type="button">
         <span class="fa fa-bars"></span>
@@ -163,7 +163,7 @@
   </div>
   <div class="sidebar-inner">
     <div class="sidebar-logo">
-      <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="sidebarlogo">
+      <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="luwoap logo sidebarlogo">
     </div>
     <div class="sidebar-navigation">
       <ul class="menu-list">

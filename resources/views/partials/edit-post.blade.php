@@ -35,7 +35,7 @@
 
                 <br>
                 <img class="d-block w-50 rounded" src="{{ Storage::url("posts/" . $blog->post_ft_image) }}"
-                  alt="listing-photo">
+                  alt="{{ $blog->post_title }}">
                 @error("post_ft_image")
                   <p class="text-danger">{{ $message }}</p>
                 @enderror

@@ -5,15 +5,16 @@ namespace App\Models\prop;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Rating;
-use App\Models\Comments;
+use App\Models\Comment;
 use Laravel\Scout\Searchable;
+use App\Models\prop\PropImage;
+use App\Models\prop\AgentRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Property extends Model
 {
-  use HasFactory;
-  use Searchable;
+  use HasFactory, Searchable;
 
   protected $table = "props";
 
@@ -51,16 +52,17 @@ class Property extends Model
   {
     return $this->hasMany(PropImage::class, 'prop_id');
   }
+
   // Define relationship with Requests
   public function clientRequests()
   {
     return $this->hasMany(AgentRequest::class, 'prop_id');
   }
 
-  //Relationship with User
+  // Relationship with User
   public function user()
   {
-    return $this->belongsTo(User::class, 'id');
+    return $this->belongsTo(User::class, 'user_id');
   }
 
   // Relationship with Ratings
@@ -69,9 +71,9 @@ class Property extends Model
     return $this->hasMany(Rating::class, 'prop_id');
   }
 
-  //Relationship with Comments
+  // Relationship with Comments
   public function comments()
   {
-    return $this->hasMany(Comments::class, 'prop_id');
+    return $this->hasMany(Comment::class, 'prop_id');
   }
 }

@@ -67,7 +67,7 @@
     <div class="container">
       <!-- Main title -->
       <div class="main-title">
-        <h1>Our Team</h1>
+        <h2>Our Team</h2>
       </div>
       <div class="slick row comon-slick-inner"
         data-slick='{"slidesToShow": 4, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 1}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
@@ -243,21 +243,21 @@
         <div class="col-lg-4 col-md-6 col-sm-6 border-r border-l">
           <div class="counter-box-2">
             <i class="flaticon-sale"></i>
-            <h1 class="counter">967</h1>
+            <h3 class="counter" style="color: #fff !important">967</h3>
             <p>Properties For Sale</p>
           </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 border-r">
           <div class="counter-box-2">
             <i class="flaticon-rent"></i>
-            <h1 class="counter">1276</h1>
+            <h3 class="counter" style="color: #fff !important">1276</h3>
             <p>Properties For Rent</p>
           </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-6 border-r">
           <div class="counter-box-2">
             <i class="flaticon-user"></i>
-            <h1 class="counter">396</h1>
+            <h3 class="counter" style="color: #fff !important">396</h3>
             <p>Satisfied Clients</p>
           </div>
         </div>
@@ -271,7 +271,7 @@
     <div class="container">
       <!-- Main title -->
       <div class="main-title text-center">
-        <h1>Working With The Us</h1>
+        <h2>Working With The Us</h2>
         <p>Expect nothing short of Professionalism, Integrity, and Dedication.
         </p>
       </div>

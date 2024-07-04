@@ -64,18 +64,15 @@
     <div class="container">
       <!-- Main title -->
       <div class="main-title">
-        <h1>Latest Properties</h1>
+        <h2>Latest Properties</h2>
         <p>BROWSE HOT OFFERS</p>
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
           <!-- Option bar start -->
           <div class="option-bar">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <h3>Showing {{ $firstItem }}-{{ $lastItem }} of {{ $totalItems }} Listings</h3>
-              </div>
-            </div>
+            <span class="alert">Showing {{ $firstItem }}-{{ $lastItem }} of {{ $totalItems }}
+              Listings</span>
           </div>
           <div class="row">
             @foreach ($props as $prop)

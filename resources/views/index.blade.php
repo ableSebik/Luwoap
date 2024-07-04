@@ -141,7 +141,7 @@
       <!-- Main title -->
       <div class="main-title-3">
         <p>Our Expertise</p>
-        <h1>Why Choose <span>Us</span></h1>
+        <h2>Why Choose <span>Us</span></h2>
       </div>
 
       <div class="row">
@@ -272,7 +272,7 @@
       <!-- Main title -->
       <div class="main-title-3">
         <p>Our Blog</p>
-        <h1>Latest <span>News</span></h1>
+        <h2>Latest <span>News</span></h2>
       </div>
       <div class="row">
         @foreach ($recentPostsData["blogPosts"] as $recentBlogPost)

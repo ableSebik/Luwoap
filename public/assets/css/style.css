@@ -8106,14 +8106,14 @@ mark {
 }
 
 .comment {
-    margin: 0 0 30px 0;
+    margin: 0 0 20px 0;
     position: relative;
     display: inline-block;
     width: 100%;
 }
 
 .comment p{
-    font-size: 15px;
+    font-size: 14px;
     line-height: 25px;
 }
 
@@ -8154,8 +8154,8 @@ mark {
 
 .comment-content {
     padding-bottom: 10px;
-    border-bottom: dashed 1px #d6d6d6;
-    /* margin: 0 0 0 20px; */
+    border-bottom: dashed 1px #cbc9c9;
+    margin: 0 0 0 10px;
 }
 
 .mrg-bdr {
@@ -8165,9 +8165,9 @@ mark {
 }
 
 .comment-content h3 {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0;
 }
 
 .comment-content .comment-rating {
@@ -8175,15 +8175,15 @@ mark {
 }
 
 .comment-meta {
-    margin-bottom: 10px;
-    font-size: 14px;
+    margin-bottom: 3px;
+    font-size: 12px;
     color: #343434;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .comment-meta a {
-    margin-left: 10px;
-    font-weight: 500;
+    margin-left: 12px;
+    font-weight: bold;
 }
 
 .comments ul {
@@ -8207,14 +8207,14 @@ mark {
 }
 
 .comment-content ul {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .comment-content ul li {
     font-weight: 500;
     color: #262525;
     line-height: 30px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .comment-content ul li span {

@@ -1,22 +1,6 @@
 @extends("layouts.app")
 
 @section("content")
-  {{-- @php
-    $pageTitle = "";
-    if (Request::is("user/user-profile")) {
-        $pageTitle = "My Profile";
-    } elseif (Request::is("manage-properties")) {
-        $pageTitle = "Manage Properties";
-    } elseif (Request::is("incoming-requests")) {
-        $pageTitle = "Incoming Request";
-    } elseif (Request::is("submit-property")) {
-        $pageTitle = "Upload Property";
-    } else {
-        $pageTitle = "Edit Property";
-    }
-
-  @endphp --}}
-
   <!-- Sub banner start -->
   <div class="sub-banner">
     <div class="container">
@@ -51,12 +35,6 @@
                 <div class="profile-photo">
                   <div class="profile-photo-inner">
                     <img src="{{ asset("assets/img/avatar/avatar-1.jpg") }}" alt="avatar" class="img-fluid use-ing">
-                    {{-- <div class="change-photo-btn">
-                                            <div class="photoUpload">
-                                                <span><i class="fa fa-upload"></i></span>
-                                                <input type="file" class="upload">
-                                            </div>
-                                        </div> --}}
                   </div>
                 </div>
               </div>
@@ -72,11 +50,7 @@
                     <a href="/manage-properties">
                       <i class="flaticon-architecture-and-city-1"></i>Manage Properties
                     </a>
-                    {{-- @if (route("update.prop", $prop->id))
-                      <a href="/user/my-property" class="active">
-                        <i class="flaticon-architecture-and-city-1"></i>My Properties
-                      </a>
-                    @endif --}}
+
                   </li>
                   <li>
                     <a href="/incoming-requests" class="{{ Request::is("incoming-requests") ? "active" : "" }}">

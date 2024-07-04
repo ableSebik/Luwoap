@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config("app.name", "Laravel") }}</title>
+    <meta name="description" content="{{ $metaDescription ?? "Default description for the page" }}">
+    <title>{{ $pageTitle ?? config("app.name", "Laravel") }}</title>
 
     <!-- External CSS libraries -->
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/bootstrap.min.css") }}">

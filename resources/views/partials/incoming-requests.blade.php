@@ -42,10 +42,11 @@
                     @forelse ($requests as $clientRequest)
                       <div class="comment-meta clearfix">
                         <h6 class="text-capitalize pull-left">
-                          <a href="javascript(void)" class="delete-btn" data-bs-toggle="modal" data-bs-target="#reqModal"
-                            data-name="{{ $clientRequest->name }}" data-phone="{{ $clientRequest->phone }}"
-                            data-email="{{ $clientRequest->email }}" data-status="{{ $clientRequest->status }}"
-                            data-message="{{ $clientRequest->message }}" data-prop-id="{{ $clientRequest->prop_id }}"
+                          <a href="javascript::(void)" class="delete-btn" data-bs-toggle="modal"
+                            data-bs-target="#reqModal" data-name="{{ $clientRequest->name }}"
+                            data-phone="{{ $clientRequest->phone }}" data-email="{{ $clientRequest->email }}"
+                            data-status="{{ $clientRequest->status }}" data-message="{{ $clientRequest->message }}"
+                            data-prop-id="{{ $clientRequest->prop_id }}"
                             data-created-at="{{ $clientRequest->created_at->format("g:i A n/j/Y") }}"
                             data-hr-since="{{ $clientRequest->hrSinceCreation }}"
                             data-days-since="{{ $clientRequest->daysSinceCreation }}">

@@ -21,36 +21,11 @@ class BlogController extends Controller
     $this->commonTags = $this->getCommonTags();
   }
 
-
-
-
-
-
-  // show all Posts
-  // public function blogPosts()
-  // {
-  //   // dd($this->commonTags);
-  //   $blogPosts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(9);
-
-  //   // Get post Day and Month year
-  //   foreach ($blogPosts as $blogPost) {
-  //     $created = $blogPost->created_at;
-  //   }
-  //   $post_month = $created->format('M');
-  //   $post_year = $created->format('y');
-  //   $post_day = $created->format('d');
-
-  //   return view('blog', ([
-  //     'blogPosts' => $blogPosts,
-  //     'post_month' => $post_month,
-  //     'post_day' => $post_day,
-  //     'post_year' => $post_year,
-  //     'commonTags' => $this->commonTags,
-  //   ]));
-  //   // return view('blog', compact('blogPosts'));
-  // }
   public function blogPosts()
   {
+    $pageTitle = "Stay Informed with LUWOAP Blog | Latest Trends in Real Estate";
+    $metaDescription = "Stay informed with the latest updates and insights from the LUWOAP blog. Dive into articles on real estate trends, tips for finding the perfect accommodation, and news about our luxury units and well-organized properties in Accra.";
+
     $blogPosts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(9);
 
     // Add post month, day, and year to each blog post
@@ -63,6 +38,8 @@ class BlogController extends Controller
     return view('blog', [
       'blogPosts' => $blogPosts,
       'commonTags' => $this->commonTags,
+      'pageTitle' => $pageTitle,
+      'metaDescription' => $metaDescription
     ]);
   }
 

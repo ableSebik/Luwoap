@@ -41,13 +41,12 @@
   <!-- Property details page start -->
   <div class="property-details-page content-area-6">
     <div class="container">
-
       <div class="row">
         <div class="col-lg-12">
           <div class="heading-properties-2 mb-40">
             <div class="clearfix">
               <div class="pull-left d-flex" style="align-items: center;">
-                <h1 style="margin: auto;">{{ $singleProp->title }} </h1>
+                <h2 style="margin: auto;">{{ $singleProp->title }} </h2>
                 @if ($singleProp->offer_type != "sale")
                   <div class="ratings-2 mx-2">
                     <span>{{ $singleProp->offer_type }}</span>
@@ -55,7 +54,7 @@
                 @endif
               </div>
               <div class="pull-right">
-                <h1>
+                <h2>
                   <span>
                     {{ $singleProp->currency }} @if ($singleProp->category == "hostel")
                       {{ $singleProp->price_range }}
@@ -66,7 +65,7 @@
                   @if ($singleProp->offer_type != "sale")
                     <span>/{{ $singleProp->period }}</span>
                   @endif
-                </h1>
+                </h2>
               </div>
             </div>
             <div class="clearfix">
@@ -116,27 +115,27 @@
       <div class="row">
         <div class="col-lg-8 col-md-12">
           <!-- Properties description start -->
-          <div class="product-slider-box mb-5">
+          <div class="product-slider-box bg-white">
             <div class="product-img-slide">
               <div class="slider-for">
                 @foreach ($singleProp->images as $image)
                   <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}" class="img-fluid w-100"
-                    alt="slider-photo">
+                    alt="{{ $singleProp->title }}">
                 @endforeach
               </div>
               <div class="slider-nav">
                 @foreach ($singleProp->images as $image)
                   <div class="thumb-slide"><img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
-                      alt="small-photo"></div>
+                      alt="{{ $singleProp->title . "preview" }}"></div>
                 @endforeach
               </div>
             </div>
           </div>
 
           <!-- Properties description start -->
-          <div class="bg-white py-3">
+          <div class="py-3 bg-white container">
             <!-- Properties description start -->
-            <div class="properties-description container">
+            <div class="properties-description">
 
               <h3 class="heading">
                 About This Listing
@@ -152,7 +151,7 @@
 
             <!-- Amenities start -->
             @unless (strlen($singleProp->amenities) < 1)
-              <div class="properties-amenities mb-40 container">
+              <div class="properties-amenities mb-40">
                 <h3 class="heading-2">
                   Amenities
                 </h3>
@@ -172,7 +171,7 @@
             @endunless
 
             <!-- Photo gallery start -->
-            <div class="video mb-50 container">
+            <div class="video mb-50">
               <h3 class="heading-2">Gallery</h3>
               <div class="row filter-portfolio">
                 @foreach ($singleProp->images as $image)
@@ -180,8 +179,8 @@
                     <div class="portfolio-item">
                       <a href="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                         title="{{ $singleProp->title }}">
-                        <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}" alt="gallery-photo"
-                          class="img-fluid">
+                        <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                          alt="{{ $singleProp->title }}" class="img-fluid">
                       </a>
                       <div class="portfolio-content">
                         <div class="portfolio-content-inner">
@@ -194,166 +193,130 @@
               </div>
             </div>
             <!-- Photo gallery end -->
-          </div>
 
-          <!-- Leave a Comment -->
-          @auth
-            <div class="contact-2 ca mtb-50">
-              <h3 class="heading-2">Leave a Comment</h3>
-              <form action="{{ route("comments.store") }}" method="POST" id="comment_form">
+            <!-- Leave a Comment -->
+            @if ($singleProp->offer_type != "")
+              @auth
+                <div class="contact-2 ca mtb-50 bg-white container">
+                  <h3 class="heading-2">Leave a Comment</h3>
+                  <form action="{{ route("comments.store") }}" method="POST" id="comment_form">
+                    @csrf
+                    <div class="row">
+                      <div class="d-none">
+                        <input type="hidden" name="prop_id" value="{{ $singleProp->id }}">
+                        <input type="number" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <textarea class="form-control" name="comment" placeholder="Write comment" aria-label="Write message" maxlength="3000"></textarea>
+                          @error("comment")
+                            <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                          @enderror
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="send-btn">
+                          <button type="submit" class="btn-6">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              @endauth
+
+              <div class="contact-2 ca mtb-20 container">
+                <h3 class="heading-2">Comments Section</h3>
+                <!-- Comments start -->
+                <ul id="commentsList" class="comments">
+                  @include("partials.comments", ["comments" => $comments, "singleProp" => $singleProp])
+                </ul>
+
+                @if ($comments->hasMorePages())
+                  <a href="javascript::void(0)" id="loadMoreComments" data-page="2"
+                    data-property-id="{{ $singleProp->id }}">See More
+                    Comments <i class="fas fa-chevron-down"></i></a>
+                @endif
+
+              </div>
+            @endif
+
+            <!-- Contact 2 start -->
+            <div class="contact-2 ca mtb-50 container">
+              <h3 class="heading">Interested in this Property?</h3>
+              <form class="needs-validation" novalidate method="POST"
+                action="{{ route("insert.request", $singleProp->id) }}" id="request_callback_form">
                 @csrf
                 <div class="row">
                   <div class="d-none">
-                    <input type="hidden" name="prop_id" value="{{ $singleProp->id }}">
-                    <input type="number" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
+                    <input type="number" id="prop_id" name="prop_id" value="{{ $singleProp->id }}">
+                    <input type="number" id="user_id" name="user_id"
+                      value="{{ auth()->check() ? Auth::user()->id : null }}">
                   </div>
+                  <div class="col-md-6">
+                    <div class="form-group name has-validation">
+                      <input required type="text" name="name"
+                        value="{{ auth()->check() ? auth()->user()->name : "" }}" class="form-control text-capitalize"
+                        placeholder="Name" aria-label="Full Name">
+                      <div class="invalid-feedback">
+                        Please provide your name.
+                      </div>
+                      {{-- @error("name")
+                        <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                      @enderror --}}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group email has-validation">
+                      <input required type="email" name="email"
+                        value="{{ auth()->check() ? auth()->user()->email : "" }}" class="form-control"
+                        placeholder="Email Address" aria-label="Email Address">
 
+                      <div class="invalid-feedback">
+                        Please provide a valid email.
+                      </div>
+                      {{-- @error("email")
+                        <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                      @enderror --}}
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group number has-validation">
+                      <input required type="text" name="phone" class="form-control" placeholder="Phone"
+                        value="{{ auth()->check() ? auth()->user()->phone : "" }}">
+                      <div class="invalid-feedback">
+                        Please provide a phone number.
+                      </div>
+                      {{-- @error("phone")
+                        <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                      @enderror --}}
+
+                    </div>
+                  </div>
                   <div class="col-md-12">
-                    <div class="form-group">
-                      <textarea class="form-control" name="comment" placeholder="Write comment" aria-label="Write message" maxlength="3000"></textarea>
-                      @error("comment")
+                    <div class="form-group message">
+                      <textarea class="form-control" name="message" placeholder="Write message" aria-label="Write message"
+                        maxlength="9000"></textarea>
+                      @error("message")
                         <p class="text-danger pull-left mb-4">{{ $message }}</p>
                       @enderror
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="send-btn">
-                      <button type="submit" class="btn-6">Submit</button>
+                      <button type="submit" class="btn-6">Send Message</button>
                     </div>
                   </div>
                 </div>
               </form>
-
             </div>
-          @endauth
-
-          <div class="contact-2 ca mtb-50">
-            <h3 class="heading-2">Comments Section</h3>
-            <!-- Comments start -->
-            <ul class="comments">
-              @forelse ($singleProp->comments as $comment)
-                <li>
-                  <div class="comment">
-                    <div class="comment-content">
-                      <div class="comment-meta">
-                        <h3>
-                          {{ $comment->user->name }}
-                        </h3>
-                        <div class="comment-meta">
-                          8:42 PM 1/28/2022<a href="#">Reply</a>
-                        </div>
-                      </div>
-                      <p>{{ $comment->comment }}</p>
-                    </div>
-                  </div>
-                  <ul>
-                    <li>
-                      <div class="comment">
-                        <div class="comment-content">
-                          <div class="comment-meta">
-                            <h3>
-                              Brady Anne
-                            </h3>
-                            <div class="comment-meta">
-                              8:42 PM 1/28/2022<a href="#">Reply</a>
-                            </div>
-                          </div>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus tincidunt aliquam.
-                            Aliquam gravida massa at sem vulputate interdum et vel eros. Maecenas eros enim, tincidunt vel
-                            turpis vel, dapibus tempus nulla.</p>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              @empty
-                <p>No comments.</p>
-              @endforelse
-            </ul>
           </div>
 
-          <!-- Contact 2 start -->
-          <div class="contact-2 ca mtb-50 container">
-            <h3 class="heading">Interested in this Property?</h3>
-            <form class="needs-validation" novalidate method="POST"
-              action="{{ route("insert.request", $singleProp->id) }}" id="request_callback_form">
-              @csrf
-              <div class="row">
-                <div class="d-none">
-                  <input type="number" id="prop_id" name="prop_id" value="{{ $singleProp->id }}">
-                  <input type="number" id="user_id" name="user_id"
-                    value="{{ auth()->check() ? Auth::user()->id : null }}">
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group name has-validation">
-                    <input required type="text" name="name"
-                      value="{{ auth()->check() ? auth()->user()->name : "" }}" class="form-control text-capitalize"
-                      placeholder="Name" aria-label="Full Name">
-                    <div class="invalid-feedback">
-                      Please provide your name.
-                    </div>
-                    {{-- @error("name")
-                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                    @enderror --}}
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group email has-validation">
-                    <input required type="email" name="email"
-                      value="{{ auth()->check() ? auth()->user()->email : "" }}" class="form-control"
-                      placeholder="Email Address" aria-label="Email Address">
-
-                    <div class="invalid-feedback">
-                      Please provide a valid email.
-                    </div>
-                    {{-- @error("email")
-                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                    @enderror --}}
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group number has-validation">
-                    <input required type="text" name="phone" class="form-control" placeholder="Phone"
-                      value="{{ auth()->check() ? auth()->user()->phone : "" }}">
-                    <div class="invalid-feedback">
-                      Please provide a phone number.
-                    </div>
-                    {{-- @error("phone")
-                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                    @enderror --}}
-
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="form-group message">
-                    <textarea class="form-control" name="message" placeholder="Write message" aria-label="Write message"
-                      maxlength="9000"></textarea>
-                    @error("message")
-                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                    @enderror
-                  </div>
-                </div>
-                <div class="col-md-12">
-                  <div class="send-btn">
-                    <button type="submit" class="btn-6">Send Message</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
           <br>
-
-          <!-- Video start -->
-          {{-- <div class="video mb-50">
-            <h3 class="heading-2">
-              Property Video
-            </h3>
-            <iframe src="https://www.youtube.com/embed/5e0LxrLSzok" allowfullscreen=""></iframe>
-          </div> --}}
           <br>
 
           <!--Related Property -->
-          <div class="similar-property mb-20 bg-gray container">
+          <div class="similar-property mb-20 container">
             <h3 class="heading-2">Similar Properties</h3>
             <div class="">
               @if ($relatedProps->count() > 0)
@@ -379,6 +342,7 @@
               @endif
             </div>
           </div>
+
         </div>
 
         {{-- Sidebar --}}
@@ -390,9 +354,7 @@
               <div class="s-border"></div>
               <div class="m-border"></div>
               <div class="media mb-4">
-                {{-- <a class="pr-3" href="agent-detail.html">
-                  <img src="{{ asset("assets/img/avatar/avatar-1.jpg") }}" alt="agent-3" class="img-fluid">
-                </a> --}}
+
                 <div class="media-body align-self-center">
                   <h5>
                     @if ($singleProp->user)
@@ -520,6 +482,7 @@
     </div>
   </div>
   <!-- end Toast -->
+
 @endsection
 
 @push("scripts")
@@ -529,7 +492,6 @@
 
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.querySelectorAll('.needs-validation');
-
       // Loop over them and prevent submission if there are invalid fields
       Array.prototype.slice.call(forms)
         .forEach(function(form) {
@@ -575,15 +537,64 @@
             }
           }, false);
         });
-    })();
+    });
+
+
 
     $('#comment_form').on('submit', function(event) {
       event.preventDefault();
 
+      let form = this;
+
       $.ajax({
         url: "{{ route("comments.store") }}",
         method: "POST",
-        data: $(this).serialize(),
+        data: $(form).serialize(),
+        success: function(response) {
+          // Handle successful response
+          if (response.error) {
+            showToast(response.message, 'bg-danger');
+          } else {
+            // Reset the form
+            form.reset();
+            showToast(response.message, 'bg-success');
+          }
+        },
+        error: function(xhr, status, error) {
+          // Handle error response
+          console.error('Error:', xhr.responseText);
+          showToast('Error: Something went wrong.', 'bg-danger');
+        }
+      });
+    });
+
+    // Reply function
+    function reply(caller) {
+      // Get the data-parent-id value from the caller
+      var parentId = $(caller).data('parent-id');
+
+      // Find the parent comment element of the clicked reply button
+      var parentComment = $(caller).closest('.comment');
+
+      // Find the repliesDiv within the parent comment
+      var repliesDiv = parentComment.find('.repliesDiv');
+
+      // Set the parent_id input field value
+      repliesDiv.find('input[name="parent_id"]').val(parentId);
+
+      // Toggle the display of the repliesDiv
+      repliesDiv.toggle();
+    }
+
+    $('#replyForm').on('submit', function(event) {
+      event.preventDefault();
+
+      let form = this;
+
+      $.ajax({
+        url: "{{ route("reply.store") }}",
+        method: "POST",
+        data: $(form).serialize(),
         success: function(response) {
           // Handle successful response
           if (response.error) {
@@ -616,5 +627,33 @@
       var toast = new bootstrap.Toast(document.getElementById('liveToast'));
       toast.show();
     }
+  </script>
+  <script>
+    document.getElementById('loadMoreComments').addEventListener('click', function() {
+      var button = this;
+      var page = button.getAttribute('data-page');
+      var propertyId = button.getAttribute('data-property-id');
+
+      fetch(`/property/${propertyId}/comments/${page}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.error) {
+            console.error('Error loading comments:', data.error);
+            return;
+          }
+
+          document.getElementById('commentsList').insertAdjacentHTML('beforeend', data.comments);
+
+          // Update the data-page attribute for the next set of comments
+          var nextPage = parseInt(page) + 1;
+          button.setAttribute('data-page', nextPage);
+
+          // Hide the button if there are no more comments to load
+          if (!data.hasMorePages) {
+            button.style.display = 'none';
+          }
+        })
+        .catch(error => console.error('Error loading comments:', error));
+    });
   </script>
 @endpush

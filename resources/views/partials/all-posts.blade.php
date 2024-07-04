@@ -33,7 +33,7 @@
                         <i class="lnr lnr-pencil"></i> Edit
                       </a>
                     </td>
-                    <td><a href="javascript(void)" class="btn btn-danger btn-sm rounded" data-id="{{ $blog->id }}"
+                    <td><a href="javascript::void(0)" class="btn btn-danger btn-sm rounded" data-id="{{ $blog->id }}"
                         data-bs-toggle="modal" data-bs-target="#confirmPostDelModal"> <i class="lnr lnr-trash"></i>
                         Delete</a></td>
                   </tr>
@@ -65,7 +65,7 @@
                         <a href="/post/{{ $blog->id }}/edit"><i class="fa fa-pencil"></i> Edit</a>
                       </li>
                       <li>
-                        <a href="javascript(void)" class="delete-btn" data-id="{{ $blog->id }}" data-bs-toggle="modal"
+                        <a href="javascript::void(0)" class="delete-btn" data-id="{{ $blog->id }}" data-bs-toggle="modal"
                           data-bs-target="#confirmPostDelModal"><i class="fa fa-remove"></i> Delete</a>
                       </li>
                     </ul>

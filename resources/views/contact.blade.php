@@ -20,7 +20,7 @@
     <div class="container">
       <!-- Main title -->
       <div class="main-title text-center">
-        <h1>Get in Touch</h1>
+        <h2>Get in Touch</h2>
         <p>We’re here to help with any questions you may have. Whether you’re buying, selling, or renting, our team is
           ready to assist you.</p>
       </div>
@@ -92,35 +92,31 @@
               <h3 class="mb-20">Follow Us</h3>
               <div class="social-media clearfix">
                 <div class="social-list">
-                  <a target="blank" href="">
-                    <div class="icon facebook">
-                      <div class="tooltip">Facebook</div>
-                      <span><i class="fab fa-facebook"></i></span>
+                  <div class="icon facebook">
+                    <div class="tooltip">Facebook</div>
+                    <span><i class="fab fa-facebook"></i></span>
+                  </div>
+                  <div class="icon twitter">
+                    <div class="tooltip">Twitter</div>
+                    <span><i class="fab fa-twitter"></i></span>
+                  </div>
+                  <a href="https://www.tiktok.com/@luwoap.accommodat" target="blank">
+                    <div class="icon tiktok">
+                      <div class="tooltip">Tiktok</div>
+                      <span><i class="fab fa-tiktok"></i></span>
                     </div>
                   </a>
-                  <a target="blank" href="">
-                    <div class="icon twitter">
-                      <div class="tooltip">Twitter</div>
-                      <span><i class="fab fa-twitter"></i></span>
-                    </div>
-                  </a>
-
-                  <a target="blank" href="">
-                    <div class="icon linkedin mr-0">
-                      <div class="tooltip">LinkedIn</div>
-                      <span><i class="fab fa-linkedin"></i></span>
-                    </div>
-                  </a>
-                  <a target="blank" href="">
-                    <div class="icon instagram mr-0">
+                  <a href="https://www.instagram.com/accommodation_portal" target="blank">
+                    <div class="icon instagram">
                       <div class="tooltip">Instagram</div>
                       <span><i class="fab fa-instagram"></i></span>
                     </div>
                   </a>
-                  <a target="blank" href="">
-                    <div class="icon tiktok mr-0">
-                      <div class="tooltip">Tiktok</div>
-                      <span><i class="fab fa-tiktok"></i></span>
+                  <a href="https://www.linkedin.com/in/luwoap-properties-3a1bb7304/" target="_blank"
+                    rel="noopener noreferrer">
+                    <div class="icon linkedin mr-0">
+                      <div class="tooltip">LinkedIn</div>
+                      <span><i class="fab fa-linkedin"></i></span>
                     </div>
                   </a>
                 </div>

@@ -66,7 +66,7 @@
       <!-- Main title -->
       <div class="main-title">
         <p>BROWSE HOT OFFERS</p>
-        <h1>Latest Properties</h1>
+        <h2>Latest Properties</h2>
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">

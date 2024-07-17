@@ -41,6 +41,9 @@ class PropertyManagerController extends Controller
     // Add authenticated user's ID as user_id
     $validatedData['user_id'] = auth()->user()->id;
 
+    //Add status of the property
+    $validatedData['status'] = 'live';
+
     // Handle file upload for feature image
     $ftImageFileName = $this->uploadFeatureImage($request);
     $validatedData['ft_image'] = $ftImageFileName;
@@ -127,43 +130,64 @@ class PropertyManagerController extends Controller
     return view('partials.edit-property', compact('prop', 'propImages'));
   }
 
+  //update the status of a property in Admin page
+  public function updateStatus(Request $request, Property $prop)
+  {
+    // Validate the incoming request
+    $request->validate([
+      'status' => 'required|in:live,hidden',
+    ]);
+
+    // Update the status of the property
+    $prop->status = $request->input('status');
+    $prop->save();
+
+    // Redirect or return a response
+    return redirect()->back()->with('success', 'Property status updated successfully.');
+  }
 
   //Update a Property
   public function updateProperty(Request $request, Property $prop)
   {
     // Validate the incoming request data
     $validatedData = $request->validate([
-      'title' => 'required|string|max:255',
-      'offer_type' => 'required|string|in:sale,rent,lease',
+      'title' => 'nullable|string|max:255',
+      'offer_type' => 'nullable|string|in:sale,rent,lease',
       'price' => 'nullable|string|max:255',
       'price_range' => 'nullable|string|max:255',
       'period' => 'nullable|string|max:255',
-      'currency' => 'required|string|in:GHC,$',
-      'location' => 'required|string|max:255',
-      'bed' => 'required|integer|min:1',
-      'bath' => 'required|integer|min:1',
+      'currency' => 'nullable|string|in:GHC,$',
+      'location' => 'nullable|string|max:255',
+      'bed' => 'nullable|integer|min:1',
+      'bath' => 'nullable|integer|min:1',
       'sqm' => 'nullable',
-      'category' => 'required|string|max:255',
+      'category' => 'nullable|string|max:255',
       'ft_image' => 'image|mimes:jpeg,png,jpg|max:2048',
-      'more_info' => 'required|string',
+      'more_info' => 'nullable|string',
       'amenities' => 'array'
     ]);
 
-    //append the amenities csv to the validated data.
+    // Append the amenities csv to the validated data if provided.
     $amenitiesArr = $request->input('amenities', []);
-    $amenities = implode(',', $amenitiesArr);
-    $validatedData['amenities'] = $amenities;
-
-    // Add authenticated user's ID as agent_id
-    // $validatedData['user_id'] = auth()->user()->id;
+    if (!empty($amenitiesArr)) {
+      $validatedData['amenities'] = implode(',', $amenitiesArr);
+    } else {
+      $validatedData['amenities'] = $prop->amenities;
+    }
 
     // Handle file upload for feature image if provided
     if ($request->hasFile('ft_image')) {
       $validatedData['ft_image'] = $this->uploadFeatureImage($request, $prop);
     }
 
-    // Update the existing property instance with the validated data
-    $prop->update($validatedData);
+    // Only update fields that have new values
+    foreach ($validatedData as $key => $value) {
+      if (!is_null($value) && $value !== '') {
+        $prop->$key = $value;
+      }
+    }
+
+    $prop->save();
 
     // Validate the incoming request data for the gallery images
     $request->validate([
@@ -175,8 +199,9 @@ class PropertyManagerController extends Controller
     $this->uploadGalleryImages($request, $prop);
 
     // Redirect back with success message or handle response as needed
-    return redirect('props/prop-details/' . $prop->id,)->with('success', 'Property Updated Successfully.');
+    return redirect('props/prop-details/' . $prop->id)->with('success', 'Property Updated Successfully.');
   }
+
 
   //Delete a Propery
   public function deleteProperty(Property $prop)

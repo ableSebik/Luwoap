@@ -89,6 +89,8 @@
                   <ul>
                     <li><a href="/incoming-requests"><i class="lnr lnr-envelope"></i> Requests </a>
                     </li>
+                    <li><a href="/all-comments"><i class="fa fa-comments"></i> Comments </a>
+                    </li>
                     <li><a href="/bookings"><i class="lnr lnr-calendar-full"></i> Bookings</a></li>
                   </ul>
                 @endif

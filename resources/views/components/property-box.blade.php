@@ -1,24 +1,26 @@
 <div class="property-box-4">
-  <div class="property-photo">
-    <img class="img-fluid w-100" src="{{ Storage::url("uploads/ft_images/" . $prop->ft_image) }}"
-      alt="{{ $prop->title }}">
-    <div class="tag">{{ $prop->offer_type }}</div>
-    <div class="category-box">{{ $prop->category }}</div>
-    <div class="plan-price"><sup>{{ $prop->currency }}</sup>
-      @if ($prop->category == "hostel")
-        {{ $prop->price_range }}
-      @else
-        {{ $prop->price }}
-      @endif
-      @if ($prop->offer_type != "sale")
-        <span>/{{ $prop->period }}</span>
-      @endif
+  <a href="{{ route("single.prop", $prop->id) }}">
+    <div class="property-photo">
+      <img class="img-fluid w-100" src="{{ Storage::url("uploads/ft_images/" . $prop->ft_image) }}"
+        alt="{{ ucwords($prop->title) }}">
+      <div class="tag">{{ $prop->offer_type }}</div>
+      <div class="category-box">{{ $prop->category }}</div>
+      <div class="plan-price"><sup>{{ $prop->currency }}</sup>
+        @if ($prop->category == "hostel")
+          {{ $prop->price_range }}
+        @else
+          {{ $prop->price }}
+        @endif
+        @if ($prop->offer_type != "sale")
+          <span>/{{ strtoupper($prop->period) }}</span>
+        @endif
+      </div>
     </div>
-  </div>
+  </a>
   <div class="detail">
     <div class="heading">
       <h3>
-        <a href="{{ route("single.prop", $prop->id) }}">{{ $prop->title }}</a>
+        <a href="{{ route("single.prop", $prop->id) }}">{{ ucwords($prop->title) }}</a>
       </h3>
       <div class="location">
         <a href="{{ route("single.prop", $prop->id) }}">

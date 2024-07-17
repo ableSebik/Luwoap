@@ -25,10 +25,10 @@ class PropertiesController extends Controller
   public function index()
   {
     $pageTitle = "LUWOAP| Your Premier Real Estate Destination in Ghana";
-    $metaDescription = "Discover luxury units and well-organized accommodation properties in Ghana with LUWOAP, your trusted real estate partner for short-term and long-term stays.";
+    $metaDescription = "Discover luxury units and accommodation properties in Ghana with LUWOAP, your trusted real estate partner.";
 
     // Retrieve paginated properties with their associated image count
-    $props = Property::withCount('images')->orderBy('created_at', 'desc')->paginate(9);
+    $props = Property::withCount('images')->orderBy('created_at', 'desc')->where('status', 'live')->paginate(9);
 
     // Iterate through each property to calculate additional information
     foreach ($props as $prop) {
@@ -118,7 +118,7 @@ class PropertiesController extends Controller
     // Retrieve related properties (exclude the current property)
     $relatedProps = Property::where('id', '!=', $id)
       ->where('category', $singleProp->category)
-      ->where('offer_type', $singleProp->offer_type)
+      // ->where('offer_type', $singleProp->offer_type)
       ->orderBy('created_at', 'desc')
       ->take(4)
       ->get();
@@ -615,81 +615,5 @@ class PropertiesController extends Controller
     // dd($filteredProperties);
     // You can pass the filtered properties to a view to display the results
     return view('props/search_results', compact('filteredProperties'));
-  }
-
-
-  // Add new Property Comment
-  public function commentStore(Request $request)
-  {
-    $validatedData = $request->validate([
-      'user_id' => 'required|exists:users,id',
-      'prop_id' => 'required|exists:props,id',
-      'comment' => 'required|string|max:1000',
-    ]);
-
-    $validatedData['status'] = 'pending';
-
-    try {
-      Comment::create($validatedData);
-      return response()->json(['success' => true, 'message' => 'Comment submitted successfully, pending approval!']);
-    } catch (\Exception $e) {
-      return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
-    }
-  }
-
-  // Add new Property Comment reply
-  public function replyStore(Request $request)
-  {
-    $validatedData = $request->validate([
-      'user_id' => 'required|exists:users,id',
-      'prop_id' => 'required|exists:props,id',
-      'comment' => 'required|string|max:1000',
-      'parent_id' => 'required|string|max:1000',
-    ]);
-
-    $validatedData['status'] = 'pending';
-
-    try {
-      Comment::create($validatedData);
-      return response()->json(['success' => true, 'message' => 'Comment submitted successfully, pending approval!']);
-    } catch (\Exception $e) {
-      return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
-    }
-  }
-
-
-  // Update Property Comment Status
-  public function commentUpdateStatus(Request $request, $id)
-  {
-    $validatedData = $request->validate([
-      'status' => 'required|in:pending,approved'
-    ]);
-
-    try {
-      $comment = Comment::findOrFail($id);
-      $comment->status = $validatedData['status'];
-      $comment->save();
-
-      return response()->json(['success' => true, 'message' => 'Comment status updated successfully!']);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-      return response()->json(['error' => true, 'message' => 'Comment not found.']);
-    } catch (\Exception $e) {
-      return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
-    }
-  }
-
-  // Delete Property Comment
-  public function commentDestroy($id)
-  {
-    try {
-      $comment = Comment::findOrFail($id);
-      $comment->delete();
-
-      return response()->json(['success' => true, 'message' => 'Comment deleted successfully!']);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-      return response()->json(['error' => true, 'message' => 'Comment not found.']);
-    } catch (\Exception $e) {
-      return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
-    }
   }
 }

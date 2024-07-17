@@ -34,6 +34,7 @@ class Property extends Model
     'user_id',
     'offer_type',
     'amenities',
+    'status',
   ];
 
   public $timestamps = true;

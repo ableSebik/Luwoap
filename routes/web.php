@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\props\PropertiesController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -53,7 +54,7 @@ Route::get('props/category/hotel', [App\Http\Controllers\props\PropertiesControl
 Route::get('props/category/airbnb', [App\Http\Controllers\props\PropertiesController::class, 'airbnbProps'])->name('airbnb.prop');
 
 //Sort by Category=Apartment
-Route::get('props/category/apartnemt', [App\Http\Controllers\props\PropertiesController::class, 'apartmentProps'])->name('apartment.prop');
+Route::get('props/category/apartment', [App\Http\Controllers\props\PropertiesController::class, 'apartmentProps'])->name('apartment.prop');
 
 //Sort by Category=Office Space
 Route::get('props/category/office-space', [App\Http\Controllers\props\PropertiesController::class, 'officeProps'])->name('office.prop');
@@ -75,9 +76,9 @@ Route::get('props/category/commercial-property', [App\Http\Controllers\props\Pro
 
 
 //Submit Property Comment
-Route::post('/comments', [PropertiesController::class, 'commentStore'])->name('comments.store');
+Route::post('/comments', [CommentsController::class, 'commentStore'])->name('comments.store');
 //Submit Comment reply
-Route::post('/reply', [PropertiesController::class, 'replyStore'])->name('reply.store');
+Route::post('/reply', [CommentsController::class, 'replyStore'])->name('reply.store');
 
 
 //********** Nav Pages **********//
@@ -150,6 +151,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     //Update Property 
     Route::match(['put', 'patch'], '/property/{prop}', [App\Http\Controllers\props\PropertyManagerController::class, 'updateProperty'])->name('update.prop');
 
+    //change Property status (hide/live)
+    Route::put('/property/{prop}/status', [PropertyManagerController::class, 'updateStatus'])->name('property.updateStatus');
+
+
     //Delete a Property
     Route::delete('/property/{prop}', [App\Http\Controllers\props\PropertyManagerController::class, 'deleteProperty'])->name('properties.delete');
 
@@ -157,10 +162,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/submit-property', function () {
         return view('partials.submit-property');
     });
-    //Create a Property
+
 
     //Show Requests from clients view
     Route::get('/incoming-requests', [RequestController::class, 'allRequests'])->name('all.requests');
+
+    //Show All Comments from clients view
+    Route::get('/all-comments', [CommentsController::class, 'allComments'])->name('all.comments');
 
     // Manage Incoming Client Request
     Route::post('/requests/{id}/status', [RequestController::class, 'updateRequestStatus'])->name('requests.updateStatus');

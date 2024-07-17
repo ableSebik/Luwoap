@@ -5606,9 +5606,9 @@ footer {
     border-right: none;
 }
 
-.manage-table tbody tr td{
+/* .manage-table tbody tr td{
     padding: 25px 0 0 25px;
-}
+} */
 
 .dashboard-list .comment-content {
     padding-bottom: 0;

@@ -46,7 +46,7 @@
           <div class="heading-properties-2 mb-40">
             <div class="clearfix">
               <div class="pull-left d-flex" style="align-items: center;">
-                <h2 style="margin: auto;">{{ $singleProp->title }} </h2>
+                <h2 style="margin: auto;">{{ ucwords($singleProp->title) }} </h2>
                 @if ($singleProp->offer_type != "sale")
                   <div class="ratings-2 mx-2">
                     <span>{{ $singleProp->offer_type }}</span>
@@ -195,7 +195,7 @@
             <!-- Photo gallery end -->
 
             <!-- Leave a Comment -->
-            @if ($singleProp->offer_type != "")
+            {{-- @if ($singleProp->offer_type != "sale")
               @auth
                 <div class="contact-2 ca mtb-50 bg-white container">
                   <h3 class="heading-2">Leave a Comment</h3>
@@ -239,7 +239,7 @@
                 @endif
 
               </div>
-            @endif
+            @endif --}}
 
             <!-- Contact 2 start -->
             <div class="contact-2 ca mtb-50 container">
@@ -261,9 +261,7 @@
                       <div class="invalid-feedback">
                         Please provide your name.
                       </div>
-                      {{-- @error("name")
-                        <p class="text-danger pull-left mb-4">{{ $message }}</p>
-                      @enderror --}}
+
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -316,10 +314,10 @@
           <br>
 
           <!--Related Property -->
-          <div class="similar-property mb-20 container">
-            <h3 class="heading-2">Similar Properties</h3>
-            <div class="">
-              @if ($relatedProps->count() > 0)
+          @if ($relatedProps->count() > 0)
+            <div class="similar-property mb-20">
+              <h3 class="heading-2">Similar Properties</h3>
+              <div class="">
                 <div class="slick-slider-area">
                   <div class="row slick-carousel"
                     data-slick='{"slidesToShow": 2, "responsive":[{"breakpoint": 1024,"settings":{"slidesToShow": 2}}, {"breakpoint": 768,"settings":{"slidesToShow": 1}}]}'>
@@ -330,19 +328,12 @@
                       </div>
                     @endforeach
                   </div>
-                  <div class="slick-prev slick-arrow-buton">
-                    <i class="fa fa-angle-left"></i>
-                  </div>
-                  <div class="slick-next slick-arrow-buton">
-                    <i class="fa fa-angle-right"></i>
-                  </div>
-                </div>
-              @else
-                <h5>No related properties.</h5>
-              @endif
-            </div>
-          </div>
 
+                </div>
+
+              </div>
+            </div>
+          @endif
         </div>
 
         {{-- Sidebar --}}

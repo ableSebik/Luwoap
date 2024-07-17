@@ -16,7 +16,7 @@ return new class extends Migration
 			$table->string('title');
 			$table->string('price'); // Assuming price is a decimal with 10 digits in total and 2 decimal places
 			$table->string('price_range'); // for only hostel property(not required field)
-			$table->enum('period', ['yr', 'mth', 'day', 'sem']);
+			$table->enum('period', ['yr', 'mth', 'day', 'sem', 'sqm']);
 			$table->enum('currency', ['GHC', '$']);
 			$table->string('ft_image')->nullable();
 			$table->integer('bed');
@@ -28,6 +28,7 @@ return new class extends Migration
 			$table->foreignID('user_id')->references('id')->on('users'); // Foreign key column to reference agents table
 			$table->string('offer_type');
 			$table->string('amenities')->nullable();
+			$table->enum('status', ['live', 'hidden']);
 			$table->timestamps();
 
 			// // Define the foreign key constraint

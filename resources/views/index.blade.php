@@ -130,7 +130,10 @@
         </div>
       </div>
 
-      <a href="/properties" class="btn-5 none-btn-992 my-5">More Properties <i class="fa fa-angle-double-right"></i></a>
+      {{-- <button class="btn-5 button-theme btn-search w-100">
+        <strong>Search</strong>
+      </button> --}}
+      <a href="/properties" class="btn-5 my-5">More Properties <i class="fa fa-angle-double-right"></i></a>
     </div>
   </div>
   {{-- End Property listings --}}
@@ -297,7 +300,7 @@
           </div>
         @endforeach
       </div>
-      <a href="/blog" class="btn-5 none-btn-992">Visit Our Blogs <i class="fa fa-angle-double-right"></i></a>
+      <a href="/blog" class="btn-5">Visit Our Blogs <i class="fa fa-angle-double-right"></i></a>
     </div>
   </div>
   <!-- Blog end -->

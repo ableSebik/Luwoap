@@ -79,7 +79,7 @@
                 <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <label for="bed">Bed</label>
-                    <input type="number" name="bed" min="1" max="10" class="form-control search-fields"
+                    <input type="number" name="bed" min="1" class="form-control search-fields"
                       placeholder="Bed" value='{{ $prop->bed }}'>
                     @error("bed")
                       {{ $message }}
@@ -87,8 +87,8 @@
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <label for="bath">Bath</label>
-                    <input type="number" id="bath" name="bath" min="1" max="10"
-                      class="form-control search-fields" placeholder="Bath" value='{{ $prop->bath }}'>
+                    <input type="number" id="bath" name="bath" min="1" class="form-control search-fields"
+                      placeholder="Bath" value='{{ $prop->bath }}'>
                     @error("bath")
                       {{ $message }}
                     @enderror
@@ -153,6 +153,7 @@
                       <option value="mth">Month</option>
                       <option value="day">Day</option>
                       <option value="sem">Semester</option>
+                      <option value="sqm">Square meter</option>
                     </select>
                     @error("period")
                       {{ $message }}

@@ -42,7 +42,9 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="sidebar-logo d-md-none">
-        <img src="{{ asset("assets/img/logos/luwoap-wt.png") }}" alt="luwoap logo sidebarlogo">
+        <a href="/">
+          <img src="{{ asset("assets/img/logos/luwoap-wt.png") }}" alt="luwoap logo sidebarlogo">
+        </a>
       </div>
       <button class="navbar-toggler" id="drawer" type="button">
         <span class="fa fa-bars"></span>
@@ -134,7 +136,7 @@
           @guest
             <li class="nav-item">
               <a class="nav-link h-icon" href="{{ route("login") }}">
-                <i class="fa fa-user-o"></i>
+                <i class="fas fa-user"></i>
                 Login
               </a>
             </li>
@@ -163,21 +165,36 @@
   </div>
   <div class="sidebar-inner">
     <div class="sidebar-logo">
-      <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="luwoap logo sidebarlogo">
+      <a href="/">
+        <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="luwoap logo sidebarlogo">
+      </a>
     </div>
     <div class="sidebar-navigation">
       <ul class="menu-list">
         <li><a href="/" class="active pt0">Home</a>
         </li>
         <li>
-          <a href="#">Properties <em class="fa fa-chevron-down"></em></a>
+          <a href="#">Properties <i class="fas fa-chevron-down"></i></a>
           <ul>
             <li>
-              <a href="#">Offer Type <em class="fa fa-chevron-down"></em></a>
+              <a href="#">Offer Type <i class="fas fa-chevron-down"></i></a>
               <ul>
                 <li><a href="{{ route("buy.prop") }}">For Sale</a></li>
                 <li><a href="{{ route("rent.prop") }}">For Rent</a></li>
                 <li><a href="{{ route("lease.prop") }}">For Lease</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">Categories <i class="fas fa-chevron-down"></i></a>
+              <ul>
+                <li><a class="dropdown-item" href="{{ route("apartment.prop") }}">Apartment</a></li>
+                <li><a class="dropdown-item" href="{{ route("hostel.prop") }}">Hostel</a></li>
+                <li><a class="dropdown-item" href="{{ route("airbnb.prop") }}">Air BnB</a></li>
+                <li><a class="dropdown-item" href="{{ route("office.prop") }}">Office Spaces</a></li>
+                <li><a class="dropdown-item" href="{{ route("luxury.prop") }}">Luxury Apartment</a></li>
+                <li><a class="dropdown-item" href="{{ route("hotel.prop") }}">Hotel</a></li>
+                <li><a class="dropdown-item" href="{{ route("guest.prop") }}">Guest House</a></li>
+                <li><a class="dropdown-item" href="{{ route("commercial.prop") }}">Commercial Space</a></li>
               </ul>
             </li>
           </ul>
@@ -190,14 +207,14 @@
         </li>
         @guest
           <li>
-            <a href="login"><i class="fa-brands fa-tiktok"></i> Sign In </a>
+            <a href="/login"> Sign In <em class="fas fa-sign-in-alt"></em></a>
           </li>
         @endguest
 
         @auth
-          <li><a>My Account <em class="fa fa-chevron-down"></em></a>
+          <li><a>My Account <em class="fas fa-chevron-down"></em></i></a>
             <ul>
-              <li><a href="">Hi,
+              <li><a href="#">Hi,
                   {{ Auth::user()->name }}</a></li>
               <li><a href="/user-profile">Profile</a></li>
               <li>

@@ -57,7 +57,7 @@
                     <div class="row g-0">
                       <div class="col-lg-4 col-md-5">
                         <div class="property-photo">
-                          <a href="{{ route("single.prop", $property->id) }}" class="property-img">
+                          <a href="{{ route("single.prop", $property->slug) }}" class="property-img">
                             <img src="{{ asset("storage/uploads/ft_images/" . $property->ft_image) }}"
                               alt="{{ $property->title }}" class="img-fluid">
                             <div class="tag">{{ $property->offer_type }}</div>
@@ -74,10 +74,10 @@
                         <div class="detail">
                           <div class="hdg">
                             <h3 class="title">
-                              <a href="{{ route("single.prop", $property->id) }}">{{ $property->title }}</a>
+                              <a href="{{ route("single.prop", $property->slug) }}">{{ $property->title }}</a>
                             </h3>
                             <h5 class="location">
-                              <a href="{{ route("single.prop", $property->id) }}">
+                              <a href="{{ route("single.prop", $property->slug) }}">
                                 <i class="flaticon-pin"></i>{{ $property->location }}
                               </a>
                             </h5>

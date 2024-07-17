@@ -14,6 +14,7 @@ return new class extends Migration
 		Schema::create('props', function (Blueprint $table) {
 			$table->id();
 			$table->string('title');
+			$table->string('slug')->unique();
 			$table->string('price'); // Assuming price is a decimal with 10 digits in total and 2 decimal places
 			$table->string('price_range'); // for only hostel property(not required field)
 			$table->enum('period', ['yr', 'mth', 'day', 'sem', 'sqm']);

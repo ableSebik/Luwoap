@@ -244,7 +244,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::get('/property/{propertyId}/comments/{page}', [App\Http\Controllers\props\PropertiesController::class, 'loadMoreComments'])->name('property.loadMoreComments');
 
 // Show single property
-Route::get('props/prop-details/{id}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');
+Route::get('props/prop-details/{slug}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');
 
 
 

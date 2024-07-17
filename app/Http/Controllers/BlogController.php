@@ -44,11 +44,6 @@ class BlogController extends Controller
   }
 
 
-
-
-
-
-
   //Get Recent Posts
   public function recentPost()
   {
@@ -80,10 +75,6 @@ class BlogController extends Controller
       'post_day' => $post_day,
     ];
   }
-
-
-
-
 
 
   // create a new post

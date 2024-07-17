@@ -161,7 +161,7 @@
                                       <td
                                         style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; background-color: #4a0265;"
                                         valign="top" bgcolor="#4a0265">
-                                        <a href="{{ route("single.prop", $prop_id) }}" target="_blank"
+                                        <a href="{{ route("single.prop", $slug) }}" target="_blank"
                                           style="border: solid 1px #4a0265; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #4a0265; color: #ffffff;">Goto
                                           Property</a>
                                       </td>

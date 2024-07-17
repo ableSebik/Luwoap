@@ -14,6 +14,7 @@ class ClientEnquiryMail extends Mailable implements ShouldQueue
 
   public $clientName;
   public $prop_id;
+  public $slug;
 
 
   /**
@@ -29,10 +30,11 @@ class ClientEnquiryMail extends Mailable implements ShouldQueue
   /**
    * Create a new message instance.
    */
-  public function __construct($clientName, $prop_id)
+  public function __construct($clientName, $prop_id, $slug)
   {
     $this->clientName = $clientName;
     $this->prop_id = $prop_id;
+    $this->slug = $slug;
   }
 
   /**
@@ -44,6 +46,7 @@ class ClientEnquiryMail extends Mailable implements ShouldQueue
       ->with([
         'clientName' => $this->clientName,
         'prop_id' => $this->prop_id,
+        'slug' => $this->slug,
       ]);
   }
 }

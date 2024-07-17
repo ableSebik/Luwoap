@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Rating;
 use App\Models\Comment;
+use Illuminate\Support\Str;
 use Laravel\Scout\Searchable;
 use App\Models\prop\PropImage;
 use App\Models\prop\AgentRequest;
@@ -76,5 +77,38 @@ class Property extends Model
   public function comments()
   {
     return $this->hasMany(Comment::class, 'prop_id');
+  }
+
+  // 
+  public static function boot()
+  {
+    parent::boot();
+
+    // Generate a slug before creating a new Property
+    static::creating(function ($singleProp) {
+      $singleProp->slug = static::generateUniqueSlug($singleProp->title);
+    });
+
+    // Update slug when title is updated
+    static::updating(function ($singleProp) {
+      if ($singleProp->isDirty('title')) {
+        $singleProp->slug = static::generateUniqueSlug($singleProp->title, $singleProp->id);
+      }
+    });
+  }
+
+  private static function generateUniqueSlug($title, $id = 0)
+  {
+    // Generate a slug based on the title
+    $slug = Str::slug($title);
+    // Check if the generated slug already exists
+    $originalSlug = $slug;
+    $count = 1;
+
+    while (static::where('slug', $slug)->where('id', '!=', $id)->exists()) {
+      $slug = $originalSlug . '-' . $count++;
+    }
+
+    return $slug;
   }
 }

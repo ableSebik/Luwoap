@@ -25,7 +25,7 @@
                       class="img-fluid">
                   </td>
                   <td class="title-container">
-                    <h5><a href="{{ route("single.prop", $prop->id) }}">{{ $prop->title }}</a>
+                    <h5><a href="{{ route("single.prop", $prop->slug) }}">{{ $prop->title }}</a>
                       <small>
                         @if ($prop->status == "live")
                           <i style="font-size: 12px" data-toggle="tooltip" data-placement="top" title="Live"
@@ -55,15 +55,15 @@
                   <td class="expire-date"></td>
                   <td class="action">
                     <ul>
-                      <li><a href="/property/{{ $prop->id }}/edit"><i class="fa fa-pencil"></i> Edit</a></li>
+                      <li><a href="/property/{{ $prop->slug }}/edit"><i class="fa fa-pencil"></i> Edit</a></li>
                       <li>
-                        <a href="javascript::void(0)" class="status-btn" data-id="{{ $prop->id }}"
+                        <a href="javascript::void(0)" class="status-btn" data-id="{{ $prop->slug }}"
                           data-bs-toggle="modal" data-bs-target="#propertyStatusModal"><i class="fa  fa-eye-slash"></i>
                           Hide
                         </a>
                       </li>
                       <li>
-                        <a href="javascript::void(0)" class="delete-btn" data-id="{{ $prop->id }}"
+                        <a href="javascript::void(0)" class="delete-btn" data-id="{{ $prop->slug }}"
                           data-bs-toggle="modal" data-bs-target="#confirmPropDelModal"><i class="fa fa-remove"></i>
                           Delete
                         </a>

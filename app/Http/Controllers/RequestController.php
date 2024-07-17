@@ -37,10 +37,10 @@ class RequestController extends Controller
         return response()->json(['error' => true, 'message' => 'Request already submitted for this property']);
       }
       // Create a new AgentRequest instance
-      AgentRequest::create($validatedData);
+      $agentReq = AgentRequest::create($validatedData);
 
       // Queue the email to be sent
-      Mail::to($validatedData['email'])->send(new ClientEnquiryMail($validatedData['name'], $validatedData['prop_id']));
+      Mail::to($validatedData['email'])->send(new ClientEnquiryMail($validatedData['name'], $validatedData['prop_id'],  $agentReq->slug));
 
       return response()->json(['success' => true, 'message' => 'Request submitted successfully.']);
     } catch (\Exception $e) {

@@ -61,7 +61,7 @@ class PropertyManagerController extends Controller
     $this->uploadGalleryImages($request, $property);
 
     // Redirect back with success message or handle response as needed
-    return redirect('props/prop-details/' . $property->id,)->with('success', 'Property added successfully.');
+    return redirect('props/prop-details/' . $property->slug,)->with('success', 'Property added successfully.');
   }
 
   // Separate method to handle feature image upload
@@ -199,7 +199,7 @@ class PropertyManagerController extends Controller
     $this->uploadGalleryImages($request, $prop);
 
     // Redirect back with success message or handle response as needed
-    return redirect('props/prop-details/' . $prop->id)->with('success', 'Property Updated Successfully.');
+    return redirect('props/prop-details/' . $prop->slug)->with('success', 'Property Updated Successfully.');
   }
 
 

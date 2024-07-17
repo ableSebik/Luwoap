@@ -426,14 +426,14 @@
               <div class="social-media clearfix">
                 <div class="social-list">
                   <a target="blank"
-                    href="https://www.facebook.com/sharer/sharer.php?u={{ route("single.prop", $singleProp->id) }}&quote={{ $singleProp->title }}">
+                    href="https://www.facebook.com/sharer/sharer.php?u={{ route("single.prop", $singleProp->slug) }}&quote={{ $singleProp->title }}">
                     <div class="icon facebook">
                       <div class="tooltip">Facebook</div>
                       <span><i class="fab fa-facebook"></i></span>
                     </div>
                   </a>
                   <a target="blank"
-                    href="https://twitter.com/intent/tweet?text={{ $singleProp->title }}&url={{ route("single.prop", $singleProp->id) }}">
+                    href="https://twitter.com/intent/tweet?text={{ $singleProp->title }}&url={{ route("single.prop", $singleProp->slug) }}">
                     <div class="icon twitter">
                       <div class="tooltip">Twitter</div>
                       <span><i class="fab fa-twitter"></i></span>
@@ -441,7 +441,7 @@
                   </a>
 
                   <a target="blank"
-                    href="https://www.linkedin.com/sharing/share-offsite/?url={{ route("single.prop", $singleProp->id) }}">
+                    href="https://www.linkedin.com/sharing/share-offsite/?url={{ route("single.prop", $singleProp->slug) }}">
                     <div class="icon linkedin mr-0">
                       <div class="tooltip">LinkedIn</div>
                       <span><i class="fab fa-linkedin"></i></span>

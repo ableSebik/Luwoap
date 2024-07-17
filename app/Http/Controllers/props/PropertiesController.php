@@ -90,7 +90,7 @@ class PropertiesController extends Controller
     ));
   }
 
-  public function single($id)
+  public function single($slug)
   {
     $pageTitle =  "LUWOAP| Your Premier Real Estate Destination in Ghana";
     $metaDescription = "Explore LUWOAP’s diverse range of properties in Ghana, offering luxury units and organized accommodations for both short-term stays and long-term investments.";
@@ -100,7 +100,7 @@ class PropertiesController extends Controller
       'user',
       'images',
       'ratings'
-    ])->findOrFail($id);
+    ])->where('slug', $slug)->firstOrFail();
 
     if (!$singleProp) {
       // Handle the case where the property is not found
@@ -116,7 +116,7 @@ class PropertiesController extends Controller
       ->paginate(4); // Load 4 comments initially
 
     // Retrieve related properties (exclude the current property)
-    $relatedProps = Property::where('id', '!=', $id)
+    $relatedProps = Property::where('slug', '!=', $slug)
       ->where('category', $singleProp->category)
       // ->where('offer_type', $singleProp->offer_type)
       ->orderBy('created_at', 'desc')

@@ -1,5 +1,5 @@
 <div class="property-box-4">
-  <a href="{{ route("single.prop", $prop->id) }}">
+  <a href="{{ route("single.prop", $prop->slug) }}">
     <div class="property-photo">
       <img class="img-fluid w-100" src="{{ Storage::url("uploads/ft_images/" . $prop->ft_image) }}"
         alt="{{ ucwords($prop->title) }}">
@@ -20,10 +20,10 @@
   <div class="detail">
     <div class="heading">
       <h3>
-        <a href="{{ route("single.prop", $prop->id) }}">{{ ucwords($prop->title) }}</a>
+        <a href="{{ route("single.prop", $prop->slug) }}">{{ ucwords($prop->title) }}</a>
       </h3>
       <div class="location">
-        <a href="{{ route("single.prop", $prop->id) }}">
+        <a href="{{ route("single.prop", $prop->slug) }}">
           <i class="fa fa-map-marker"></i>{{ $prop->location }}
         </a>
       </div>

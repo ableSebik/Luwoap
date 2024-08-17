@@ -55,15 +55,15 @@
                   <td class="expire-date"></td>
                   <td class="action">
                     <ul>
-                      <li><a href="/property/{{ $prop->slug }}/edit"><i class="fa fa-pencil"></i> Edit</a></li>
+                      <li><a href="/property/{{ $prop->id }}/edit"><i class="fa fa-pencil"></i> Edit</a></li>
                       <li>
-                        <a href="javascript::void(0)" class="status-btn" data-id="{{ $prop->slug }}"
+                        <a href="javascript::void(0)" class="status-btn" data-id="{{ $prop->id }}"
                           data-bs-toggle="modal" data-bs-target="#propertyStatusModal"><i class="fa  fa-eye-slash"></i>
                           Hide
                         </a>
                       </li>
                       <li>
-                        <a href="javascript::void(0)" class="delete-btn" data-id="{{ $prop->slug }}"
+                        <a href="javascript::void(0)" class="delete-btn" data-id="{{ $prop->id }}"
                           data-bs-toggle="modal" data-bs-target="#confirmPropDelModal"><i class="fa fa-remove"></i>
                           Delete
                         </a>

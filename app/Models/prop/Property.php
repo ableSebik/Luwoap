@@ -49,6 +49,11 @@ class Property extends Model
     return $array;
   }
 
+  public function shouldBeSearchable()
+  {
+    return $this->status === 'live';
+  }
+
   // Define relationship with PropImages
   public function images()
   {

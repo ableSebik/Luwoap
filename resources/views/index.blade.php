@@ -51,7 +51,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-md-12">
-          <a href="{{ route("buy.prop") }}" class="service-info-4-link">
+          <a href="{{ route("house.prop") }}" class="service-info-4-link">
             <div class="service-info-4">
               <div class="icon">
                 <i class="fas fa-building"></i>

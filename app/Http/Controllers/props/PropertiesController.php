@@ -100,7 +100,7 @@ class PropertiesController extends Controller
       'user',
       'images',
       'ratings'
-    ])->where('slug', $slug)->firstOrFail();
+    ])->where('slug', $slug)->where('status', 'live')->firstOrFail();
 
     if (!$singleProp) {
       // Handle the case where the property is not found
@@ -131,6 +131,8 @@ class PropertiesController extends Controller
       'comments'
     ));
   }
+
+
 
   // Method to load more comments
   public function loadMoreComments($propertyId, $page)

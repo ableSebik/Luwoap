@@ -12,15 +12,15 @@ class CommentsController extends Controller
   // Display all Comments
   public function allComments()
   {
-    $comments = Comment::where('status', 'approved')
-      ->with(['user', 'replies' => function ($query) {
-        $query->where('status', 'approved');
-      }])
+    $comments = Comment::with(['user', 'replies' => function ($query) {
+      $query->orderBy('created_at', 'desc');
+    }])->where('status', 'approved')
       ->orderBy('created_at', 'desc')
-      ->paginate(10); // Change this to the desired number of comments per page
+      ->paginate(10);
 
     return view('partials.all-comments', compact('comments'));
   }
+
 
   // Add new Property Comment
   public function commentStore(Request $request)
@@ -60,6 +60,19 @@ class CommentsController extends Controller
       return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
     }
   }
+
+  public function getReplies($id)
+  {
+    try {
+      $comment = Comment::with('replies.user')->findOrFail($id);
+      return response()->json(['success' => true, 'replies' => $comment->replies]);
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+      return response()->json(['error' => true, 'message' => 'Comment not found.']);
+    } catch (\Exception $e) {
+      return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
+    }
+  }
+
 
   // Update Property Comment Status
   public function commentUpdateStatus(Request $request, $id)

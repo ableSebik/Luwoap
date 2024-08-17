@@ -14,8 +14,8 @@ class SearchController extends Controller
         $query = $request->input('query');
 
         // Perform the search using Scout on both Blog and Property models
-        $blogResults = Blog::search($query)->get();
-        $propertyResults = Property::search($query)->get();
+        $blogResults = Blog::search($query)->paginate();
+        $propertyResults = Property::search($query)->paginate();
 
         // Return the search results to a view
         return view('search_results', compact('blogResults', 'propertyResults', 'query'));

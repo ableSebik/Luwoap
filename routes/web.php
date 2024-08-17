@@ -79,6 +79,7 @@ Route::get('props/category/commercial-property', [App\Http\Controllers\props\Pro
 Route::post('/comments', [CommentsController::class, 'commentStore'])->name('comments.store');
 //Submit Comment reply
 Route::post('/reply', [CommentsController::class, 'replyStore'])->name('reply.store');
+Route::get('/comments/{id}/replies', [CommentsController::class, 'getReplies']);
 
 
 //********** Nav Pages **********//
@@ -246,7 +247,8 @@ Route::get('/property/{propertyId}/comments/{page}', [App\Http\Controllers\props
 // Show single property
 Route::get('props/prop-details/{slug}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');
 
-
+// Show single property
+Route::get('props/prop-details/{id}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');
 
 
 require __DIR__ . '/auth.php';

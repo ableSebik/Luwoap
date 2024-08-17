@@ -218,7 +218,7 @@
                   {{ Auth::user()->name }}</a></li>
               <li><a href="/user-profile">Profile</a></li>
               <li>
-                <a id="logoutBtn">Logout </a>
+                <a class="dropdown-item" id="logoutBtn">Logout </a>
               </li>
             </ul>
           </li>

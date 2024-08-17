@@ -116,15 +116,17 @@ class PropertyManagerController extends Controller
 
   // ***************************************************************//
 
-  public function edit(Property $prop)
+  public function edit($id)
   {
+    $prop = Property::with(['images'])->findOrFail($id);
+
     // Make sure the logged-in user is an admin
     if (auth()->user()->role != 'admin') {
       abort(403, "Unauthorized action!");
     }
 
     // Retrieve the property images associated with the property
-    $propImages = PropImage::where('prop_id', $prop->id)->get();
+    $propImages = $prop->images;
 
     // Pass the property and its images to the view
     return view('partials.edit-property', compact('prop', 'propImages'));

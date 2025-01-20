@@ -53,7 +53,7 @@
               @foreach ($posts as $blog)
                 <tr class="row">
                   <td class="listing-photoo">
-                    <img src="{{ asset("storage/posts/" . $blog->post_ft_image) }}" alt="{{ $blog->post_title }}"
+                    <img loading="lazy" src="{{ asset("storage/posts/" . $blog->post_ft_image) }}" alt="{{ $blog->post_title }}"
                       class="img-fluid">
                   </td>
                   <td class="title-container col-md-8">

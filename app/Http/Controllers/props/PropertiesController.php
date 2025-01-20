@@ -132,6 +132,13 @@ class PropertiesController extends Controller
     ));
   }
 
+  // Redirect to slug-based route using propertyId
+  public function redirectToSlug($id)
+  {
+    $property = Property::findOrFail($id);
+    return redirect()->route('single.prop', ['slug' => $property->slug]);
+  }
+
 
 
   // Method to load more comments
@@ -162,11 +169,6 @@ class PropertiesController extends Controller
       return response()->json(['error' => $e->getMessage()], 500);
     }
   }
-
-
-
-
-
 
 
   public function saveProps(Request $request)

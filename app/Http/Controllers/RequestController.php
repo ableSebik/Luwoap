@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\ClientEnquiryMail;
+use App\Mail\AdminNotificationMail;
 use App\Models\prop\AgentRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -12,42 +13,105 @@ class RequestController extends Controller
 {
 
   // Insert a Client Request
+  // public function insertRequests(Request $request)
+  // {
+  //   $validatedData = $request->validate([
+  //     'prop_id' => 'required|integer',
+  //     'name' => 'required|string|max:255',
+  //     'phone' => 'required|string|max:20',
+  //     'email' => 'required|email|max:255',
+  //     'message' => 'required|string|max:1000',
+  //   ]);
+
+  //   $validatedData['status'] = 'new';
+
+  //   // Check for existing request
+  //   $requestExists = AgentRequest::where('prop_id', $validatedData['prop_id'])
+  //     ->where('phone', $validatedData['phone'])
+  //     ->where('email', $validatedData['email'])
+  //     ->exists();
+
+  //   if ($requestExists) {
+  //     return response()->json(['error' => true, 'message' => 'Request already submitted for this property.']);
+  //   }
+
+  //   try {
+  //     // Create new request
+  //     $agentReq = AgentRequest::create($validatedData);
+
+  //     // Send email
+  //     Mail::to($validatedData['email'])->send(
+  //       new ClientEnquiryMail($validatedData['name'], $validatedData['prop_id'], $agentReq->id)
+  //     );
+
+  //     return response()->json(['success' => true, 'message' => 'Request submitted successfully.']);
+  //   } catch (\Exception $e) {
+  //     // Log the exception
+  //     Log::error('Error sending email: ' . $e->getMessage());
+
+  //     return response()->json(['error' => true, 'message' => 'An error occurred while processing your request.']);
+  //   }
+  // }
+
   public function insertRequests(Request $request)
   {
-    // Validate the incoming request data
     $validatedData = $request->validate([
       'prop_id' => 'required|integer',
       'name' => 'required|string|max:255',
       'phone' => 'required|string|max:20',
       'email' => 'required|email|max:255',
-      'message' => 'nullable|string|max:1000', // Optional message field
+      'message' => 'required|string|max:1000',
     ]);
 
     $validatedData['status'] = 'new';
 
-    // Check if the combination of prop_id and phone already exists
-    $requestExists = AgentRequest::where('prop_id', $request->prop_id)
+    // Check for existing request
+    $requestExists = AgentRequest::where('prop_id', $validatedData['prop_id'])
       ->where('phone', $validatedData['phone'])
       ->where('email', $validatedData['email'])
       ->exists();
 
+    if ($requestExists) {
+      return response()->json([
+        'error' => true,
+        'message' => 'Sorry, you have already submitted an enquiry for this property.',
+      ]);
+    }
+
     try {
-      if ($requestExists) {
-        // If the request already exists, return an error response
-        return response()->json(['error' => true, 'message' => 'Request already submitted for this property']);
+      AgentRequest::create($validatedData);
+
+      // Notify client
+      try {
+        Mail::to($validatedData['email'])->send(
+          new ClientEnquiryMail($validatedData['name'], $validatedData['prop_id'])
+        );
+      } catch (\Exception $e) {
+        Log::error("Failed to send email to client ({$validatedData['email']}): " . $e->getMessage());
       }
-      // Create a new AgentRequest instance
-      $agentReq = AgentRequest::create($validatedData);
 
-      // Queue the email to be sent
-      Mail::to($validatedData['email'])->send(new ClientEnquiryMail($validatedData['name'], $validatedData['prop_id'],  $agentReq->slug));
+      // Notify admin
+      try {
+        Mail::to('info@luwoap.com')->send(
+          new AdminNotificationMail($validatedData['name'], $validatedData['prop_id'])
+        );
+      } catch (\Exception $e) {
+        Log::error("Failed to send email to admin (sebikabel@gmail.com): " . $e->getMessage());
+      }
 
-      return response()->json(['success' => true, 'message' => 'Request submitted successfully.']);
+      return response()->json([
+        'success' => true,
+        'message' => 'Thank you for your message. An agent will contact you shortly..',
+      ]);
     } catch (\Exception $e) {
-
-      return response()->json(['error' => true, 'message' => 'Email sending failed.']);
+      Log::error('Error saving request or processing email: ' . $e->getMessage());
+      return response()->json([
+        'error' => true,
+        'message' => 'An error occurred while processing your request.',
+      ]);
     }
   }
+
 
 
 
@@ -96,7 +160,7 @@ class RequestController extends Controller
     return view('partials.incoming-requests', compact('requests'));
   }
 
-  // Display All Seen Requests
+  // Display All archived Requests
   public function archivedRequests()
   {
     $requests = AgentRequest::with('property')

@@ -4,7 +4,7 @@
     <div class="row align-items-center">
       <div class="col-lg-3 col-md-3">
         <div class="top-logo">
-          <a href="/"><img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="luwoap-logo"></a>
+          <a href="/"><img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="luwoap-logo"></a>
         </div>
       </div>
       <div class="col-lg-9 col-md-9">
@@ -43,7 +43,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="sidebar-logo d-md-none">
         <a href="/">
-          <img src="{{ asset("assets/img/logos/luwoap-wt.png") }}" alt="luwoap logo sidebarlogo">
+          <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-wt.png") }}" alt="luwoap logo sidebarlogo">
         </a>
       </div>
       <button class="navbar-toggler" id="drawer" type="button">
@@ -166,7 +166,7 @@
   <div class="sidebar-inner">
     <div class="sidebar-logo">
       <a href="/">
-        <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="luwoap logo sidebarlogo">
+        <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="luwoap logo sidebarlogo">
       </a>
     </div>
     <div class="sidebar-navigation">

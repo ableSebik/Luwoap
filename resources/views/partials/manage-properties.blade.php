@@ -21,8 +21,8 @@
               @foreach ($props as $prop)
                 <tr>
                   <td class="listing-photoo">
-                    <img src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}" alt="{{ $prop->title }}"
-                      class="img-fluid">
+                    <img loading="lazy" src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}"
+                      alt="{{ $prop->title }}" class="img-fluid">
                   </td>
                   <td class="title-container">
                     <h5><a href="{{ route("single.prop", $prop->slug) }}">{{ $prop->title }}</a>

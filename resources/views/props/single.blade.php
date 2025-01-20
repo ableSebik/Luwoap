@@ -53,15 +53,15 @@
             <div class="product-img-slide">
               <div class="slider-for">
                 @foreach ($singleProp->images as $image)
-                  <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}" class="img-fluid w-100"
-                    alt="{{ $singleProp->title }}">
+                  <img loading="lazy" src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                    class="img-fluid w-100" alt="{{ $singleProp->title }}">
                 @endforeach
               </div>
 
               <div class="slider-nav bg-white">
                 @foreach ($singleProp->images as $image)
                   <div class="thumb-slide">
-                    <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                    <img loading="lazy" src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                       alt="{{ $singleProp->title . "preview" }}">
                   </div>
                 @endforeach
@@ -108,7 +108,7 @@
                     <div class="portfolio-item">
                       <a href="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                         title="{{ $singleProp->title }}">
-                        <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                        <img loading="lazy" src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                           alt="{{ $singleProp->title }}" class="img-fluid">
                       </a>
 
@@ -166,6 +166,66 @@
           </div>
           <!-- Properties description end -->
 
+          <!-- Contact 2 start -->
+          <div class="contact-2 ca mtb-50 container">
+            <h3 class="heading">Interested in this Property?</h3>
+            <form class="form" method="POST" action="{{ route("insert.request", $singleProp->id) }}"
+              id="request_callback_form">
+              @csrf
+              <div class="row">
+                <div class="d-none">
+                  <input type="number" id="prop_id" name="prop_id" value="{{ $singleProp->id }}">
+                  <input type="number" id="user_id" name="user_id"
+                    value="{{ auth()->check() ? Auth::user()->id : null }}">
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group name ">
+                    <input required type="text" name="name"
+                      value="{{ auth()->check() ? auth()->user()->name : "" }}" class="form-control text-capitalize"
+                      placeholder="Name" aria-label="Full Name">
+                    @error("email")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group email ">
+                    <input required type="email" name="email"
+                      value="{{ auth()->check() ? auth()->user()->email : "" }}" class="form-control"
+                      placeholder="Email Address" aria-label="Email Address">
+                    @error("email")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group number ">
+                    <input required type="text" name="phone" class="form-control" placeholder="Phone"
+                      value="{{ auth()->check() ? auth()->user()->phone : "" }}">
+                    @error("phone")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group message">
+                    <textarea class="form-control" name="message" required placeholder="Write message" aria-label="Write message"
+                      maxlength="9000"></textarea>
+                    @error("message")
+                      <p class="text-danger pull-left mb-4">{{ $message }}</p>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="send-btn">
+                    <button type="submit" class="btn-5">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
 
         {{-- Sidebar --}}
@@ -197,11 +257,13 @@
                         {{ $singleProp->user->email }} </a>
                     </li>
                     <li>
-                      <i class="fa fa-phone"> Phone:</i><a class="pull-right" href="tel:{{ $singleProp->user->phone }}">
+                      <i class="fa fa-phone"> Phone:</i><a class="pull-right"
+                        href="tel:{{ $singleProp->user->phone }}">
                         {{ $singleProp->user->phone }}</a>
                     </li>
                     <li>
-                      <i class="fab fa-whatsapp"> Whatsapp: </i> <a class="pull-right" href="https://wa.me/233201492986">
+                      <i class="fab fa-whatsapp"> Whatsapp: </i> <a class="pull-right"
+                        href="https://wa.me/233201492986">
                         {{ $singleProp->user->phone }}</a>
                     </li>
                   @else
@@ -214,7 +276,8 @@
                         +233 20 149 2986</a>
                     </li>
                     <li>
-                      <i class="fab fa-whatsapp">Whatsapp: </i> <a class="pull-right" href="https://wa.me/233201492986">
+                      <i class="fab fa-whatsapp">Whatsapp: </i> <a class="pull-right"
+                        href="https://wa.me/233201492986">
                         +233 20 149 2986</a>
                     </li>
                   @endif
@@ -317,45 +380,33 @@
         </div>
       </div>
 
-      <!--  -->
-      <div class="action-bar container d-md-none">
-        <a href="tel:+233201492986">
-          <div class="call-action action-group">
-            <span class="fa fa-phone-alt"></span>
-            <p>CALL</p>
-          </div>
-        </a>
-        <a href="https://wa.me/233201492986">
-          <div class="whatsapp-action action-group">
-            <span class="fab fa-whatsapp"></span>
-            <p>WHATSAPP</p>
-          </div>
-        </a>
-        <a href="sms:+233201492986?body={{ urlencode('Hello I\'am interested in this property: ' . url()->full()) }}">
-          <div class="sms-action action-group">
-            <span class="fas fa-sms"></span>
-            <p>SMS</p>
-          </div>
-        </a>
+    </div>
+  </div>
 
+  <div class="position-fixed bottom-0 end-0 p-3 d-none" id="toast-div" style="bottom: 15%; right: 0; z-index: 100">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
-      <!--  -->
+      <div class="toast-body">
+      </div>
     </div>
   </div>
 
   <!-- Toast -->
-  <div class="position-fixed p-3 d-none" id="toast-div" style="bottom: 15%; right: 0; z-index: 999999">
+  {{-- <div class="position-fixed p-3" id="toast-div" style="bottom: 15%; right: 0; z-index: 999999">
     <div class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true"
       id="liveToast">
       <div class="d-flex">
         <div class="toast-body">
           <!-- This will be dynamically filled by the JavaScript -->
+          <p>this is in the body</p>
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
           aria-label="Close"></button>
       </div>
     </div>
-  </div>
+  </div> --}}
   <!-- end Toast -->
 
   <!-- Modal for comments replies -->
@@ -369,9 +420,201 @@
     </div>
   </div>
 
+  <!--  -->
+  <div class="action-bar container d-md-none">
+    <a href="tel:+233201492986">
+      <div class="call-action action-group">
+        <span class="fa fa-phone-alt"></span>
+        <p>CALL</p>
+      </div>
+    </a>
+
+    <a id="whatsapp-link" href="#" target="_blank">
+      <div class="whatsapp-action action-group">
+        <span class="fab fa-whatsapp"></span>
+        <p>WHATSAPP</p>
+      </div>
+    </a>
+
+    <a id="email-link" href="#">
+      <div class="email-action action-group">
+        <span class="fas fa-envelope"></span>
+        <p>EMAIL</p>
+      </div>
+    </a>
+
+  </div>
+  <!--  -->
+
 @endsection
 
 @push("scripts")
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Dynamic content for whatsapp link
+      const phoneNumber = '233201492986';
+
+      const whatsappTemplate = `Hello!%0A%0AI am interested in this property:%0A%0A`;
+
+      const currentUrl = encodeURIComponent(window.location.href);
+
+      const fullMessage = `${whatsappTemplate}${currentUrl}`;
+
+      // Update the WhatsApp link
+      const whatsappLink = document.getElementById('whatsapp-link');
+      whatsappLink.href = `https://wa.me/${phoneNumber}?text=${fullMessage}`;
+
+      // Dynamic content for Email link
+      const emailAddress = 'info@luwoap.com';
+      const subject = encodeURIComponent('Inquiry about a property');
+
+      const mailTemplate = `Hello,%0A%0AI am interested in this property:%0A`;
+
+      // Combine the message template with the current URL
+      const body = `${mailTemplate}${currentUrl}`;
+
+      // Update the email link
+      const emailLink = document.getElementById('email-link');
+      emailLink.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+
+    });
+  </script>
+  <script>
+    if ($("#request_callback_form").length > 0) {
+      $("#request_callback_form").on("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        let form = this;
+        let submitButton = $(form).find("button[type='submit']");
+
+        // Disable the button and show loading spinner
+        submitButton.prop("disabled", true);
+        submitButton.html(
+          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+        );
+
+        $.ajax({
+          url: $(form).attr("action"),
+          method: "POST",
+          data: $(form).serialize(),
+          success: function(response) {
+            // Reset the submit button to its original state
+            submitButton.prop("disabled", false);
+            submitButton.html("Submit");
+
+            if (response.error) {
+              showToast(response.message, "bg-danger");
+            } else {
+              form.reset();
+              showToast(response.message, "bg-success");
+            }
+          },
+          error: function(xhr, status, error) {
+            // Reset the submit button to its original state
+            submitButton.prop("disabled", false);
+            submitButton.html("Submit");
+
+            console.error("Error:", xhr.responseText);
+            showToast("Error: Something went wrong.", "bg-danger");
+          }
+        });
+      });
+    }
+  </script>
+  <script>
+    $('#comment_form').on('submit', function(event) {
+      event.preventDefault();
+
+      let form = this;
+
+      // show the loading screen
+      $('#loading-screen').show();
+
+      $.ajax({
+        url: "{{ route("comments.store") }}",
+        method: "POST",
+        data: $(form).serialize(),
+        success: function(response) {
+          // Handle successful response
+          $('#loading-screen').hide();
+          if (response.error) {
+            showToast(response.message, 'bg-danger');
+          } else {
+
+            // Reset the form
+            form.reset();
+            showToast(response.message, 'bg-success');
+          }
+        },
+        error: function(xhr, status, error) {
+          // Handle error response
+          $('#loading-screen').hide();
+          console.error('Error:', xhr.responseText);
+          showToast('Error: Something went wrong.', 'bg-danger');
+        }
+      });
+    });
+
+    // Reply function
+    function reply(caller) {
+      // Get the data-parent-id value from the caller
+      var parentId = $(caller).data('parent-id');
+
+      // Find the parent comment element of the clicked reply button
+      var parentComment = $(caller).closest('.comment');
+
+      // Find the repliesDiv within the parent comment
+      var repliesDiv = parentComment.find('.repliesDiv');
+
+      // Set the parent_id input field value
+      repliesDiv.find('input[name="parent_id"]').val(parentId);
+
+      // Toggle the display of the repliesDiv
+      repliesDiv.toggle();
+    }
+
+    $('#replyForm').on('submit', function(event) {
+      event.preventDefault();
+
+      let form = this;
+
+      $.ajax({
+        url: "{{ route("reply.store") }}",
+        method: "POST",
+        data: $(form).serialize(),
+        success: function(response) {
+          // Handle successful response
+          if (response.error) {
+            showToast(response.message, 'bg-danger');
+          } else {
+            // Reset the form
+            form.reset();
+            showToast(response.message, 'bg-success');
+          }
+        },
+        error: function(xhr, status, error) {
+          // Handle error response
+          console.error('Error:', xhr.responseText);
+          showToast('Error: Something went wrong.', 'bg-danger');
+        }
+      });
+    });
+
+    function showToast(message, bgClass) {
+      // Remove hidden class
+      $('#toast-div').removeClass('d-none');
+
+      // Update the toast body content
+      $('#liveToast .toast-body').text(message);
+
+      // Update the background class
+      $('#liveToast').removeClass('bg-success bg-danger').addClass(bgClass);
+
+      // Show the toast
+      var toast = new bootstrap.Toast(document.getElementById('liveToast'));
+      toast.show();
+    }
+  </script>
   <script>
     // Reply function
     function reply(caller) {

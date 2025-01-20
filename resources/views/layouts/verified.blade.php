@@ -49,7 +49,7 @@
   </head>
 
   <body>
-    <div class="page_loader"></div>
+    <!--<div class="page_loader"></div>-->
     <!-- Page Content -->
     <main>
       @yield("content")
@@ -76,7 +76,6 @@
     <script src="{{ asset("assets/js/maps.js") }}"></script>
     <script src="{{ asset("assets/js/app.js") }}"></script>
 
-    <script src="//unpkg.com/alpinejs" defer></script>
     @stack("scripts")
   </body>
 

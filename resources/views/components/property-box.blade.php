@@ -1,7 +1,7 @@
 <div class="property-box-4">
   <a href="{{ route("single.prop", $prop->slug) }}">
     <div class="property-photo">
-      <img class="img-fluid w-100" src="{{ Storage::url("uploads/ft_images/" . $prop->ft_image) }}"
+      <img loading="lazy" class="img-fluid w-100" src="{{ Storage::url("uploads/ft_images/" . $prop->ft_image) }}"
         alt="{{ ucwords($prop->title) }}">
       <div class="tag">{{ $prop->offer_type }}</div>
       <div class="category-box">{{ $prop->category }}</div>

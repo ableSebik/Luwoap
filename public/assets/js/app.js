@@ -29,11 +29,6 @@ $(function () {
             $(".page_loader").fadeOut("fast");
         }, 100);
     });
-    $(window).on("load", function () {
-        setTimeout(function () {
-            $(".page_loader_local").fadeOut("fast");
-        }, 100);
-    });
 
     // Made the left sidebar's min-height to window's height
     var winHeight = $(window).height();
@@ -272,7 +267,7 @@ $(function () {
         scrollTitle: false,
         scrollImg: false,
         activeOverlay: false,
-        zIndex: 2147483647,
+        zIndex: 1000,
     });
 
     // Counter
@@ -525,15 +520,15 @@ $(function () {
     });
 
     //featured-slider
-    $(".slider").slick({
-        infinite: true,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        arrows: true,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        adaptiveHeight: true,
-    });
+    // $(".slider").slick({
+    //     infinite: true,
+    //     slidesToShow: 4,
+    //     slidesToScroll: 1,
+    //     arrows: false,
+    //     autoplay: true,
+    //     autoplaySpeed: 3000,
+    //     adaptiveHeight: true,
+    // });
 
     //product-slider-box
     $(".slider-for").slick({
@@ -545,15 +540,15 @@ $(function () {
         adaptiveHeight: true,
     });
     $(".slider-nav").slick({
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1,
         vertical: false,
         asNavFor: ".slider-for",
         dots: false,
         focusOnSelect: true,
-        verticalSwiping: true,
+        verticalSwiping: false,
         autoplay: true,
-        centerMode: true,
+        centerMode: false,
     });
 
     // Banner 2 start initialization.

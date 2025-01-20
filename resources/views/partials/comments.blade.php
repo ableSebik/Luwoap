@@ -12,10 +12,14 @@
             </a>
           @endauth
 
-          @if ($comment->replies->count() != 0)
+          @php
+            $approvedReplies = $comment->replies->where("status", "approved");
+          @endphp
+
+          @if ($approvedReplies->count())
             <a href="javascript:void(0)" onclick="viewReplies(this)" data-bs-toggle="modal"
               data-bs-target="#staticBackdrop" data-parent-id="{{ $comment->id }}" class="reply-btn">&nbsp;
-              -View {{ $comment->replies->count() }} replies</a>
+              - View {{ $approvedReplies->count() }} replies</a>
           @endif
         </div>
         @auth
@@ -33,24 +37,5 @@
         @endauth
       </div>
     </div>
-    <!-- Replies -->
-    {{-- @if ($comment->replies->count())
-      <ul>
-        @foreach ($comment->replies as $reply)
-          <li>
-            <div class="comment">
-              <div class="comment-content">
-                <div class="comment-meta">
-                  <h3>{{ $reply->user->name }}</h3>
-                </div>
-                <p>{{ $reply->comment }}</p>
-
-              </div>
-            </div>
-          </li>
-        @endforeach
-      </ul>
-    @endif --}}
-    <!-- End Replies -->
   </li>
 @endforeach

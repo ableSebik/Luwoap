@@ -51,14 +51,16 @@
   </head>
 
   <body>
-    <div class="page_loader"></div>
+    <!--
+     <div class="page_loader"></div>
+-->
 
     <!-- Main header start -->
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
       <div class="container">
         <a class="navbar-brand" href="/">
-          <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo" width="150" height="auto"
-            class="d-inline-block align-text-top">
+          <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo" width="150"
+            height="auto" class="d-inline-block align-text-top">
         </a>
       </div>
     </nav>
@@ -79,7 +81,8 @@
                 </div>
                 <div class="profile-photo">
                   <div class="profile-photo-inner">
-                    <img src="{{ asset("assets/img/avatar/avatar.jpg") }}" alt="avatar" class="img-fluid use-ing">
+                    <img loading="lazy" src="{{ asset("assets/img/avatar/avatar.jpg") }}" alt="avatar"
+                      class="img-fluid use-ing">
                   </div>
                 </div>
               </div>

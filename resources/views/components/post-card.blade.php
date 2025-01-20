@@ -1,6 +1,6 @@
 {{-- <div class="blog-1">
   <div class="photo">
-    <img src="{{ Storage::url("posts/" . $blogPost->post_ft_image) }}" alt="big-blog" class="img-fluid w-100">
+    <img loading="lazy" src="{{ Storage::url("posts/" . $blogPost->post_ft_image) }}" alt="big-blog" class="img-fluid w-100">
     <div class="overlay-icon">
       <a href="{{ route("postDetails.blog", $blogPost->id) }}"><span><i class="fa fa-plus-square-o span"></i></span></a>
     </div>
@@ -17,7 +17,7 @@
 
 <div class="blog-1">
   <div class="photo">
-    <img src="{{ Storage::url("posts/" . $blogPost->post_ft_image) }}" alt="{{ $blogPost->post_title }}"
+    <img loading="lazy" src="{{ Storage::url("posts/" . $blogPost->post_ft_image) }}" alt="{{ $blogPost->post_title }}"
       class="img-fluid w-100">
     <div class="overlay-icon">
       <a href="{{ route("postDetails.blog", $blogPost->slug) }}"><span><i class="fa fa-plus-square-o span"></i></span></a>

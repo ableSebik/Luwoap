@@ -10,17 +10,24 @@ class CommentsController extends Controller
 {
 
   // Display all Comments
-  public function allComments()
+  public function allComments(Request $request)
   {
-    $comments = Comment::with(['user', 'replies' => function ($query) {
-      $query->orderBy('created_at', 'desc');
-    }])->where('status', 'approved')
+    $search = $request->input('search');
+    $comments = Comment::with(['user', 'replies'])
+      ->when($search, function ($query, $search) {
+        return $query->where('comment', 'like', "%$search%");
+      })
       ->orderBy('created_at', 'desc')
       ->paginate(10);
 
+    // Calculate the number of days and hours since creation for each comment
+    foreach ($comments as $commentMeta) {
+      $commentMeta->daysSinceCreation = $commentMeta->created_at->diffInDays(now());
+      $commentMeta->hrSinceCreation = $commentMeta->created_at->diffInHours(now());
+    }
+
     return view('partials.all-comments', compact('comments'));
   }
-
 
   // Add new Property Comment
   public function commentStore(Request $request)
@@ -41,7 +48,7 @@ class CommentsController extends Controller
     }
   }
 
-  // Add new Property Comment reply
+  // Add new Comment reply
   public function replyStore(Request $request)
   {
     $validatedData = $request->validate([
@@ -64,7 +71,7 @@ class CommentsController extends Controller
   public function getReplies($id)
   {
     try {
-      $comment = Comment::with('replies.user')->findOrFail($id);
+      $comment = Comment::with('replies.user')->where('status', 'approved')->findOrFail($id);
       return response()->json(['success' => true, 'replies' => $comment->replies]);
     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
       return response()->json(['error' => true, 'message' => 'Comment not found.']);
@@ -75,37 +82,35 @@ class CommentsController extends Controller
 
 
   // Update Property Comment Status
-  public function commentUpdateStatus(Request $request, $id)
+  public function updateCommentStatus(Request $request, $id)
   {
-    $validatedData = $request->validate([
-      'status' => 'required|in:pending,approved'
+    // Validate the incoming request
+    $request->validate([
+      'status' => 'required|in:approved,pending',
     ]);
 
-    try {
-      $comment = Comment::findOrFail($id);
-      $comment->status = $validatedData['status'];
-      $comment->save();
+    // Update the status of the property
+    // $comment->status = $request->input('status');
+    // $comment->save();
 
-      return response()->json(['success' => true, 'message' => 'Comment status updated successfully!']);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-      return response()->json(['error' => true, 'message' => 'Comment not found.']);
-    } catch (\Exception $e) {
-      return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
-    }
+    $comment = Comment::findOrFail($id);
+    $comment->status = $request->status;
+    $comment->save();
+
+    // Redirect or return a response
+    return redirect()->back()->with('success', 'Comment ' . $comment->status . '.');
   }
 
   // Delete Property Comment
-  public function commentDestroy($id)
+  public function deleteComment(Comment $comment)
   {
-    try {
-      $comment = Comment::findOrFail($id);
-      $comment->delete();
 
-      return response()->json(['success' => true, 'message' => 'Comment deleted successfully!']);
-    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-      return response()->json(['error' => true, 'message' => 'Comment not found.']);
-    } catch (\Exception $e) {
-      return response()->json(['error' => true, 'message' => 'An error occurred. Try again later.']);
+    if (auth()->user()->role != 'admin') {
+      abort(403, "Unauthorized action!");
     }
+
+    $comment->delete();
+
+    return redirect()->back()->with('success', 'Comment Deleted.');
   }
 }

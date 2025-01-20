@@ -169,8 +169,8 @@
                 <input type="file" name="ft_image" id="ft_image" class="form-control search-fields">
 
                 <br>
-                <img class="d-block w-50 rounded" src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}"
-                  alt="listing-photo">
+                <img loading="lazy" class="d-block w-50 rounded"
+                  src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}" alt="listing-photo">
                 @error("ft_image")
                   <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -201,7 +201,7 @@
                   <div class="portfolio-item">
                     <a href="{{ asset("storage/uploads/$propImage->prop_id/" . $propImage->image) }}"
                       title="{{ $prop->title }}">
-                      <img src="{{ asset("storage/uploads/$propImage->prop_id/" . $propImage->image) }}"
+                      <img loading="lazy" src="{{ asset("storage/uploads/$propImage->prop_id/" . $propImage->image) }}"
                         alt="gallery-photo" class="img-fluid">
                     </a>
                     <div class="portfolio-content">
@@ -322,7 +322,7 @@
     <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true"
       data-delay="2000">
       <div class="toast-header">
-        <!-- <img src="..." class="rounded mr-2" alt="..."> -->
+        <!-- <img loading="lazy" src="..." class="rounded mr-2" alt="..."> -->
         <strong class="mr-auto">Success</strong>
         <small>Just now</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

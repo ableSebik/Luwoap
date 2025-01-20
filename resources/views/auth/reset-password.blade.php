@@ -30,7 +30,7 @@
           <div class="login-inner-form">
             <div class="details">
               <a href="/">
-                <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
+                <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
               </a>
               <h3>Reset Password</h3>
 

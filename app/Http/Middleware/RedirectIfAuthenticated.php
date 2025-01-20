@@ -21,6 +21,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // Check if the 'redirect' parameter is present
+                if ($request->has('redirect')) {
+                    return redirect($request->input('redirect'));
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }

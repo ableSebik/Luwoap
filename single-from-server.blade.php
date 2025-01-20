@@ -119,13 +119,14 @@
             <div class="product-img-slide">
               <div class="slider-for">
                 @foreach ($singleProp->images as $image)
-                  <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}" class="img-fluid w-100"
-                    alt="{{ $singleProp->title }}">
+                  <img loading="lazy" src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                    class="img-fluid w-100" alt="{{ $singleProp->title }}">
                 @endforeach
               </div>
               <div class="slider-nav">
                 @foreach ($singleProp->images as $image)
-                  <div class="thumb-slide"><img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                  <div class="thumb-slide"><img loading="lazy"
+                      src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                       alt="{{ $singleProp->title . "preview" }}"></div>
                 @endforeach
               </div>
@@ -179,7 +180,7 @@
                     <div class="portfolio-item">
                       <a href="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                         title="{{ $singleProp->title }}">
-                        <img src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
+                        <img loading="lazy" src="{{ Storage::url("uploads/$image->prop_id/" . $image->image) }}"
                           alt="{{ $singleProp->title }}" class="img-fluid">
                       </a>
                       <div class="portfolio-content">

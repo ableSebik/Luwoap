@@ -1,10 +1,9 @@
-<!doctype html>
 <html>
 
   <head>
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Thank You for Your Enquiry</title>
+    <title>LUWOAP | New Message</title>
     <style>
       @media only screen and (max-width: 620px) {
         table[class=body] h1 {
@@ -108,7 +107,7 @@
                 <td class="align-center" width="100%"
                   style="font-family: sans-serif; font-size: 14px; vertical-align: top; text-align: center;"
                   valign="top" align="center">
-                  <a href="/" style="color: #4a0265; text-decoration: underline;"><img
+                  <a href="{{ route("index") }}" style="color: #4a0265; text-decoration: underline;"><img
                       src="https://luwoap.com/assets/img/logos/luwoap-dark.png" height="40" alt="luwoap logo"
                       style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%;"></a>
                 </td>
@@ -120,8 +119,8 @@
 
             <!-- START CENTERED WHITE CONTAINER -->
             <span class="preheader"
-              style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">Thank
-              you for your in LUWOAP properties.</span>
+              style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">Request
+              Form Submtted.</span>
             <table role="presentation" class="main"
               style="min-height: 350px; border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; background: #ffffff; border-radius: 3px; width: 100%; padding: 30px;"
               width="100%">
@@ -139,42 +138,29 @@
                         valign="top">
                         <p
                           style="font-family: sans-serif; font-size: 20px; font-weight: bold; margin: 0; margin-bottom: 20px;">
-                          Hi {{ $clientName }}! </p>
-                        <p
+                          Hi Admin! </p>
+                        <h2
                           style="font-family: sans-serif; font-size: 20px; font-weight: normal; margin: 0; margin-bottom: 20px;">
-                          Thank you for your interest in our properties. Your request has been recieved and an agent
-                          would contact you soon.</p>
-                        <table role="presentation" border="0" cellpadding="0" cellspacing="0"
-                          class="btn btn-primary"
-                          style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; box-sizing: border-box; width: 100%;"
-                          width="100%">
-                          <tbody>
-                            <tr>
-                              <td align="center"
-                                style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding-bottom: 15px;"
-                                valign="top">
-                                <table role="presentation" border="0" cellpadding="0" cellspacing="0"
-                                  style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: auto; width: auto;"
-                                  width="auto">
-                                  <tbody>
-                                    <tr>
-                                      <td
-                                        style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; background-color: #4a0265;"
-                                        valign="top" bgcolor="#4a0265">
-                                        <a href="{{ route("single.prop", $slug) }}" target="_blank"
-                                          style="border: solid 1px #4a0265; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #4a0265; color: #ffffff;">Goto
-                                          Property</a>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                          A form on LUWOAP has been submitted.
+                        </h2>
+
+                        <h3>New Client Enquiry Received</h3>
+                        <p><strong>Property ID:</strong> {{ $prop_id }}</p>
+                        <p><strong>Client Name:</strong> {{ $clientName }}</p>
+                        <br>
+                        <p>--</p>
                         <p
                           style="font-family: sans-serif; font-size: 14px;text-align: center; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                          Your journey to become a property owner just begun.</p>
+                          LUWOAP - Your Premium Real Estate destination in Ghana</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; background-color: #4a0265;"
+                        valign="top" bgcolor="#4a0265">
+                        <a href="{{ route("all.requests") }}" target="_blank"
+                          style="border: solid 1px #4a0265; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #4a0265; color: #ffffff;">Goto
+                          Property</a>
                       </td>
                     </tr>
 
@@ -195,20 +181,20 @@
                     style="font-family: sans-serif; vertical-align: top; padding-bottom: 10px; padding-top: 10px; color: #9a9ea6; font-size: 12px; text-align: center;"
                     valign="top" align="center">
                     <span class="apple-link" style="color: #9a9ea6; font-size: 12px; text-align: center;">Visit our site
-                      <a href="{{ route("/") }}">here</a></span>
+                      <a href="{{ route("index") }}">here</a></span>
                   </td>
                 </tr>
                 <tr align="center">
-                  <td><a href="#" style="color: #4a0265; text-decoration: underline;"><img
+                  <td><a href="#" style="color: #4a0265; text-decoration: underline;"><img loading="lazy"
                         src="https://ci3.googleusercontent.com/meips/ADKq_NaYJJ6zBMyiovxb2i-PyParKGOBqsNyxxp9xANtNrQVI7pokvgW9nvlGefTZ9SlEFrmoPdKVuZ9EH8veCMjtpxnqEnHbb2DhjAl91-CmkazwcC6=s0-d-e1-ft#https://upload.taxify.eu/EmailTemplateImage/573-image-535.png"
                         height="40" alt="fb-icon"
                         style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%;"></a>
                     <a href="https://www.instagram.com/accommodation_portal"
-                      style="color: #4a0265; text-decoration: underline;"><img
+                      style="color: #4a0265; text-decoration: underline;"><img loading="lazy"
                         src="https://ci3.googleusercontent.com/meips/ADKq_NaBpYhJ6fThrGcUt7gGW_dsB5TLFDa_-e2yh2YhD9VPsQ2iUae9vhQ-vhF57K7yUKJUbH3hx5k-CIPXn_aGlpIt25A8sAjwvgp5ugqU5FXwmaJ8=s0-d-e1-ft#https://upload.taxify.eu/EmailTemplateImage/574-image-442.png"
                         height="40" alt="instagram-icon"
                         style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%;"></a>
-                    <a href="#" style="color: #4a0265; text-decoration: underline;"><img
+                    <a href="#" style="color: #4a0265; text-decoration: underline;"><img loading="lazy"
                         src="https://ci3.googleusercontent.com/meips/ADKq_NYLMjlC51v4wHM8WAU2xBqXba3M-FqoUSBztUrB7nPQ8USVtw2aYHyV4rDSGHlqK2Ln6tdsj3Mg1XAHJvEf6Potfs6CcXdlc_o-QNmj0KyOTAmf=s0-d-e1-ft#https://upload.taxify.eu/EmailTemplateImage/575-image-586.png"
                         height="40" alt="x-icon"
                         style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%;"></a>

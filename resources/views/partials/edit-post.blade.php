@@ -34,7 +34,7 @@
                 <input type="file" name="post_ft_image" id="post_ft_image" class="form-control search-fields">
 
                 <br>
-                <img class="d-block w-50 rounded" src="{{ Storage::url("posts/" . $blog->post_ft_image) }}"
+                <img loading="lazy" class="d-block w-50 rounded" src="{{ Storage::url("posts/" . $blog->post_ft_image) }}"
                   alt="{{ $blog->post_title }}">
                 @error("post_ft_image")
                   <p class="text-danger">{{ $message }}</p>

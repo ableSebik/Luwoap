@@ -30,51 +30,51 @@
             <div class="tab-pane fade show active" id="all-requests" role="tabpanel" aria-labelledby="all-requests-tab">
               <div class="accordion accordion-flush" id="accordionFlushExample3">
                 <div class="accordion-item">
-                  <p>All req.</p>
+                  <div class="accordion-item">
+                    <div class="col-lg-12">
+                      @forelse ($requests as $clientRequest)
+                        <div class="comment-meta clearfix">
+                          <h6 class="text-capitalize pull-left">
+                            <a href="javascript::(void)" class="delete-btn" data-bs-toggle="modal"
+                              data-bs-target="#reqModal" data-name="{{ $clientRequest->name }}"
+                              data-phone="{{ $clientRequest->phone }}" data-email="{{ $clientRequest->email }}"
+                              data-status="{{ $clientRequest->status }}" data-message="{{ $clientRequest->message }}"
+                              data-prop-id="{{ $clientRequest->prop_id }}"
+                              data-created-at="{{ $clientRequest->created_at->format("g:i A n/j/Y") }}"
+                              data-hr-since="{{ $clientRequest->hrSinceCreation }}"
+                              data-days-since="{{ $clientRequest->daysSinceCreation }}">
+                              {{ $clientRequest->name }}
+                            </a>
+
+                          </h6>
+                          <div class="comment-meta pull-right">
+                            <a class="mr-2" target="_blank"
+                              href="{{ route("single-old.prop", $clientRequest->prop_id) }}">View
+                              Property</a>
+                            @if ($clientRequest->hrSinceCreation < 24)
+                              {{ $clientRequest->hrSinceCreation }} hrs ago.
+                            @elseif ($clientRequest->daysSinceCreation <= 3)
+                              {{ $clientRequest->daysSinceCreation }} days ago.
+                            @else
+                              {{ $clientRequest->created_at->format("g:i A n/j/Y") }}
+                            @endif
+                          </div>
+                        </div>
+                        <hr>
+
+                      @empty
+                        <p>No Requests</p>
+                      @endforelse
+
+                    </div>
+                  </div>
                 </div>
               </div>
               {{ $requests->links("vendor.pagination.bootstrap-4") }}
             </div>
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="accordion accordion-flush" id="accordionFlushExample7">
-                <div class="accordion-item">
-                  <div class="col-lg-12">
-                    @forelse ($requests as $clientRequest)
-                      <div class="comment-meta clearfix">
-                        <h6 class="text-capitalize pull-left">
-                          <a href="javascript::(void)" class="delete-btn" data-bs-toggle="modal"
-                            data-bs-target="#reqModal" data-name="{{ $clientRequest->name }}"
-                            data-phone="{{ $clientRequest->phone }}" data-email="{{ $clientRequest->email }}"
-                            data-status="{{ $clientRequest->status }}" data-message="{{ $clientRequest->message }}"
-                            data-prop-id="{{ $clientRequest->prop_id }}"
-                            data-created-at="{{ $clientRequest->created_at->format("g:i A n/j/Y") }}"
-                            data-hr-since="{{ $clientRequest->hrSinceCreation }}"
-                            data-days-since="{{ $clientRequest->daysSinceCreation }}">
-                            {{ $clientRequest->name }}
-                          </a>
-
-                        </h6>
-                        <div class="comment-meta pull-right">
-                          <a class="mr-2" target="_blank"
-                            href="{{ route("single.prop", $clientRequest->prop_id) }}">View
-                            Property</a>
-                          @if ($clientRequest->hrSinceCreation < 24)
-                            {{ $clientRequest->hrSinceCreation }} hrs ago.
-                          @elseif ($clientRequest->daysSinceCreation <= 3)
-                            {{ $clientRequest->daysSinceCreation }} days ago.
-                          @else
-                            {{ $clientRequest->created_at->format("g:i A n/j/Y") }}
-                          @endif
-                        </div>
-                      </div>
-                      <hr>
-
-                    @empty
-                      <p>No Requests</p>
-                    @endforelse
-
-                  </div>
-                </div>
+                <p>New requests#</p>
               </div>
               {{ $requests->links("vendor.pagination.bootstrap-4") }}
             </div>
@@ -157,8 +157,14 @@
               client,
               update the status of the request
             </h5>
-            <form id="update-status-form" method="POST" action="">
+            <form id="update-status-form" method="POST" action="" class="d-flex">
               @csrf
+              {{-- <div class="">
+                <a href="javascript::void(0)" class="btn btn-danger delete-btn" data-id="#" data-bs-toggle="modal"
+                  data-bs-target="#confirmPropDelModal"><i class="fa fa-trash"></i>
+                  Delete
+                </a>
+              </div> 
               <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                   data-bs-toggle="dropdown" aria-expanded="false">
@@ -170,10 +176,37 @@
                   </li>
                   <li><a class="dropdown-item status-option" href="#" data-status="archived">Archive</a></li>
                 </ul>
-              </div>
+              </div> --}}
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  {{-- Modal Prompt to confirm delete Property --}}
+  <div class="modal fade" id="confirmPropDelModal" tabindex="-1" aria-labelledby="errorModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="deleteForm" method="POST" class="form">
+            @csrf
+            @method("DELETE")
+            <p> Are you sure you want to delete this request?
+              <br><span class="text-danger">This action is not reversible.</span>
+            </p>
+
+            <br>
+            <button class="btn btn-danger delete" type="submit">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </form>
         </div>
       </div>
     </div>
@@ -202,7 +235,7 @@
           propId); // Attach prop-id to email field for identification
         modal.find('#modalClientStatus').text(status);
         modal.find('#modalClientMessage').text(message);
-        modal.find('#modalViewProperty').attr('href', '/props/prop-details/' + propId);
+        modal.find('#modalViewProperty').attr('href', '/props/details/' + propId);
         if (hrSince < 24) {
           modal.find('#modalTimeSince').text(hrSince + ' hrs ago.');
         } else if (daysSince <= 3) {
@@ -221,14 +254,12 @@
         var actionUrl = '/requests/' + requestId + '/status';
 
         form.attr('action', actionUrl);
+        $('#status').val(status); // Set the status in the hidden input
 
         $.ajax({
           url: actionUrl,
           type: 'POST',
-          data: {
-            _token: $('input[name=_token]').val(),
-            status: status
-          },
+          data: form.serialize(), // Serialize the form, including the CSRF token and status
           success: function(response) {
             if (response.success) {
               alert(response.message);
@@ -243,6 +274,7 @@
           }
         });
       });
+
     });
   </script>
 @endpush

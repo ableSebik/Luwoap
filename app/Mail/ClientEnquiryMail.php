@@ -2,20 +2,17 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ClientEnquiryMail extends Mailable implements ShouldQueue
+class ClientEnquiryMail extends Mailable
 {
-  use Queueable, SerializesModels;
+  use SerializesModels;
 
   public $clientName;
   public $prop_id;
-  public $slug;
-
 
   /**
    * Get the message envelope.
@@ -30,11 +27,10 @@ class ClientEnquiryMail extends Mailable implements ShouldQueue
   /**
    * Create a new message instance.
    */
-  public function __construct($clientName, $prop_id, $slug)
+  public function __construct($clientName, $prop_id)
   {
     $this->clientName = $clientName;
     $this->prop_id = $prop_id;
-    $this->slug = $slug;
   }
 
   /**
@@ -42,11 +38,10 @@ class ClientEnquiryMail extends Mailable implements ShouldQueue
    */
   public function build()
   {
-    return $this->view('email.requestReceived')
+    return $this->view('email.clientContactNotification')
       ->with([
         'clientName' => $this->clientName,
         'prop_id' => $this->prop_id,
-        'slug' => $this->slug,
       ]);
   }
 }

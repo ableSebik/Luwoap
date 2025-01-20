@@ -7,10 +7,14 @@
       <div class="carousel-inner">
         <div class="carousel-item banner-max-height active item-bg">
           <div id="boxgallery" class="boxgallery" data-effect="effect-3">
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-3.jpg") }}" alt="Image 1" /></div>
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-2.jpg") }}" alt="Image 1" /></div>
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-1.jpg") }}" alt="Image 1" /></div>
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-5.jpg") }}" alt="Image 1" /></div>
+            <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-3.jpg") }}" alt="Image 1" />
+            </div>
+            <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-2.jpg") }}" alt="Image 1" />
+            </div>
+            <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-1.jpg") }}" alt="Image 1" />
+            </div>
+            <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-5.jpg") }}" alt="Image 1" />
+            </div>
           </div>
         </div>
         <div class="carousel-caption d-flex h-100">
@@ -192,85 +196,12 @@
           </div>
         </div>
       </div>
-
-      {{-- <div class="row">
-        <div class="col-lg-4 col-md-12">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">1</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="fa fa-building-o"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="/services">Diverse Portfolio</a>
-                </h2>
-                <p>
-                  Explore a diverse range of properties, from luxurious residences to strategic commercial spaces. We
-                  offer options that cater to every lifestyle and investment goal.
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">2</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="fa fa-bar-chart-o"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="/services">Luxury Real Estate Experts</a>
-                </h2>
-                <p>
-                  With years of experience in the real estate industry, we bring a wealth of knowledge and a keen
-                  understanding of market trends. Our team is dedicated to guiding you through every step of the
-                  way.
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">3</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="flaticon-car"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="/services">Garages</a>
-                </h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">4</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="fa fa-users"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="/services">Client-Centered</a>
-                </h2>
-                <p>
-                  We believe in building lasting relationships with our clients by providing personalized services
-                  tailored to your unique needs.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> --}}
     </div>
   </div>
   <!-- Services end -->
 
   <!-- Blog start -->
-  <div class="blog comon-slick content-area">
+  {{-- <div class="blog comon-slick content-area">
     <div class="container">
       <!-- Main title -->
       <div class="main-title-3">
@@ -282,7 +213,7 @@
           <div class="col-lg-4 col-md-4">
             <div class="blog-2">
               <div class="blog-image">
-                <img src="{{ asset("storage/posts/" . $recentBlogPost->post_ft_image) }}"
+                <img loading="lazy" src="{{ asset("storage/posts/" . $recentBlogPost->post_ft_image) }}"
                   alt="{{ $recentBlogPost->post_title }}" class="img-fluid bp">
                 <div class="date-box">
                   <span>{{ $recentBlogPost->post_day }}</span>{{ $recentBlogPost->post_month }}
@@ -302,6 +233,30 @@
       </div>
       <a href="/blog" class="btn-5">Visit Our Blogs <i class="fa fa-angle-double-right"></i></a>
     </div>
-  </div>
+  </div> --}}
   <!-- Blog end -->
+
+  <!--  -->
+  <div class="action-bar container d-md-none">
+    <a href="tel:+233201492986">
+      <div class="call-action action-group">
+        <span class="fa fa-phone-alt"></span>
+        <p>CALL</p>
+      </div>
+    </a>
+    <a href="https://wa.me/233201492986">
+      <div class="whatsapp-action action-group">
+        <span class="fab fa-whatsapp"></span>
+        <p>WHATSAPP</p>
+      </div>
+    </a>
+    <a href="mailto:info@lowoap.com">
+      <div class="sms-action action-group">
+        <span class="fas fa-envelope"></span>
+        <p>EMAIL</p>
+      </div>
+    </a>
+
+  </div>
+  <!--  -->
 @endsection

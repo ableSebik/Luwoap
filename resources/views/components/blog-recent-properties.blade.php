@@ -8,8 +8,8 @@
       <li>
         <div class="d-flex mb-3 recent-posts-box">
           <a class="pr-3" href="{{ route("single.prop", $prop->slug) }}">
-            <img src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}" alt="{{ $prop->title }}"
-              class="flex-shrink-0 me-3">
+            <img loading="lazy" src="{{ asset("storage/uploads/ft_images/" . $prop->ft_image) }}"
+              alt="{{ $prop->title }}" class="flex-shrink-0 me-3">
           </a>
           <div class="detail align-self-center">
             <h5>

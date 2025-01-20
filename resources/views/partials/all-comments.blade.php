@@ -1,10 +1,31 @@
 @extends("user.admin-dashboard")
 
+<style>
+  .comment-meta a {
+    margin-left: 0 !important;
+  }
+
+  /* tr {
+    align-items: end;
+  } */
+  /* .table>:not(caption)>*>* {
+    border-bottom: none !important
+  } */
+</style>
+
 @section("content")
   <div class="dashboard-content">
     <div class="dashboard-list">
       <h4>Manage Comments</h4>
 
+      <div class="row container mtb-30">
+        <div class="col-lg-12">
+          <form method="GET" action="" class="form pull-right">
+            <input type="text" name="search" value="{{ request("search") }}" placeholder="Search comments...">
+            <button type="submit">Search</button>
+          </form>
+        </div>
+      </div>
       <div class="row pad-20">
         <div class="tabbing tabbing-box mb-50">
           <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
@@ -36,49 +57,59 @@
                             </h6>
                           </div>
                         @else
-                          <table class="table table-stripe manage-table">
-                            {{ $comments->links("vendor.pagination.bootstrap-4") }}
-                            <tbody class="responsive-table">
-                              @foreach ($comments as $comment)
-                                <tr>
-                                  <div class="row">
-                                    <div class="col-md-6">
-                                      <td>{{ $comment->comment }}</td>
-                                    </div>
-                                    <div class="col-md-2">
-                                      <td class="action">
-                                        <a href="#"><i class="fa fa-check"></i>
-                                          Approve</a>
-                                      </td>
-                                    </div>
-                                    <div class="col-md-2">
-                                      <td class="action">
-                                        <a href="javascript::void(0)" class="delete-btn" data-id=""
-                                          data-bs-toggle="modal" data-bs-target="#confirmCommentpDelModal"><i
-                                            class="fa fa-remove"></i>
-                                          Delete
-                                        </a>
-                                      </td>
-                                    </div>
-                                    <div class="col-md-2">
-                                      <td class="action">
-                                        <a href="#"><i class="fa fa-hourglass-half" aria-hidden="true"></i>
-                                          Pend</a>
-                                      </td>
-                                    </div>
-                                  </div>
+                          <table class="table">
+                            <tbody>
+                              @forelse ($comments as $comment)
+                                <tr class="row">
+                                  <td class="col-lg-6">
+                                    @if ($comment->status == "approved")
+                                      <i style="font-size: 12px" data-toggle="tooltip" data-placement="top" title="Live"
+                                        class="text-success fa fa-solid fa-circle"></i>
+                                    @else
+                                      <i style="font-size: 12px" data-toggle="tooltip" data-placement="top" title="Hidden"
+                                        class="fa fa-solid fa-circle text-danger"></i>
+                                    @endif
+                                    <a href="javascript::(void)" data-bs-toggle="modal" data-bs-target="#commentModal"
+                                      data-id="{{ $comment->id }}" data-name="{{ $comment->user->name }}"
+                                      data-phone="{{ $comment->user->phone }}" data-email="{{ $comment->user->email }}"
+                                      data-status="{{ $comment->status }}" data-comment="{{ $comment->comment }}"
+                                      data-prop-id="{{ $comment->prop_id }}"
+                                      data-created-at="{{ $comment->created_at->format("g:i A n/j/Y") }}"
+                                      data-hr-since="{{ $comment->hrSinceCreation }}"
+                                      data-days-since="{{ $comment->daysSinceCreation }}">
+                                      {{ $comment->user->name }}
+                                    </a> <br>
+                                    <span style="color: #7f7e7e">{{ $comment->comment }}</span>
+                                  </td>
+
+                                  <td class="col-lg-6 pull-right">
+                                    <a href="javascript::void(0)" class="delete-btn text-danger"
+                                      data-id="{{ $comment->id }}" data-bs-toggle="modal"
+                                      data-bs-target="#confirmCommentDel"><i class="fa fa-trash"></i>
+                                      Delete
+                                    </a> |
+                                    @if ($comment->hrSinceCreation < 24)
+                                      {{ $comment->hrSinceCreation }} hrs ago.
+                                    @elseif ($comment->daysSinceCreation <= 3)
+                                      {{ $comment->daysSinceCreation }} days ago.
+                                    @else
+                                      {{ $comment->created_at->format("g:i A n/j/Y") }}
+                                    @endif
+                                  </td>
+
                                 </tr>
-                              @endforeach
+                              @empty
+                                <p>No Comments posted.</p>
+                              @endforelse
                             </tbody>
                           </table>
+                          {{ $comments->links("vendor.pagination.bootstrap-4") }}
                         @endif
                       </div>
-
                     </div>
                   </div>
                 </div>
               </div>
-              {{-- {{ $requests->links("vendor.pagination.bootstrap-4") }} --}}
             </div>
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div class="accordion accordion-flush" id="accordionFlushExample7">
@@ -120,23 +151,45 @@
                   <p>3rd.</p>
                 </div>
               </div>
-              {{-- {{ $comments->links("vendor.pagination.bootstrap-4") }} --}}
             </div>
           </div>
         </div>
-
       </div>
+    </div>
+  </div>
+  {{-- Modal Prompt to confirm delete comment --}}
+  <div class="modal fade" id="confirmCommentDel" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="deleteForm" method="POST" class="form">
+            @csrf
+            @method("DELETE")
+            <p> Are you sure you want to permanently delete this comment?
+              <br><span class="text-danger">This action is not reversible.</span>
+            </p>
 
+            <br>
+            <button class="btn btn-danger delete" type="submit">
+              <i class="fa fa-trash"></i> Delete Comment
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
-  {{-- Modal Prompt with Request Details --}}
-  {{-- <div class="modal fade" id="reqModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  {{-- Modal Prompt to confirm Change status of comment --}}
+  <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Request Details</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Comment Details</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -144,33 +197,34 @@
             <div class="card-body">
               <div class="row mb-2">
                 <div class="col-md-6">
-                  <strong>Client Name:</strong>
+                  Username:
                   <p id="modalClientName"></p>
                 </div>
                 <div class="col-md-6">
-                  <strong>Phone:</strong>
+                  Phone:
                   <p id="modalClientPhone"></p>
                 </div>
               </div>
               <div class="row mb-2">
                 <div class="col-md-6">
-                  <strong>Email:</strong>
+                  Email:
                   <p id="modalClientEmail"></p>
                 </div>
                 <div class="col-md-6">
-                  <strong>Status:</strong>
+                  Status:
                   <p id="modalClientStatus"></p>
                 </div>
               </div>
+
               <div class="row mb-2">
                 <div class="col-md-12">
-                  <strong>Message:</strong>
-                  <p id="modalClientMessage"></p>
+                  Comment:
+                  <p id="modalClientComment"></p>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <p><a id="modalViewProperty" class="text-primary" target="_blank" href="#">View Property</a>
+                  <p><a id="modalViewProperty" class="text-primary" target="_blank" href="#">See Property</a>
                   </p>
                 </div>
                 <div class="col-md-6">
@@ -180,33 +234,27 @@
             </div>
           </div>
           <div class="modal-footer">
-            <h5 class="alert alert-warning w-100" style="text-transform: none!important">If you have contacted/addressed
-              the
-              client,
-              update the status of the request
-            </h5>
-            <form id="update-status-form" method="POST" action="">
+            <form id="update-status-form" class="form form-inline" method="POST" action="">
               @csrf
+              @method("PUT")
               <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Update Status
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item status-option" href="#" data-status="new">New</a></li>
-                  <li><a class="dropdown-item status-option" href="#" data-status="seen">Client Contacted</a>
-                  </li>
-                  <li><a class="dropdown-item status-option" href="#" data-status="archived">Archive</a></li>
+                  <li><a class="dropdown-item status-option" href="#" data-status="approved">Approve</a></li>
+                  <li><a class="dropdown-item status-option" href="#" data-status="pending">Pend</a></li>
                 </ul>
               </div>
             </form>
           </div>
-
         </div>
       </div>
     </div>
-  </div> --}}
+  </div>
 @endsection
 
 @push("scripts")
+  <script src="{{ asset("assets/js/comment-actions.js") }}"></script>
 @endpush

@@ -75,10 +75,7 @@ Route::get('props/category/commercial-property', [App\Http\Controllers\props\Pro
 
 
 
-//Submit Property Comment
-Route::post('/comments', [CommentsController::class, 'commentStore'])->name('comments.store');
-//Submit Comment reply
-Route::post('/reply', [CommentsController::class, 'replyStore'])->name('reply.store');
+//Load/show all Comment replies
 Route::get('/comments/{id}/replies', [CommentsController::class, 'getReplies']);
 
 
@@ -136,6 +133,11 @@ Route::middleware(['auth'])->group(function () {
         return view('partials.profile');
     });
     Route::post('/ratings', [RatingController::class, 'addRatings']);
+
+    //Submit Property Comment
+    Route::post('/comments', [CommentsController::class, 'commentStore'])->name('comments.store');
+    //Submit Comment reply
+    Route::post('/reply', [CommentsController::class, 'replyStore'])->name('reply.store');
 });
 //********** End **********//
 
@@ -147,29 +149,34 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
 
     //show Edit Property view
-    Route::get('/property/{prop}/edit', [App\Http\Controllers\props\PropertyManagerController::class, 'edit'])->name('edit.prop');
+    Route::get('/property/{prop}/edit', [PropertyManagerController::class, 'edit'])->name('edit.prop');
 
     //Update Property 
-    Route::match(['put', 'patch'], '/property/{prop}', [App\Http\Controllers\props\PropertyManagerController::class, 'updateProperty'])->name('update.prop');
+    Route::match(['put', 'patch'], '/property/{prop}', [PropertyManagerController::class, 'updateProperty'])->name('update.prop');
 
     //change Property status (hide/live)
     Route::put('/property/{prop}/status', [PropertyManagerController::class, 'updateStatus'])->name('property.updateStatus');
 
-
     //Delete a Property
-    Route::delete('/property/{prop}', [App\Http\Controllers\props\PropertyManagerController::class, 'deleteProperty'])->name('properties.delete');
+    Route::delete('/property/{prop}', [PropertyManagerController::class, 'deleteProperty'])->name('properties.delete');
+
+    //change Comment status (Approved/Pending)
+    Route::put('/comment/{prop}/status', [CommentsController::class, 'updateCommentStatus'])->name('comment.updateStatus');
 
     //Create a Property View
     Route::get('/submit-property', function () {
         return view('partials.submit-property');
     });
 
+    //Delete a Comment
+    Route::delete('/comment/{comment}/delete', [CommentsController::class, 'deleteComment'])->name('comment.delete');
 
     //Show Requests from clients view
     Route::get('/incoming-requests', [RequestController::class, 'allRequests'])->name('all.requests');
 
     //Show All Comments from clients view
     Route::get('/all-comments', [CommentsController::class, 'allComments'])->name('all.comments');
+
 
     // Manage Incoming Client Request
     Route::post('/requests/{id}/status', [RequestController::class, 'updateRequestStatus'])->name('requests.updateStatus');
@@ -211,8 +218,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 //inserting  request for callback
-Route::post('props/prop-details/{id}', [RequestController::class, 'insertRequests'])->name('insert.request');
-
+Route::post('props/insert-request', [RequestController::class, 'insertRequests'])->name('insert.request');
 
 
 //Saving property/bookmarking property
@@ -244,11 +250,11 @@ Route::post('/email/verification-notification', function (Request $request) {
 // Load more comments
 Route::get('/property/{propertyId}/comments/{page}', [App\Http\Controllers\props\PropertiesController::class, 'loadMoreComments'])->name('property.loadMoreComments');
 
-// Show single property
+// Show single property (new route)
 Route::get('props/prop-details/{slug}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');
 
-// Show single property
-Route::get('props/prop-details/{id}', [App\Http\Controllers\props\PropertiesController::class, 'single'])->name('single.prop');
+// Show single property (redirect to new route)
+Route::get('props/details/{id}', [App\Http\Controllers\props\PropertiesController::class, 'redirectToSlug'])->name('single-old.prop');
 
 
 require __DIR__ . '/auth.php';

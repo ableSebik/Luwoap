@@ -34,7 +34,8 @@
                 </div>
                 <div class="profile-photo">
                   <div class="profile-photo-inner">
-                    <img src="{{ asset("assets/img/avatar/avatar-1.jpg") }}" alt="avatar" class="img-fluid use-ing">
+                    <img loading="lazy" src="{{ asset("assets/img/avatar/avatar-1.jpg") }}" alt="avatar"
+                      class="img-fluid use-ing">
                   </div>
                 </div>
               </div>
@@ -91,3 +92,4 @@
   </div>
   <!-- Dashbord end -->
 @endsection
+@stack("scripts")

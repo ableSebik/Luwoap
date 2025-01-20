@@ -35,7 +35,7 @@
               distinguished organization known for its reliability.
             </p>
             <div class="bottom">
-              <div class="signature"><img src="{{ asset("assets/img/jed.png") }}" alt="signature"></div>
+              <div class="signature"><img loading="lazy" src="{{ asset("assets/img/jed.png") }}" alt="signature"></div>
               <div class="left ml-3">
                 <h5 class="name">Jedidiah Apenteng</h5>
                 <p class="post mb-0">Chief Executive Officer</p>
@@ -46,10 +46,11 @@
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
           <div class="about-img-section">
             <div class="image-box sssa">
-              <div class="image-1"><img src="{{ asset("assets/img/about-bg.png") }}" class="w-100" alt="photo"></div>
+              <div class="image-1"><img loading="lazy" src="{{ asset("assets/img/about-bg.png") }}" class="w-100"
+                  alt="photo"></div>
             </div>
             <div class="about-box-Experience">
-              <img src="{{ asset("assets/img/about-shape.png") }}" alt="image" class="img-fluid">
+              <img loading="lazy" src="{{ asset("assets/img/about-shape.png") }}" alt="image" class="img-fluid">
               <div class="content">
                 <h3>3+</h3>
                 <p class="mb-0">Years of Experience</p>
@@ -75,7 +76,7 @@
           <div class="team-1">
             <div class="team-thumb">
               <a href="#">
-                <img src="img/avatar/avatar-6.jpg" alt="team" class="img-fluid">
+                <img loading="lazy" src="img/avatar/avatar-6.jpg" alt="team" class="img-fluid">
               </a>
               <div class="team-social flex-middle">
                 <div class="team-overlay"></div>
@@ -107,7 +108,7 @@
           <div class="team-1">
             <div class="team-thumb">
               <a href="#">
-                <img src="img/avatar/avatar-7.jpg" alt="team" class="img-fluid">
+                <img loading="lazy" src="img/avatar/avatar-7.jpg" alt="team" class="img-fluid">
               </a>
               <div class="team-social flex-middle">
                 <div class="team-overlay"></div>
@@ -139,7 +140,7 @@
           <div class="team-1">
             <div class="team-thumb">
               <a href="#">
-                <img src="img/avatar/avatar-8.jpg" alt="team" class="img-fluid">
+                <img loading="lazy" src="img/avatar/avatar-8.jpg" alt="team" class="img-fluid">
               </a>
               <div class="team-social flex-middle">
                 <div class="team-overlay"></div>
@@ -171,7 +172,7 @@
           <div class="team-1">
             <div class="team-thumb">
               <a href="#">
-                <img src="img/avatar/avatar-5.jpg" alt="team" class="img-fluid">
+                <img loading="lazy" src="img/avatar/avatar-5.jpg" alt="team" class="img-fluid">
               </a>
               <div class="team-social flex-middle">
                 <div class="team-overlay"></div>
@@ -203,7 +204,7 @@
           <div class="team-1">
             <div class="team-thumb">
               <a href="#">
-                <img src="img/avatar/avatar-8.jpg" alt="team" class="img-fluid">
+                <img loading="lazy" src="img/avatar/avatar-8.jpg" alt="team" class="img-fluid">
               </a>
               <div class="team-social flex-middle">
                 <div class="team-overlay"></div>

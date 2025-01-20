@@ -59,7 +59,7 @@
           <div class="login-inner-form">
             <div class="details">
               <a href="/">
-                <img src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
+                <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
               </a>
               <h3>Reset Password</h3>
               <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">

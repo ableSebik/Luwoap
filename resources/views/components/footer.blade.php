@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="logo-image">
-          <a href=""><img src="{{ asset("assets/img/logos/luwoap-wt.png") }}"
+          <a href=""><img loading="lazy" src="{{ asset("assets/img/logos/luwoap-wt.png") }}"
               alt="luwoap logo white background"></a>
         </div>
         <div class="footer-menu">

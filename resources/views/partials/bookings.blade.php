@@ -10,7 +10,7 @@
             {{-- <div class="comment d-flex">
               <div class="comment-author">
                 <a href="#">
-                  <img src="img/avatar/avatar-1.jpg" alt="comments-user">
+                  <img loading="lazy" src="img/avatar/avatar-1.jpg" alt="comments-user">
                 </a>
               </div>
               <div class="comment-content">

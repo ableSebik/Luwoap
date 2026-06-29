@@ -7,10 +7,10 @@
         <h4>Bookings List</h4>
         <div class="row pad-20">
           <div class="col-lg-12">
-            <div class="comment d-flex">
+            {{-- <div class="comment d-flex">
               <div class="comment-author">
                 <a href="#">
-                  <img src="img/avatar/avatar-1.jpg" alt="comments-user">
+                  <img loading="lazy" src="img/avatar/avatar-1.jpg" alt="comments-user">
                 </a>
               </div>
               <div class="comment-content">
@@ -33,7 +33,7 @@
                   <a href="#" class="btn-2 btn-gray"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a>
                 </div>
               </div>
-            </div>
+            </div> --}}
           </div>
         </div>
       </form>

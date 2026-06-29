@@ -62,6 +62,31 @@
       @yield("content")
     </main>
 
+    <!-- Intro section 2 start -->
+    <div class="intro-section-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 col-md-12 col-sm-12">
+            <div class="intro-text">
+              <h3>Subscribe to Newsletter</h3>
+              <p>Subscribe to get update and information. Don't worry, we won't send spam!</p>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="Subscribe-box">
+              <form class="form-inline d-flex" action="{{ route("subscribe") }}" method="POST">
+                @csrf
+                <input class="form-control" type="email" name="email" id="email" placeholder="Email Address..."
+                  required>
+                <button type="submit" class="btn">Subscribe</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Intro section 2 end -->
+
     <!-- Footer start -->
     <x-footer />
     <!-- Footer end -->

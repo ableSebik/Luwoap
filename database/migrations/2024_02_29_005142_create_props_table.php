@@ -14,27 +14,26 @@ return new class extends Migration
 		Schema::create('props', function (Blueprint $table) {
 			$table->id();
 			$table->string('title');
-			$table->decimal('price', 10, 2); // Assuming price is a decimal with 10 digits in total and 2 decimal places
+			$table->string('slug')->unique();
+			$table->string('price'); // Assuming price is a decimal with 10 digits in total and 2 decimal places
+			$table->string('price_range'); // for only hostel property(not required field)
+			$table->enum('period', ['yr', 'mth', 'day', 'sem', 'sqm']);
 			$table->enum('currency', ['GHC', '$']);
 			$table->string('ft_image')->nullable();
 			$table->integer('bed');
 			$table->integer('bath');
-			$table->decimal('sq_ft', 10, 2)->nullable();
+			$table->decimal('sqm', 10, 2)->nullable();
 			$table->string('category');
 			$table->longText('more_info');
 			$table->string('location');
 			$table->foreignID('user_id')->references('id')->on('users'); // Foreign key column to reference agents table
 			$table->string('offer_type');
 			$table->string('amenities')->nullable();
+			$table->enum('status', ['live', 'hidden']);
 			$table->timestamps();
 
 			// // Define the foreign key constraint
 			// $table->foreign('agent_id')->references('id')->on('agents');
-		});
-
-		Schema::table('props', function (Blueprint $table) {
-			// Add indexes for frequently queried columns
-			$table->index(['price', 'category', 'location', 'user_id']); // Include agent_id in the index
 		});
 	}
 

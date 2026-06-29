@@ -18,8 +18,26 @@
     if (Request::is("props/category/airbnb")) {
         $pageTitle = "Air BnB";
     }
-    if (Request::is("props/category/appartment")) {
-        $pageTitle = "Appartment";
+    if (Request::is("props/category/apartment")) {
+        $pageTitle = "Apartment";
+    }
+    if (Request::is("props/category/office-space")) {
+        $pageTitle = "Office Space";
+    }
+    if (Request::is("props/category/luxury-apartment")) {
+        $pageTitle = "Luxury Properties";
+    }
+    if (Request::is("props/category/hotel")) {
+        $pageTitle = "Hotel Properties";
+    }
+    if (Request::is("props/category/house")) {
+        $pageTitle = "Housing Properties";
+    }
+    if (Request::is("props/category/guest-house")) {
+        $pageTitle = "Guest House";
+    }
+    if (Request::is("props/category/commercial-property")) {
+        $pageTitle = "Commercial Properties";
     }
   @endphp
 
@@ -46,33 +64,15 @@
     <div class="container">
       <!-- Main title -->
       <div class="main-title">
-        <h1>Latest Properties</h1>
+        <h2>Latest Properties</h2>
         <p>BROWSE HOT OFFERS</p>
       </div>
       <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12">
           <!-- Option bar start -->
           <div class="option-bar">
-            <div class="row">
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <h3>Showing {{ $firstItem }}-{{ $lastItem }} of {{ $totalItems }} Listings</h3>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="sorting-options">
-                  <a href="list-fullwidth.html" class="change-view-btn"><i class="fa fa-th-list"></i></a>
-                  <a href="grid-fullwidth.html" class="change-view-btn active-view-btn"><i class="fa fa-th-large"></i></a>
-                </div>
-                <div class="sorting-options2">
-                  <select class="selectpicker search-fields" name="default-order">
-                    <option>Sort by: Default</option>
-                    <option>Price High to Low</option>
-                    <option>Price: Low to High</option>
-                    <option>Newest listing</option>
-                    <option>Oldest listing</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+            <span class="alert">Showing {{ $firstItem }}-{{ $lastItem }} of {{ $totalItems }}
+              Listings</span>
           </div>
           <div class="row">
             @foreach ($props as $prop)

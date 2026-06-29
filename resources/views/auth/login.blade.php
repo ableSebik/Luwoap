@@ -30,7 +30,7 @@
           <div class="login-inner-form">
             <div class="details">
               <a href="/">
-                <x-application-logo class="w-20 h-20 text-black" />
+                <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
               </a>
               <h3>Sign Into Your Account</h3>
               <form method="POST" action="{{ route("login", ["redirect" => "true"]) }}">

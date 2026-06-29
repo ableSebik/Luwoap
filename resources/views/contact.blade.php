@@ -21,10 +21,8 @@
       <!-- Main title -->
       <div class="main-title text-center">
         <h2>Get in Touch</h2>
-        <p>
-          <span class="copy-line">We're here to help with any questions.</span>
-          <span class="copy-line">Buying, selling, or renting? Our team is ready.</span>
-        </p>
+        <p>We’re here to help with any questions you may have. Whether you’re buying, selling, or renting, our team is
+          ready to assist you.</p>
       </div>
       <form action="#" method="GET" enctype="multipart/form-data">
         <div class="row g-0 contact-innner">
@@ -102,13 +100,13 @@
                     <div class="tooltip">Twitter</div>
                     <span><i class="fab fa-twitter"></i></span>
                   </div>
-                  <a href="https://www.tiktok.com/@luwoap.accommodat" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.tiktok.com/@luwoap.accommodat" target="blank">
                     <div class="icon tiktok">
                       <div class="tooltip">Tiktok</div>
                       <span><i class="fab fa-tiktok"></i></span>
                     </div>
                   </a>
-                  <a href="https://www.instagram.com/accommodation_portal" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.instagram.com/accommodation_portal" target="blank">
                     <div class="icon instagram">
                       <div class="tooltip">Instagram</div>
                       <span><i class="fab fa-instagram"></i></span>

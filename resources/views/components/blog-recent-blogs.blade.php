@@ -9,11 +9,10 @@
       <ul class="list-unstyled list-cat">
         @foreach ($recentPostsData["blogPosts"] as $recentBlogPost)
           <li>
-            <a href="{{ route("postDetails.blog", $recentBlogPost->id) }}">{{ $recentBlogPost->post_title }}</a>
+            <a href="{{ route("postDetails.blog", $recentBlogPost->slug) }}">{{ $recentBlogPost->post_title }}</a>
           </li>
         @endforeach
       </ul>
-
     </div>
   </div>
 </div>

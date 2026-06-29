@@ -5,12 +5,13 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\prop\Property;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -51,5 +52,17 @@ class User extends Authenticatable
     public function property()
     {
         return $this->hasMany(Property::class, 'user_id');
+    }
+
+    // Relationship with Ratings
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    //Relationship with Comments
+    public function comments()
+    {
+        return $this->hasMany(Comments::class, 'user_id');
     }
 }

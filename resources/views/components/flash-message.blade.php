@@ -3,7 +3,7 @@
     style="z-index: 5; right: 0; bottom: 0;">
     <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
       <div class="toast-header">
-        <!-- <img src="..." class="rounded mr-2" alt="..."> -->
+        <!-- <img loading="lazy" src="..." class="rounded mr-2" alt="..."> -->
         <strong class="mr-auto">Success</strong>
         <small>Just now</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">

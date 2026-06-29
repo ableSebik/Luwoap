@@ -20,29 +20,21 @@
     <div class="container">
       <div class="row">
         <!-- list all posts -->
-        @if (Request::is("blog"))
-          <div class="col-lg-8 col-md-12">
-            <!-- Blog 1 start -->
-            @foreach ($blogPosts as $blogPost)
-              <x-post-card :blogPost="$blogPost" :postDay="$post_day" :postMonth="$post_month" />
-            @endforeach
+        <div class="col-lg-8 col-md-12">
+          <!-- Blog 1 start -->
+          @forelse ($blogPosts as $blogPost)
+            <x-post-card :blogPost="$blogPost" />
 
-            <!-- Blog 1 end -->
-
+          @empty
             <!-- Page navigation start -->
-            <div class="pagination-box hidden-mb-45 text-center">
+            <div class="pagination-box text-center">
               {{ $blogPosts->links("vendor.pagination.bootstrap-4") }}
             </div>
             <!-- Page navigation end -->
-          </div>
-        @else
-          <div class="col-lg-8 col-md-12">
-            @foreach ($relatedPosts as $post)
-              <x-post-card :blogPost="$post" :postDay="$post_day" :postMonth="$post_month" />
-            @endforeach
-          </div>
-        @endif
-
+            <h5>No Post at this time.</h5>
+          @endforelse
+          <!-- Blog 1 end -->
+        </div>
         <!-- End list all posts -->
 
         <div class="col-lg-4 col-md-12">

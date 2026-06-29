@@ -63,7 +63,7 @@
 }
 
 .sidebar-logo img {
-    width: 80px;
+    width: 120px;
 }
 
 .sidebar-navigation ul {
@@ -93,8 +93,7 @@
 .sidebar-navigation .pt0{
     padding-top: 0;
 }
-
-.sidebar-navigation ul li a em {
+/* .sidebar-navigation ul li a i {
     font-size: 12px;
     position: absolute;
     right: 5px;
@@ -104,7 +103,19 @@
     border-radius: 5px;
     font-weight: 100;
     color: #777;
-}
+} */
+
+/* .sidebar-navigation ul li a em {
+    font-size: 12px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4.5px 5px 5.5px;
+    border-radius: 5px;
+    font-weight: 100;
+    color: #777;
+} */
 
 .sidebar-navigation ul li:hover > a, .sidebar-navigation ul li.selected > a {
     background-color: transparent;
@@ -330,7 +341,7 @@
 }
 
 .top-header-3 .top-logo img{
-    height: 50px;
+    height: 80px;
 }
 
 .top-header-3 .top-header-inner {
@@ -387,7 +398,7 @@
 
 /** Top header 4 area start **/
 #top-header-4{
-    position: initial;
+    position: relative;
     width: 100%;
     z-index: 999;
     background: #fff;
@@ -695,6 +706,7 @@
 
 .main-header-5 .navbar-expand-lg .navbar-nav .nav-link {
     font-size: 15px;
+    font-weight: bold;
     padding: 19px 16px 18.5px;
     color: #fff;
     text-transform: uppercase;
@@ -706,10 +718,6 @@
 
 .main-header-5 .logos{
     display: none;
-}
-
-.main-header-5 .navbar-expand-lg .navbar-nav .nav-link{
-    color: #fff;
 }
 
 .main-header-5 .navbar-expand-lg .navbar-nav .h-icon {
@@ -834,7 +842,7 @@
     }
 
     #main-header-6 .navbar-expand-lg .navbar-nav .nav-link:hover {
-        color: #fff!important;
+        color: #000000!important;
     }
 
     #main-header-4 .header-right {
@@ -1091,7 +1099,7 @@
     }
 
     #main-header-6 .navbar-expand-lg .navbar-nav .nav-link:hover {
-        color: #fff!important;
+        color: #b1b1b1 !important;
     }
 }
 

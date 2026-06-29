@@ -7,20 +7,22 @@
       <select class="selectpicker search-fields" name="any-status">
         <option>Offer</option>
         <option value="For Sale">For Sale</option>
-        <option value="Rent">Rent</option>
-        <option value="Lease">Lease</option>
+        <option value="rent">Rent</option>
+        <option value="lease">Lease</option>
       </select>
     </div>
     <div class="form-group">
       <select class="selectpicker search-fields" name="all-type">
-        <option value="">Category</option>
-        <option value="Appartment">Appartment</option>
-        <option value="Hostel">Hostel</option>
-        <option value="Airbnb">Air BnB</option>
-        <option value="Luxury App">Luxury App</option>
-        <option value="Guest House">Guest House</option>
-        <option value="Office Space">Office Space</option>
-        <option value="Commercial Space">Commercial Space</option>
+        <option value=""></option>
+        <option value="air bnb">Airbnb</option>
+        <option value="apartment">Apartment</option>
+        <option value="commercial space">Commercial Space</option>
+        <option value="guest house">Guest House</option>
+        <option value="hostel">Hostel</option>
+        <option value="hotel">Hotel</option>
+        <option value="house">House</option>
+        <option value="luxury apartment">Luxury Apartment</option>
+        <option value="office space">Office Space</option>
       </select>
     </div>
     <div class="row">

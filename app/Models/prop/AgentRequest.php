@@ -19,7 +19,6 @@ class AgentRequest extends Model
     'email',
     'message',
     'status',
-
   ];
 
   public $timestamps = true;
@@ -27,6 +26,6 @@ class AgentRequest extends Model
   //Relationship with User
   public function property()
   {
-    return $this->belongsTo(Property::class, 'id');
+    return $this->belongsTo(Property::class, 'prop_id');
   }
 }

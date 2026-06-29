@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config("app.name", "Laravel") }}</title>
+    <meta name="description"
+      content="{{ $metaDescription ?? "LUWOAP Properties: Your premier destination for all real estate needs" }}">
+    <title>{{ $pageTitle ?? config("app.name", "LUWOAP") }}</title>
 
     <!-- External CSS libraries -->
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/bootstrap.min.css") }}">
@@ -14,10 +16,11 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/bootstrap-select.min.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/magnific-popup.css") }}">
-    <link rel="stylesheet" href="{{ asset("assets/css/leaflet.css") }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset("assets/css/map.css") }}" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/leaflet.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/font-awesome/css/font-awesome.min.css") }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset("assets/fonts/bootstrap-icons/bootstrap-icons.css") }}">
+    <link rel="stylesheet" type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/bootstrap-icons/bootstrap-icons.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/flaticon/font/flaticon.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/fonts/linearicons/style.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/jquery.mCustomScrollbar.css") }}">
@@ -31,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/style.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/initial.css") }}">
     <link rel="stylesheet" type="text/css" id="style_sheet" href="{{ asset("assets/css/skins/default.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/modern-refresh.css") }}">
 
     <!-- Favicon icon -->
     <link rel="shortcut icon" href="{{ asset("assets/img/fav.ico") }}" type="image/x-icon">
@@ -47,7 +51,7 @@
   </head>
 
   <body>
-    <div class="page_loader"></div>
+    <!--<div class="page_loader"></div>-->
 
     <!-- Main header start -->
     <x-navbar />
@@ -56,45 +60,11 @@
     <!-- Page Content -->
     <main>
       @yield("content")
-
     </main>
-    <!-- Intro section 2 start -->
-    <div class="intro-section-2">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7 col-md-12 col-sm-12">
-            <div class="intro-text">
-              <h3>Subscribe to Newsletter</h3>
-              <p>Subscribe to get update and information. Don't worry, we won't send spam!</p>
-            </div>
-          </div>
-          <div class="col-lg-5 col-md-12 col-sm-12">
-            <div class="Subscribe-box">
-              <form class="form-inline d-flex" action="{{ route("subscribe") }}" method="POST">
-                @csrf
-                <input class="form-control" type="email" name="email" id="email" placeholder="Email Address..."
-                  required>
-                <button type="submit" class="btn">Subscribe</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Intro section 2 end -->
 
     <!-- Footer start -->
     <x-footer />
     <!-- Footer end -->
-
-    <!-- Full Page Search -->
-    <div id="full-page-search">
-      <button type="button" class="close">×</button>
-      <form action="" method="">
-        <input type="search" value="" placeholder="type keyword(s) here" />
-        <button type="submit" class="btn btn-sm button-theme">Search</button>
-      </form>
-    </div>
 
     <div class="d-none">
       <form method="POST" action="{{ route("logout") }}" id="logoutForm">
@@ -103,6 +73,7 @@
             class="flaticon-logout"></i> Logout</a>
       </form>
     </div>
+
     @php
       $bg = "";
       if (\Session::has("success")) {
@@ -116,7 +87,7 @@
       }
     @endphp
     @if (\Session::has("success") || \Session::has("error"))
-      <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 999999999999">
+      <div class="position-fixed p-3" style="bottom: 15%; right: 0; z-index: 999999">
         <div class="toast align-items-center text-white border-0 {{ $bg }}" role="alert"
           aria-live="assertive" aria-atomic="true" id="liveToast">
           <div class="d-flex">
@@ -140,7 +111,6 @@
     <script src="{{ asset("assets/js/jquery.min.js") }}"></script>
     <script src="{{ asset("assets/js/bootstrap-submenu.js") }}"></script>
     <script src="{{ asset("assets/js/rangeslider.js") }}"></script>
-    <script src="{{ asset("assets/js/jquery.mb.YTPlayer.js") }}"></script>
     <script src="{{ asset("assets/js/bootstrap-select.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.easing.1.3.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.scrollUp.js") }}"></script>
@@ -148,45 +118,14 @@
     <script src="{{ asset("assets/js/leaflet.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet-providers.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet.markercluster.js") }}"></script>
-    <script src="{{ asset("assets/js/dropzone.js") }}"></script>
     <script src="{{ asset("assets/js/slick.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.magnific-popup.min.js") }}"></script>
-    <script src="{{ asset("assets/js/jquery.countdown.js") }}"></script>
     <script src="{{ asset("assets/js/modernizr.custom.js") }}"></script>
     <script src="{{ asset("assets/js/boxes-component.js") }}"></script>
     <script src="{{ asset("assets/js/boxes-core.js") }}"></script>
-    <script src="{{ asset("assets/js/maps.js") }}"></script>
+
     <script src="{{ asset("assets/js/app.js") }}"></script>
-
-    {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
     @stack("scripts")
-
-    <script>
-      // Wait for the document to fully load
-      document.addEventListener('DOMContentLoaded', function() {
-        // Get a reference to the logout button
-        var logoutBtn = document.getElementById('logoutBtn');
-
-        // Get a reference to the logout form
-        var logoutForm = document.getElementById('logoutForm');
-
-        // Add a click event listener to the logout button
-        logoutBtn.addEventListener('click', function(event) {
-          // Prevent the default form submission behavior
-          event.preventDefault();
-
-          // Submit the logout form
-          logoutForm.submit();
-        });
-      });
-    </script>
-    <!-- JavaScript to show the toast -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var liveToast = new bootstrap.Toast(document.getElementById('liveToast'));
-        liveToast.show();
-      });
-    </script>
 
   </body>
 

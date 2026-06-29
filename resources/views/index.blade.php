@@ -1,190 +1,151 @@
-@extends("layouts.app")
+﻿@extends("layouts.app")
 
 @section("content")
-  <!-- Banner start -->
-  <div class="banner" id="banner">
-    <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item banner-max-height active item-bg">
-          <div id="boxgallery" class="boxgallery" data-effect="effect-3">
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-2.jpg") }}" alt="Image 1" /></div>
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-3.jpg") }}" alt="Image 1" /></div>
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-1.jpg") }}" alt="Image 1" /></div>
-            <div class="panel"><img src="{{ asset("assets/img/banner/img-5.jpg") }}" alt="Image 1" /></div>
-          </div>
+  <div class="home-refresh">
+    <section class="home-hero" id="banner">
+      <div id="boxgallery" class="home-hero-gallery home-fade-slider boxgallery" aria-hidden="true">
+        <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-3.jpg") }}" alt=""></div>
+        <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-2.jpg") }}" alt=""></div>
+        <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-1.jpg") }}" alt=""></div>
+        <div class="panel"><img loading="lazy" src="{{ asset("assets/img/banner/img-5.jpg") }}" alt=""></div>
+      </div>
+
+      <div class="container home-hero-inner">
+        <div class="home-hero-copy">
+          <h1>Find Your Next Place in Ghana</h1>
+          <p>Houses, hostels, and Airbnb stays. Verified listings. Trusted by many.</p>
         </div>
-        <div class="carousel-caption d-flex h-100">
-          <div class="carousel-content container">
-            <div class="text-center bi-3">
-              <div class="clearfix">
-                <h3>Find Your Dream Home</h3>
-                <p>Ghana's No.1 Real Estate Portal</p>
-              </div>
-              <div class="clearfix"></div>
-              {{-- search bar --}}
-              <form action="{{ route("search") }}" method="get">
-                <div class="inline-search-area isa-5 isa-992 clearfix">
 
-                  <div class="row">
-                    <div class="col-md-9 col-lg-9 col-sm-12">
-                      <input class="form-control search-fields sf" name="query" placeholder="What are you looking for?">
-                    </div>
+        <form class="home-search-card" action="{{ route("search") }}" method="get">
+          <div class="home-search-field">
+            <label for="home-property-type">What are you looking for?</label>
+            <select id="home-property-type" name="type" aria-label="Property type">
+              <option value="">All Types</option>
+              <option value="house">Houses</option>
+              <option value="hostel">Hostels</option>
+              <option value="airbnb">Airbnb</option>
+              <option value="apartment">Apartments</option>
+            </select>
+          </div>
+          <div class="home-search-field home-search-field-wide">
+            <label for="home-location">Location</label>
+            <input id="home-location" name="query" type="search" placeholder="Enter location or area" required>
+          </div>
+          <div class="home-search-field">
+            <label for="home-min-price">Min Price</label>
+            <input id="home-min-price" name="min_price" type="number" min="0" placeholder="Min Price">
+          </div>
+          <div class="home-search-field">
+            <label for="home-max-price">Max Price</label>
+            <input id="home-max-price" name="max_price" type="number" min="0" placeholder="Max Price">
+          </div>
+          <button class="home-search-button" type="submit">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <span>Search</span>
+          </button>
+        </form>
+      </div>
+    </section>
 
-                    <div class="col-md-3 col-lg-3 col-sm-12">
-                      <button class="btn button-theme btn-search w-100 mb-0">
-                        <strong>Search</strong>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
+    <section class="home-section home-categories">
+      <div class="container">
+        <div class="home-section-heading">
+          <h2>Browse by Category</h2>
+        </div>
+        <div class="home-category-grid">
+          <a href="{{ route("house.prop") }}" class="home-category-card">
+            <img loading="lazy" src="{{ asset("assets/img/banner/img-5.jpg") }}" alt="Modern house with pool">
+            <div>
+              <h3>Houses</h3>
+              <p>Find your perfect home for sale or rent across Ghana.</p>
+              <span>Explore Houses <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
             </div>
+          </a>
+          <a href="{{ route("hostel.prop") }}" class="home-category-card">
+            <img loading="lazy" src="{{ asset("assets/img/img-3.jpg") }}" alt="Hostel apartment building">
+            <div>
+              <h3>Hostels</h3>
+              <p>Affordable and comfortable hostel accommodations.</p>
+              <span>Explore Hostels <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a href="{{ route("airbnb.prop") }}" class="home-category-card">
+            <img loading="lazy" src="{{ asset("assets/img/banner/img-1.jpg") }}" alt="Comfortable short stay bedroom">
+            <div>
+              <h3>Airbnb</h3>
+              <p>Short stays, cozy spaces, anytime you need.</p>
+              <span>Explore Airbnb <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-properties">
+      <div class="container">
+        <div class="home-section-heading home-section-heading-row">
+          <h2>Latest Properties</h2>
+          <a href="{{ route("all-properties") }}">View all properties <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="home-property-grid">
+          @forelse ($props->take(4) as $prop)
+            <x-property-box :prop="$prop" />
+          @empty
+            <p class="home-empty-state">No properties are live yet.</p>
+          @endforelse
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-reasons">
+      <div class="container">
+        <div class="home-section-heading home-section-heading-center">
+          <h2>Why Choose LUWOAP Properties?</h2>
+        </div>
+        <div class="home-reason-grid">
+          <div class="home-reason">
+            <i class="bi bi-shield-check" aria-hidden="true"></i>
+            <h3>Verified Listings</h3>
+            <p>Every property is reviewed for your peace of mind.</p>
+          </div>
+          <div class="home-reason">
+            <i class="bi bi-hand-thumbs-up" aria-hidden="true"></i>
+            <h3>Trusted Service</h3>
+            <p>We are committed to honesty and reliability.</p>
+          </div>
+          <div class="home-reason">
+            <i class="bi bi-house-heart" aria-hidden="true"></i>
+            <h3>Wide Range</h3>
+            <p>From homes to hostels and shortlets, we have you covered.</p>
+          </div>
+          <div class="home-reason">
+            <i class="bi bi-headset" aria-hidden="true"></i>
+            <h3>Customer Support</h3>
+            <p>Our team is here to assist every step of the way.</p>
           </div>
         </div>
       </div>
+    </section>
+
+    <div class="action-bar container d-md-none">
+      <a href="tel:+233201492986">
+        <div class="call-action action-group">
+          <span class="fa fa-phone-alt"></span>
+          <p>CALL</p>
+        </div>
+      </a>
+      <a href="https://wa.me/233201492986">
+        <div class="whatsapp-action action-group">
+          <span class="fab fa-whatsapp"></span>
+          <p>WHATSAPP</p>
+        </div>
+      </a>
+      <a href="mailto:info@luwoap.com">
+        <div class="sms-action action-group">
+          <span class="fas fa-envelope"></span>
+          <p>EMAIL</p>
+        </div>
+      </a>
     </div>
   </div>
-  <!-- Banner end -->
-
-  {{-- Property listings --}}
-  <div class="property-section content-area">
-    <div class="container">
-      <!-- Main title -->
-      <div class="main-title">
-        <h1>Latest Properties</h1>
-        <p>BROWSE HOT OFFERS</p>
-      </div>
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12">
-          <div class="row">
-            @foreach ($props as $prop)
-              <div class="col-lg-4 col-md-6 col-sm-12">
-                <x-property-box :prop="$prop" />
-              </div>
-            @endforeach
-          </div>
-          <a href="/all-properties" class="btn-4 none-btn-992">More Properties <i
-              class="fa fa-angle-double-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-  {{-- End Property listings --}}
-
-  <!-- Services start -->
-  <div class="services services-2 content-area">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 align-self-center">
-          <!-- Main title -->
-          <div class="main-title-5 main-title-7">
-            <h1>Why Choose <span>Us</span></h1>
-            <div class="title-border mb-4">
-              <div class="title-border-inner"></div>
-              <div class="title-border-inner"></div>
-              <div class="title-border-inner"></div>
-            </div>
-            <a href="services.html" class="btn-4 none-btn-992">Read More <i class="fa fa-angle-double-right"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-7 offset-lg-1">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">1</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="flaticon-apartment"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="services.html">Apartments</a>
-                </h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">2</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="flaticon-empire-state-building"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="services.html">Houses</a>
-                </h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">3</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="flaticon-car"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="services.html">Garages</a>
-                </h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="single-info-2">
-                <div class="number">4</div>
-                <div class="icon">
-                  <div class="icon-inner">
-                    <i class="flaticon-trust"></i>
-                  </div>
-                </div>
-                <h2>
-                  <a href="services.html">Buyers Trust Us</a>
-                </h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Services end -->
-
-  <!-- Blog start -->
-  <div class="blog comon-slick content-area">
-    <div class="container">
-      <!-- Main title -->
-      <div class="main-title-3">
-        <p>Our Blog</p>
-        <h1>Latest <span>News</span></h1>
-      </div>
-      <div class="row">
-        @foreach ($recentPostsData["blogPosts"] as $recentBlogPost)
-          <div class="col-lg-4 col-md-4">
-            <div class="blog-2">
-              <div class="blog-image">
-                <img src="{{ asset("storage/Post/" . $recentBlogPost->post_ft_image) }}"
-                  alt="{{ $recentBlogPost->post_title }}" class="img-fluid bp">
-                <div class="date-box">
-                  <span>{{ $recentPostsData["post_day"] }}</span>{{ $recentPostsData["post_month"] }}
-                </div>
-
-              </div>
-              <div class="detail">
-                <h4>
-                  <a href="{{ route("postDetails.blog", $recentBlogPost->id) }}">{{ $recentBlogPost->post_title }}</a>
-                </h4>
-                <p>{{ $recentBlogPost->post_excerpt }}</p>
-                <a href="{{ route("postDetails.blog", $recentBlogPost->id) }}" class="read-more">Read more</a>
-              </div>
-            </div>
-          </div>
-        @endforeach
-      </div>
-      <a href="/blog" class="btn-4 none-btn-992">More Blogs <i class="fa fa-angle-double-right"></i></a>
-    </div>
-  </div>
-  <!-- Blog end -->
 @endsection

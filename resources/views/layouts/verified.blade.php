@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/style.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/initial.css") }}">
     <link rel="stylesheet" type="text/css" id="style_sheet" href="{{ asset("assets/css/skins/default.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/modern-refresh.css") }}">
 
     <!-- Favicon icon -->
     <link rel="shortcut icon" href="{{ asset("assets/img/fav.ico") }}" type="image/x-icon">
@@ -49,7 +50,7 @@
   </head>
 
   <body>
-    <div class="page_loader"></div>
+    <!--<div class="page_loader"></div>-->
     <!-- Page Content -->
     <main>
       @yield("content")
@@ -67,7 +68,6 @@
     <script src="{{ asset("assets/js/leaflet.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet-providers.js") }}"></script>
     <script src="{{ asset("assets/js/leaflet.markercluster.js") }}"></script>
-    <script src="{{ asset("assets/js/dropzone.js") }}"></script>
     <script src="{{ asset("assets/js/slick.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.magnific-popup.min.js") }}"></script>
     <script src="{{ asset("assets/js/jquery.countdown.js") }}"></script>
@@ -77,7 +77,6 @@
     <script src="{{ asset("assets/js/maps.js") }}"></script>
     <script src="{{ asset("assets/js/app.js") }}"></script>
 
-    <script src="//unpkg.com/alpinejs" defer></script>
     @stack("scripts")
   </body>
 

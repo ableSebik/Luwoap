@@ -27,15 +27,15 @@
           <div class="login-inner-form">
             <div class="details">
               <a href="/">
-                <x-application-logo class="w-20 h-20 text-black" />
+                <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
               </a>
-              <h3>Create An Cccount</h3>
+              <h3>Create An Account</h3>
               <form method="POST" action="{{ route("register") }}">
                 @csrf
 
                 <div class="form-group form-box">
-                  <input type="text" name="name" class="form-control" value="{{ old("name") }}" placeholder="Name"
-                    aria-label="Name">
+                  <input type="text" name="name" class="form-control text-capitalize" value="{{ old("name") }}"
+                    placeholder="Name" aria-label="Name">
                   @error("name")
                     <p class="text-danger pull-left mb-3">{{ $message }}</p>
                   @enderror
@@ -64,7 +64,7 @@
                   @enderror
                 </div>
                 <div class="form-group form-box">
-                  <input type="password" name="password_confirmation" class="form-control" autocomplete="off"
+                  <input type="password" required name="password_confirmation" class="form-control" autocomplete="off"
                     placeholder="Confirm Password" aria-label="Confirm Password">
                   @error("password_confirmation")
                     <p class="text-danger pull-left mb-3">{{ $message }}</p>
@@ -82,7 +82,7 @@
                 <div class="form-group">
                   <button type="submit" class="btn-md btn-theme w-100">Register</button>
                 </div>
-                <p>Already a member?<a href="{{ route("login") }}"> Login here</a></p>
+                <p>Got account?<a href="{{ route("login") }}"> Login here</a></p>
               </form>
             </div>
           </div>

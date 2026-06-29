@@ -34,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/style.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/initial.css") }}">
     <link rel="stylesheet" type="text/css" id="style_sheet" href="{{ asset("assets/css/skins/default.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset("assets/css/modern-refresh.css") }}">
 
     <!-- Favicon icon -->
     <link rel="shortcut icon" href="{{ asset("assets/img/fav.ico") }}" type="image/x-icon">

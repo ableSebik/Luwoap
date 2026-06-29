@@ -1,4 +1,4 @@
-@extends("layouts.app")
+﻿@extends("layouts.app")
 
 @section("content")
   <!-- Banner start -->
@@ -45,10 +45,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <!-- Banner end -->
 
   <!-- Property Type listing -->
   <div class="" style="z-index: 99; margin-top:65px;position:relative">
@@ -193,12 +189,10 @@
               <a class="read-more" href="/services">Read more...</a>
               <h4>03</h4>
             </div>
-          </div>
+          </a>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- Services end -->
+    </section>
 
   <!-- Blog start -->
   {{-- <div class="blog comon-slick content-area">
@@ -219,17 +213,33 @@
                   <span>{{ $recentBlogPost->post_day }}</span>{{ $recentBlogPost->post_month }}
                 </div>
 
-              </div>
-              <div class="detail">
-                <h4>
-                  <a href="{{ route("postDetails.blog", $recentBlogPost->id) }}">{{ $recentBlogPost->post_title }}</a>
-                </h4>
-                <p>{{ $recentBlogPost->post_excerpt }}</p>
-                <a href="{{ route("postDetails.blog", $recentBlogPost->id) }}" class="read-more">Read more</a>
-              </div>
-            </div>
+    <section class="home-section home-reasons">
+      <div class="container">
+        <div class="home-section-heading home-section-heading-center">
+          <h2>Why Choose LUWOAP Properties?</h2>
+        </div>
+        <div class="home-reason-grid">
+          <div class="home-reason">
+            <i class="bi bi-shield-check" aria-hidden="true"></i>
+            <h3>Verified Listings</h3>
+            <p>Every property is reviewed for your peace of mind.</p>
           </div>
-        @endforeach
+          <div class="home-reason">
+            <i class="bi bi-hand-thumbs-up" aria-hidden="true"></i>
+            <h3>Trusted Service</h3>
+            <p>We are committed to honesty and reliability.</p>
+          </div>
+          <div class="home-reason">
+            <i class="bi bi-house-heart" aria-hidden="true"></i>
+            <h3>Wide Range</h3>
+            <p>From homes to hostels and shortlets, we have you covered.</p>
+          </div>
+          <div class="home-reason">
+            <i class="bi bi-headset" aria-hidden="true"></i>
+            <h3>Customer Support</h3>
+            <p>Our team is here to assist every step of the way.</p>
+          </div>
+        </div>
       </div>
       <a href="/blog" class="btn-5">Visit Our Blogs <i class="fa fa-angle-double-right"></i></a>
     </div>

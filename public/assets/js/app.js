@@ -31,6 +31,7 @@ $(function () {
     });
 
     // Made the left sidebar's min-height to window's height
+
     var winHeight = $(window).height();
     $(".dashboard-nav").css("min-height", winHeight);
 
@@ -41,7 +42,10 @@ $(function () {
         gallery: { enabled: true },
     });
 
+
+
     // Sidebar
+
     $("#sidebar").mCustomScrollbar({
         theme: "minimal",
     });
@@ -88,7 +92,9 @@ $(function () {
                 $li.find(">a>em").addClass("fa-chevron-up");
                 $li.find(">a>em").removeClass("fa-chevron-down");
             }
+
         }
+
     });
     $(".sidebar-navigation > ul ul").each(function (i) {
         if ($(this).find(">li>ul").length > 0) {
@@ -116,23 +122,37 @@ $(function () {
                 .parent()
                 .addClass("selected--last");
         }
+
     });
 
+
+
     // Header shrink while page scroll
+
     adjustHeader();
+
     doSticky();
+
     placedDashboard();
     $(window).on("scroll", function () {
         adjustHeader();
+
         doSticky();
+
         placedDashboard();
+
     });
+
+
 
     // Header shrink while page resize
     $(window).on("resize", function () {
         adjustHeader();
+
         doSticky();
+
         placedDashboard();
+
     });
 
     function adjustHeader() {
@@ -156,10 +176,13 @@ $(function () {
                 } else {
                     $(".logo img").attr("src", "img/logos/luwoap-dark.png");
                 }
+
             }
+
         } else {
             $(".logo img").attr("src", "img/logos/luwoap-dark.png");
         }
+
     }
 
     function doSticky() {
@@ -169,8 +192,12 @@ $(function () {
         } else {
             $(".do-sticky").removeClass("sticky-header");
             //$('.do-sticky').removeClass('header-shrink');
+
         }
+
     }
+
+
 
     function placedDashboard() {
         var headerHeight = parseInt($(".main-header").height(), 10);
@@ -181,19 +208,27 @@ $(function () {
         new BoxesFx(document.getElementById("boxgallery"));
     }
 
+
+
     // Banner slider
+
     (function ($) {
         // Function to animate slider captions
         function doAnimations(elems) {
             // Cache the animationend event in a variable
             var animEndEv = "webkitAnimationEnd animationend";
             elems.each(function () {
+
                 var $this = $(this),
                     $animationType = $this.data("animation");
                 $this.addClass($animationType).one(animEndEv, function () {
+
                     $this.removeClass($animationType);
+
                 });
+
             });
+
         }
 
         // Variables on page load
@@ -300,6 +335,31 @@ $(function () {
                     );
             }
         });
+
+    })(jQuery);
+
+
+
+    // Action Bar
+
+    var $actionBar = $(".action-bar");
+
+    var scrollTrigger = 100; // Adjust the scroll trigger point
+
+
+
+    $(window).on("scroll", function () {
+
+        if ($(window).scrollTop() > scrollTrigger) {
+
+            $actionBar.addClass("fixed-action-bar");
+
+        } else {
+
+            $actionBar.removeClass("fixed-action-bar");
+
+        }
+
     });
 
     $(".range-slider-ui").each(function () {
@@ -320,14 +380,23 @@ $(function () {
                 maxName +
                 "'>"
         );
+
         $(this).slider({
+
             range: true,
+
             min: minRangeValue,
+
             max: maxRangeValue,
+
             values: [minRangeValue, maxRangeValue],
+
             slide: function (event, ui) {
+
                 event = event;
+
                 var currentMin = parseInt(ui.values[0], 10);
+
                 var currentMax = parseInt(ui.values[1], 10);
                 $(this)
                     .children(".min-value")
@@ -336,11 +405,15 @@ $(function () {
                     .children(".max-value")
                     .text(currentMax + " " + unit);
                 $(this).children(".current-min").val(currentMin);
+
                 $(this).children(".current-max").val(currentMax);
             },
         });
 
+
+
         var currentMin = parseInt($(this).slider("values", 0), 10);
+
         var currentMax = parseInt($(this).slider("values", 1), 10);
         $(this)
             .children(".min-value")
@@ -349,8 +422,12 @@ $(function () {
             .children(".max-value")
             .text(currentMax + " " + unit);
         $(this).children(".current-min").val(currentMin);
+
         $(this).children(".current-max").val(currentMax);
+
     });
+
+
 
     // Select picket
     $(".selectpicker").selectpicker();
@@ -361,7 +438,10 @@ $(function () {
         $(".search-options-btn .fa").toggleClass("fa-chevron-down");
     });
 
+
+
     // Carousel with partner initialization
+
     (function () {
         $("#ourPartners").carousel({ interval: 3600 });
     })();
@@ -369,8 +449,11 @@ $(function () {
     (function () {
         $(".our-partners .item").each(function () {
             var itemToClone = $(this);
+
             for (var i = 1; i < 4; i++) {
+
                 itemToClone = itemToClone.next();
+
                 if (!itemToClone.length) {
                     itemToClone = $(this).siblings(":first");
                 }
@@ -379,40 +462,64 @@ $(function () {
                     .clone()
                     .addClass("cloneditem-" + i)
                     .appendTo($(this));
+
             }
+
         });
     })();
 
     // Partners strat
     $(".custom-slider").slick({
         slidesToShow: 5,
+
         slidesToScroll: 1,
+
         autoplay: true,
+
         autoplaySpeed: 2000,
+
         responsive: [
+
             {
+
                 breakpoint: 1200,
+
                 settings: {
+
                     slidesToShow: 3,
+
                     slidesToScroll: 1,
+
                     infinite: true,
                     dots: false,
                 },
             },
+
             {
+
                 breakpoint: 900,
+
                 settings: {
+
                     slidesToShow: 2,
+
                     slidesToScroll: 1,
+
                     infinite: true,
                     dots: false,
                 },
             },
+
             {
+
                 breakpoint: 550,
+
                 settings: {
+
                     slidesToShow: 1,
+
                     slidesToScroll: 1,
+
                     infinite: true,
                     dots: false,
                 },
@@ -424,6 +531,7 @@ $(function () {
     (function () {
         var slideContainer = $(".slide-container");
         slideContainer.slick({
+
             arrows: false,
             initialSlide: 0,
             centerMode: true,
@@ -433,28 +541,43 @@ $(function () {
             autoplay: true,
             autoplaySpeed: 2000,
             responsive: [
+
                 {
+
                     breakpoint: 1224,
+
                     settings: {
+
                         arrows: false,
+
                         centerMode: true,
                         centerPadding: "40px",
                         slidesToShow: 3,
                     },
                 },
+
                 {
+
                     breakpoint: 1000,
+
                     settings: {
+
                         arrows: false,
+
                         centerMode: true,
                         centerPadding: "40px",
                         slidesToShow: 2,
                     },
                 },
+
                 {
+
                     breakpoint: 900,
+
                     settings: {
+
                         arrows: false,
+
                         centerMode: true,
                         centerPadding: "40px",
                         slidesToShow: 1,
@@ -462,6 +585,7 @@ $(function () {
                 },
             ],
         });
+
     })();
 
     if ($(document).find(".slider-container").length > 0) {
@@ -491,6 +615,7 @@ $(function () {
                 if (activeSlideIndex < 0) {
                     activeSlideIndex = slidesLength - 1;
                 }
+
             }
 
             slideRight.style.transform = `translateY(-${
@@ -502,16 +627,23 @@ $(function () {
         };
     }
 
+
+
     // Comon slick strat
     $(".slick").slick({
         dots: false,
+
         infinite: true,
         touchThreshold: 100,
         speed: 300,
+
         slidesToShow: 3,
+
         slidesToScroll: 3,
+
         centerMode: true,
         autoplay: true,
+
         autoplaySpeed: 2000,
         nextArrow:
             '<button class="slick-next"><i class="fas fa-chevron-right"></i></button>',
@@ -533,8 +665,11 @@ $(function () {
     //product-slider-box
     $(".slider-for").slick({
         slidesToShow: 1,
+
         slidesToScroll: 1,
+
         arrows: false,
+
         fade: true,
         asNavFor: ".slider-nav",
         adaptiveHeight: true,
@@ -545,11 +680,14 @@ $(function () {
         vertical: false,
         asNavFor: ".slider-for",
         dots: false,
+
         focusOnSelect: true,
         verticalSwiping: false,
         autoplay: true,
         centerMode: false,
     });
+
+
 
     // Banner 2 start initialization.
     if ($(document).find(".slide").length > 0) {
@@ -557,26 +695,38 @@ $(function () {
             const slides = document.querySelectorAll(".slide");
             slides[activeslide].classList.add("active");
             function clearActiveClasses() {
+
                 slides.forEach((slide) => {
                     slide.classList.remove("active");
                 });
+
             }
+
+
 
             for (const slide of slides) {
                 slide.addEventListener("click", () => {
                     clearActiveClasses();
                     slide.classList.add("active");
                 });
+
             }
+
         }
 
+
+
         sliderPluggin(0);
+
     }
+
+
 
     //Banner 3 slide-container
     (function () {
         var slideContainer = $(".slide-container");
         slideContainer.slick({
+
             arrows: false,
             initialSlide: 0,
             centerMode: true,
@@ -584,28 +734,43 @@ $(function () {
             slidesToShow: 4,
             swipeToSlide: true,
             responsive: [
+
                 {
+
                     breakpoint: 1224,
+
                     settings: {
+
                         arrows: false,
+
                         centerMode: true,
                         centerPadding: "40px",
                         slidesToShow: 3,
                     },
                 },
+
                 {
+
                     breakpoint: 1000,
+
                     settings: {
+
                         arrows: false,
+
                         centerMode: true,
                         centerPadding: "40px",
                         slidesToShow: 2,
                     },
                 },
+
                 {
+
                     breakpoint: 900,
+
                     settings: {
+
                         arrows: false,
+
                         centerMode: true,
                         centerPadding: "40px",
                         slidesToShow: 1,
@@ -690,8 +855,7 @@ $(function () {
                 $(".dropdown-submenu .show").removeClass("show");
             });
 
-        return false;
-    });
+        const upButton = document.querySelector(".up-button");
 
     // Full  Page Search Activation
     $(function () {
@@ -699,6 +863,7 @@ $(function () {
             event.preventDefault();
             $("#full-page-search").addClass("open");
             $('#full-page-search > form > input[type="search"]').focus();
+
         });
 
         $("#full-page-search, #full-page-search button.close").on(
@@ -718,10 +883,15 @@ $(function () {
     // Slick Sliders
     $(".slick-carousel").each(function () {
         var slider = $(this);
+
         $(this).slick({
+
             infinite: true,
+
             dots: false,
+
             arrows: false,
+
             centerMode: true,
             centerPadding: "0",
         });
@@ -742,8 +912,6 @@ $(function () {
 
     $(".dropdown.btns .dropdown-toggle").on("click", function () {
         $(this).dropdown("toggle");
-        return false;
-    });
 
     function toggleChevron(e) {
         $(e.target)
@@ -894,6 +1062,7 @@ function viewReplies(caller) {
 }
 
 // mCustomScrollbar initialization
+
 (function ($) {
     $(window)
         .resize(function () {
@@ -910,3 +1079,4 @@ function viewReplies(caller) {
         })
         .trigger("resize");
 })(jQuery);
+

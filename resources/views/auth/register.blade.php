@@ -29,7 +29,7 @@
               <a href="/">
                 <img loading="lazy" src="{{ asset("assets/img/logos/luwoap-dark.png") }}" alt="logo">
               </a>
-              <h3>Create An Cccount</h3>
+              <h3>Create An Account</h3>
               <form method="POST" action="{{ route("register") }}">
                 @csrf
 
